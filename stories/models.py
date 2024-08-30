@@ -24,10 +24,11 @@ class Story(models.Model):
     upvotes = models.IntegerField(default=0)
 
     class Meta:
-        ordering = ["-created_on"]
+        ordering = ["upvotes", 'created_on']
 
     def __str__(self):
-        return f"{self.title} | written by {self.author}"
+        return (f"{self.title} | {self.upvotes} Upvotes |"
+                f" written by {self.author}")
 
 
 class Comment(models.Model):
@@ -47,7 +48,8 @@ class Comment(models.Model):
     upvotes = models.IntegerField(default=0)
 
     class Meta:
-        ordering = ["created_on"]
+        ordering = ["upvotes", 'created_on']
 
     def __str__(self):
-        return f"Comment {self.body} by {self.author}"
+        return (f"Comment | {self.body} | {self.upvotes} Upvotes |"
+                f" by {self.author}")

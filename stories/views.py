@@ -1,7 +1,9 @@
 from django.shortcuts import render # noqa
-from django.http import HttpResponse
+from django.views import generic
+from .models import Story
 
 
 # Create your views here.
-def my_story(request):
-    return HttpResponse("Hello, this will be the main story page!")
+class StoryList(generic.ListView):
+    queryset = Story.objects.all()
+    template_name = "story_list.html"
