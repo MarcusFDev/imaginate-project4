@@ -1,3 +1,40 @@
 .icon-bg {
     font-size: 150%;
 }
+
+/* Defines icon-beat animation */
+@keyframes icon-beat {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+/* Defines icon-bounce animation */
+@keyframes icon-bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Apply animations to classes */
+.icon-beat {
+    animation: icon-beat 3.0s linear infinite;
+}
+
+.icon-bounce {
+    animation: icon-bounce 3.0s linear infinite;
+}
+
+.no-animation {
+    animation: none !important;
+}
+
+.right-margin {
+    margin-right: 40rem;
+}

@@ -32,7 +32,7 @@ DEBUG = True
 # DEBUG = False
 
 ALLOWED_HOSTS = [
-    "8000-marcusfdev-imaginatepro-1j64ulubk8k.ws-eu115.gitpod.io",
+    "8000-marcusfdev-imaginatepro-1j64ulubk8k.ws-eu116.gitpod.io",
     ".herokuapp.com",
 ]
 

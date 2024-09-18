@@ -20,61 +20,60 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
-<body>
+<body class="d-flex flex-column h-100 main-bg">
     <header>
         <div class="px-3 py-3 text-bg-dark border-bottom">
             <div class="container">
-                <div class="row">
-                    <div class="col d-flex flex-wrap align-items-center justify-content-center">
-                        <!-- Logo and Site Name -->
-                        <a href="/" class="d-flex align-items-center text-white text-decoration-none me-4">
+                <div class="row justify-content-between align-items-center">
+                    
+                    <!-- Logo and Site Name -->
+                    <div class="col-md-auto d-flex align-items-center">
+                        <a href="/" class="d-flex align-items-center text-white text-decoration-none">
                             <h1 class="mb-0">Imaginate</h1>
                         </a>
-
-                        <!-- Search Bar -->
-                        <form class="col col-md-auto mb-2 mb-lg-0 me-lg-3 " role="search">
+                    </div>
+                    
+                    <!-- Search Bar -->
+                    <div class="col-md-auto">
+                        <form class="d-flex" role="search">
                             <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
                         </form>
-
-
-                        <!-- Navigation Links-->
-                        <nav class="col d-flex align-items-center">
-                            <ul class="nav col-lg-auto mb-2 mb-lg-0">
+                    </div>
+    
+                    <!-- Navigation Links and Log Out Button -->
+                    <div class="col-md d-flex justify-content-end align-items-center">
+                        <nav class="me-3">
+                            <ul class="nav">
                                 <li class="nav-item text-center">
-                                    <a href="#" id="nav-home" class="nav-link d-flex flex-column align-items-center">
+                                    <a href="#" id="nav-home" class="nav-link text-white d-flex flex-column align-items-center">
                                         <i class="fa-solid fa-house bi d-block mx-auto mb-1 icon-bg"></i>
-                                        Home
+                                        <span class="no-animation">Home</span>
                                     </a>
                                 </li>
-                                <li class="nav-item align-items-center">
-                                    <a href="#" id="nav-stories"
-                                        class="nav-link text-white d-flex flex-column align-items-center">
+                                <li class="nav-item text-center">
+                                    <a href="#" id="nav-stories" class="nav-link text-white d-flex flex-column align-items-center">
                                         <i class="fa-solid fa-box-open bi d-block mx-auto mb-1 icon-bg"></i>
-                                        My Stories
+                                        <span class="no-animation">My Stories</span>
                                     </a>
                                 </li>
-                                <li class="nav-item align-items-center">
-                                    <a href="#" id="nav-profile"
-                                        class="nav-link text-white d-flex flex-column align-items-center">
+                                <li class="nav-item text-center">
+                                    <a href="#" id="nav-profile" class="nav-link text-white d-flex flex-column align-items-center">
                                         <i class="fa-solid fa-user bi d-block mx-auto mb-1 icon-bg"></i>
-                                        My Profile
+                                        <span class="no-animation">My Profile</span>
                                     </a>
                                 </li>
                             </ul>
-
-                            <!-- Log Out Button -->
-                            <div class="col text-end ms-3">
-                                <button type="button" class="btn btn-light text-dark">
-                                    <i class="fa-solid fa-right-from-bracket"></i> Log Out
-                                </button>
-                            </div>
                         </nav>
+    
+                        <!-- Log Out Button -->
+                        <button type="button" class="btn btn-light text-dark">
+                            <i class="fa-solid fa-right-from-bracket"></i> Log Out
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
-    </header>
-    
+    </header>    
     
     <main class="flex-shrink-0 main-bg">
 
@@ -84,11 +83,11 @@
 
     </main>
 
-    <footer class="py-3 my-4 text-bg-dark footer">
+    <footer class="py-3 mt-auto text-bg-dark footer">
         <div class="container-fluid">
             <div class="row justify-content-center">
-                <div class="col-md-6 .d-flex justify-content-center">
-                    <ul class="nav justify-content-sm-evenly pb-3 mb-3">
+                <div class="col-md-6 justify-content-center">
+                    <ul class="nav justify-content-sm-evenly mb-3">
                         <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">
                             <i class="fa-brands fa-x-twitter fa-2x text-white"></i></a></li>
                         <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">
