@@ -2,6 +2,24 @@
     font-size: 150%;
 }
 
+.offcanvas-body #nav-home-mobile, #nav-stories-mobile, #nav-profile-mobile {
+    padding: 15px !important;
+    border-radius: 8px !important;
+    margin-bottom: 15px !important;
+}
+
+.offcanvas-body .nav-item#nav-home-mobile {
+    background-color: #f8d7da !important;
+}
+
+#nav-stories-mobile {
+    background-color: #d1e7dd;
+}
+
+#nav-profile-mobile {
+    background-color: #cff4fc;
+}
+
 /* Defines icon-beat animation */
 @keyframes icon-beat {
     0%, 100% {
