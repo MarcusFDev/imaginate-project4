@@ -1,0 +1,88 @@
+.icon-bg {
+    font-size: 150%;
+}
+
+.custom-logout-btn {
+    background-color: #f8f9fa;
+    color: #343a40;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.custom-logout-btn:hover {
+    background-color: #ffc107;
+    color: white;
+}
+
+.custom-page-link{
+    color: black;
+    background-color: #f8f9fa;
+    text-decoration: none;
+    font-size: 1.3rem;
+    border-radius: 7px;
+    border: 4px solid gray;
+    padding: 5px;
+}
+
+.custom-page-link:hover{
+    background-color: #ffc107;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.danger-section {
+    height: 400px !important;
+}
+
+.offcanvas-body #nav-home-mobile, #nav-stories-mobile, #nav-profile-mobile {
+    padding: 15px !important;
+    border-radius: 8px !important;
+    margin-bottom: 15px !important;
+}
+
+.offcanvas-body .nav-item#nav-home-mobile {
+    background-color: #f8d7da !important;
+}
+
+#nav-stories-mobile {
+    background-color: #d1e7dd;
+}
+
+#nav-profile-mobile {
+    background-color: #cff4fc;
+}
+
+/* Defines icon-beat animation */
+@keyframes icon-beat {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+/* Defines icon-bounce animation */
+@keyframes icon-bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Apply animations to classes */
+.icon-beat {
+    animation: icon-beat 0.9s linear infinite;
+}
+
+.icon-bounce {
+    animation: icon-bounce 1.0s infinite;
+}
+
+.no-animation {
+    animation: none !important;
+}
+
+.right-margin {
+    margin-right: 40rem;
+}

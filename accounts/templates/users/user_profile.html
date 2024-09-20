@@ -4,7 +4,7 @@
 {% block content %}
 
 <!-- Page Information Section -->
-<section class="container bg-info-subtle d-flex align-items-center">
+<section class="container d-flex align-items-center">
     <div class="row">
         <div class="col mb-4 mt-3 d-flex align-items-center">
             <div class="alert alert-primary d-flex w-100" role="alert">
@@ -27,7 +27,10 @@
 <!-- About Me Section -->
 <section class="container-fluid bg-light-subtle">
     <div class="row">
-        <div class="card-body">
+        <div class="col-4 text-center">
+            <img src="{% static 'images/nobody.jpg' %}" alt="Profile Image" width="75%">
+        </div>
+        <div class="col-8">
             <h2>{{ about.title }}</h2>
             {{ about.content | safe }}
         </div>
