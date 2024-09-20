@@ -32,8 +32,9 @@
                                     <p class="author">Author: {{ story.author }}</p>
                                 </div>
                             </div>
-                            <a href="#" class="post-link" style="text-decoration: none; color: black;">
+                            <a href="{% url 'story_page' story.slug %}" class="post-link" style="text-decoration: none; color: black;">
                                 <h2 class="card-title">{{ story.title }}</h2>
+                                <p class="card-text">{{ story.excerpt }}</p>
                             </a>
 
                             <hr />
