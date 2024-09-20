@@ -1,5 +1,6 @@
 {% load static %}
 {% url 'home' as home_url %}
+{% url 'about' as about_url %}
 
 <!DOCTYPE html>
 <html class="h-100" lang="en">
@@ -63,7 +64,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item text-center">
-                                    <a href="#" id="nav-profile" class="nav-link text-white d-flex flex-column align-items-center">
+                                    <a href="{% url 'user_profile' %}" id="nav-profile" class="nav-link text-white d-flex flex-column align-items-center">
                                         <i class="fa-solid fa-user bi d-block mx-auto mb-1 icon-bg"></i>
                                         <span class="no-animation">My Profile</span>
                                     </a>
@@ -98,7 +99,7 @@
                                             </a>
                                         </li>
                                         <li id="nav-profile-mobile" class="nav-item text-center mb-3">
-                                            <a href="#" id="nav-profile" class="nav-link text-dark d-flex flex-column align-items-center">
+                                            <a href="{% url 'user_profile' %}" id="nav-profile" class="nav-link text-dark d-flex flex-column align-items-center">
                                                 <i class="fa-solid fa-user d-block mx-auto mb-1 icon-bg"></i>
                                                 <span class="no-animation">My Profile</span>
                                             </a>

@@ -28,6 +28,10 @@
     transition: background-color 0.3s, color 0.3s;
 }
 
+.danger-section {
+    height: 400px !important;
+}
+
 .offcanvas-body #nav-home-mobile, #nav-stories-mobile, #nav-profile-mobile {
     padding: 15px !important;
     border-radius: 8px !important;
