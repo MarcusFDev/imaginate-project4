@@ -4,49 +4,70 @@
 {% block content %}
 
 <!-- Page Information Section -->
-<section class="container d-flex align-items-center">
-    <div class="row">
-        <div class="col mb-4 mt-3 d-flex align-items-center">
-            <div class="alert alert-primary d-flex w-100" role="alert">
-                <div>
+<section id="info-section" class="container-fluid d-flex align-items-center bg-light-subtle justify-content-center py-lg-3">
+    <div class="row w-100 justify-content-center">
+        <div class="col-12 col-lg-8 mt-4 mt-3 d-flex align-items-center justify-content-center">
+            <div id="info-alert" class="alert alert-primary d-flex w-100 w-md-75 flex-column flex-lg-row" role="alert">
+                <div class="d-flex align-items-center justify-content-center">
                     <h3><i class="fa-solid fa-circle-info icon-bg"></i></h3>
                 </div>
-                <div class="d-flex align-items-center flex-column">
-                    <h3> Welcome, {{ user.username }}!</h3>
-                    <br>
-                    <p>
+                <div class="d-flex align-items-center justify-content-center flex-column text-center ms-lg-3">
+                    <p class="mb-0 text-center">
                         Currently we are working on Profile Manager to bring new customization features to make your site experience unique.
                         Please return back to this page in a future update!
                     </p>
                 </div>
+                <button type="button" class="btn-close ms-auto" aria-label="Close"></button>
             </div>
         </div>
     </div>
 </section>
 
 <!-- About Me Section -->
-<section class="container-fluid bg-light-subtle">
-    <div class="row">
-        <div class="col-4 text-center">
-            <img src="{% static 'images/nobody.jpg' %}" alt="Profile Image" width="75%">
+<section class="container-fluid bg-light-subtle d-flex align-items-center justify-content-center pt-3">
+    <div class="row w-100">
+        <div>
+            <h1>Profile Info</h1>
         </div>
-        <div class="col-8">
-            <h2>{{ about.title }}</h2>
-            {{ about.content | safe }}
+        <div class="col-12 col-lg-6 d-flex flex-column align-items-center">
+
+            <div class="d-flex align-items-center">
+                <h2 class="mb-0 mt-2">About Me</h2>
+                <button type="button" class="btn fs-6 ml-lg mt-3 text-hover">
+                    <i class="fa-solid fa-pen-to-square icon-bg"></i> Edit <span
+                        class="d-none d-lg-inline">Description</span>
+                </button>
+            </div>
+            <div class="about-description justify-content-center">
+                <p>{{ about.content | safe }}</p>
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-6 d-flex flex-column text-center">
+            <div class="align-items-center">
+                <img src="{% static 'images/default-user-icon.webp' %}" alt="Profile Image" class="profile-img">
+            </div>
+            <div>
+                <button type="button" class="btn fs-5 mb-3 text-hover">
+                    <i class="fa-solid fa-pen-to-square"></i> Edit <span class="d-none d-lg-inline">Picture</span>
+                </button>
+            </div>
         </div>
     </div>
 </section>
 
-<!-- Danger Zone Section -->
-<section class="container-fluid danger-section bg-secondary d-flex justify-content-center align-items-center">
-    <div class="row">
-        <div class="col d-flex flex-column align-items-center">
+<!-- User Button Section -->
+<section class="container-fluid d-flex align-items-center justify-content-center">
+    <div class="row w-100">
+        <div class="col-12 col-md-6 d-flex flex-column align-items-center justify-content-center">
             <!-- Log Out Button -->
-            <button type="button" class="btn btn-light text-dark text-bg-warning w-100 fs-4 mb-3">
+            <button type="button" class="btn btn-light text-dark text-bg-warning w-50 fs-4">
                 <i class="fa-solid fa-right-from-bracket"></i> Log Out
             </button>
+        </div>
+        <div class="col-12 col-md-6 d-flex flex-column align-items-center danger-section justify-content-center">
             <!-- Delete Account Button -->
-            <button type="button" class="btn btn-light text-light text-bg-danger w-100 fs-4">
+            <button type="button" class="btn btn-light text-light text-bg-danger w-50 fs-4">
                 <i class="fa-solid fa-trash-can"></i> Delete Account
             </button>
         </div>
