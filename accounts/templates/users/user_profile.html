@@ -7,7 +7,7 @@
 <section id="info-section" class="container-fluid d-flex align-items-center bg-light-subtle justify-content-center py-lg-3">
     <div class="row w-100 justify-content-center">
         <div class="col-12 col-lg-8 mt-4 mt-3 d-flex align-items-center justify-content-center">
-            <div id="info-alert" class="alert alert-primary d-flex w-100 w-md-75 flex-column flex-lg-row" role="alert">
+            <div id="info-alert" class="alert alert-primary bg-info bg-opacity-10 border border-info border-start-0 rounded-end d-flex  w-md-75 flex-column flex-lg-row" role="alert">
                 <div class="d-flex align-items-center justify-content-center">
                     <h3><i class="fa-solid fa-circle-info icon-bg"></i></h3>
                 </div>
@@ -17,7 +17,7 @@
                         Please return back to this page in a future update!
                     </p>
                 </div>
-                <button type="button" class="btn-close ms-auto" aria-label="Close"></button>
+                <button type="button" class="btn-close ms-3" aria-label="Close"></button>
             </div>
         </div>
     </div>
@@ -27,9 +27,10 @@
 <section class="container-fluid bg-light-subtle d-flex align-items-center justify-content-center pt-3">
     <div class="row w-100">
         <div>
-            <h1>Profile Info</h1>
+            <h1><i class="fa-solid fa-user"></i>  Profile Info</h1>
+            <hr class="border-bottom border-5">
         </div>
-        <div class="col-12 col-lg-6 d-flex flex-column align-items-center">
+        <div class="col-12 col-lg-6 d-flex flex-column align-items-center pt-lg-3 border-right border-5">
 
             <div class="d-flex align-items-center">
                 <h2 class="mb-0 mt-2">About Me</h2>
@@ -43,7 +44,10 @@
             </div>
         </div>
 
-        <div class="col-12 col-lg-6 d-flex flex-column text-center">
+        <div class="col-12 col-lg-6 d-flex flex-column text-center pt-3">
+            <div>
+                <h2 class="mb-0 py-lg-3">Avatar</h2>
+            </div>
             <div class="align-items-center">
                 <img src="{% static 'images/default-user-icon.webp' %}" alt="Profile Image" class="profile-img">
             </div>
@@ -57,19 +61,62 @@
 </section>
 
 <!-- User Button Section -->
-<section class="container-fluid d-flex align-items-center justify-content-center">
+<section class="container-fluid px-0 bg-light-subtle d-flex align-items-center justify-content-center">
     <div class="row w-100">
-        <div class="col-12 col-md-6 d-flex flex-column align-items-center justify-content-center">
+        <div mb-3>
+            <h1><i class="fa-solid fa-gear"></i>  Profile Settings</h1>
+            <hr class="border-bottom border-5">
+        </div>
+        <div class="col-12 col-md-6 d-flex flex-column align-items-center pf-opt-section justify-content-center pt-3">
+            <h2>Options</h2>
             <!-- Log Out Button -->
-            <button type="button" class="btn btn-light text-dark text-bg-warning w-50 fs-4">
+            <button type="button" class="btn btn-light text-dark custom-logout-btn w-50 fs-4">
                 <i class="fa-solid fa-right-from-bracket"></i> Log Out
             </button>
         </div>
-        <div class="col-12 col-md-6 d-flex flex-column align-items-center danger-section justify-content-center">
+
+        <div
+            class="col-12 col-md-6 pf-danger-section d-flex flex-column align-items-center justify-content-center pt-3">
+            <h2><i class="fa-solid fa-triangle-exclamation"></i> Danger Zone <i
+                    class="fa-solid fa-triangle-exclamation"></i></h2>
+
+            <!-- Remove All Stories -->
+            <div class="d-flex flex-column align-items-center justify-content-center p-3">
+                <p class="text-start w-100">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    PLEASE NOTE: This removes all user stories from this account. Deleting Stories is irreversible and
+                    any stories deleted cannot be recovered. Use this at your own risk.
+                </p>
+                <button type="button" class="btn text-light pf-danger-btn fs-4">
+                    <i class="fa-solid fa-trash-can"></i> Remove All Stories
+                </button>
+                <hr class="border-bottom border-4">
+            </div>
+
+            <!-- Remove All Comments -->
+            <div class="d-flex flex-column align-items-center justify-content-center p-3">
+                <p class="text-start w-100">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    PLEASE NOTE: This removes all User comments from this account.
+                </p>
+                <button type="button" class="btn text-light pf-danger-btn fs-4">
+                    <i class="fa-solid fa-trash-can"></i> Remove All Comments
+                </button>
+                <hr class="border-bottom border-4">
+            </div>
+
             <!-- Delete Account Button -->
-            <button type="button" class="btn btn-light text-light text-bg-danger w-50 fs-4">
-                <i class="fa-solid fa-trash-can"></i> Delete Account
-            </button>
+            <div class="d-flex flex-column align-items-center justify-content-center p-3">
+                <p class="text-start w-100">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    PLEASE NOTE: This deletes the Account and all associated stories from the Imaginate site. This
+                    option is irreversible and this Account cannot be recovered. Use this at your own risk.
+                </p>
+                <button type="button" class="btn text-light pf-danger-btn fs-4">
+                    <i class="fa-solid fa-trash-can"></i> Delete Account
+                </button>
+                <hr class="border-bottom border-4">
+            </div>
         </div>
     </div>
 </section>

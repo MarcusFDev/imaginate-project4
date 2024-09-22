@@ -2,8 +2,6 @@
     display: none !important;
 }
 
-
-
 .icon-bg {
     font-size: 150%;
 }
@@ -42,9 +40,24 @@
     margin-left: 700px;
 }
 
-.danger-section {
-    height: 400px;
-    background-color: darkkhaki;
+.pf-danger-section {
+    height: auto;
+    background-color: #ffb915 !important;
+    border: 3px solid #343a40;
+}
+
+.pf-opt-section {
+    height: auto;
+    background-color: #a9a9a9 !important;
+    border: 3px solid #343a40;
+}
+
+.pf-danger-btn {
+    background-color: #dc3545 !important;
+}
+
+.pf-danger-btn:hover {
+    background-color: #5e1914 !important;
 }
 
 .about-description {

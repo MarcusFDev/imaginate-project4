@@ -32,7 +32,6 @@ $(document).ready(function(){
 });
 
 $(document).ready(function() {
-    console.log("Loaded jQuery Function");
 
     $('.btn-close').on('click', function() {
         console.log("Received Request.");
@@ -40,9 +39,8 @@ $(document).ready(function() {
         // Add the fade-out animation to #info-alert
         $('#info-alert').addClass('animate__animated animate__fadeOutUp');
 
-        // Start sliding up the #info-section at the same time
+        // Start sliding up the #info-section
         $('#info-section').slideUp(400, function() {
-            // Optionally, you can add the 'hidden' class after it's slid up if needed
             $(this).addClass('hidden');
         });
 
