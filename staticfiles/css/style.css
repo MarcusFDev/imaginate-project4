@@ -40,6 +40,16 @@
     margin-left: 700px;
 }
 
+.imaginate-bg {
+    background-color: #0e1a26 !important;
+    height: 90vh;
+}
+
+.imaginate-title {
+    font-size: 900%;
+    padding-bottom: 15px;
+}
+
 .pf-danger-section {
     height: auto;
     background-color: #ffb915 !important;
