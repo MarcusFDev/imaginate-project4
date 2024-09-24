@@ -1,6 +1,9 @@
 {% load static %}
 {% url 'home' as home_url %}
 {% url 'about' as about_url %}
+{% url 'account_login' as login_url %}
+{% url 'account_signup' as signup_url %}
+{% url 'account_logout' as logout_url %}
 
 <!DOCTYPE html>
 <html class="h-100" lang="en">
@@ -74,9 +77,9 @@
                         </nav>
     
                         <!-- Log Out Button  -->
-                        <button type="button" class="btn btn-light text-dark custom-logout-btn d-none d-lg-block ms-5">
+                        <a class="btn btn-light text-dark custom-logout-btn d-none d-lg-block ms-5 {% if request.path == logout_url %}active{% endif %}" aria-current="page" href="{% url 'account_logout' %}">
                             <i class="fa-solid fa-right-from-bracket"></i> Log Out
-                        </button>
+                        </a>
     
                         <!-- Navigation Links (Small to Medium devices) -->
                         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
@@ -109,9 +112,9 @@
                                 </nav>
     
                                 <!-- Log Out Button -->
-                                <button type="button" class="btn btn-light text-dark text-bg-warning w-100 mt-auto">
+                                <a class="btn btn-light text-dark text-bg-warning w-100 mt-auto {% if request.path == logout_url %}active{% endif %}" aria-current="page" href="{% url 'account_logout' %}">
                                     <i class="fa-solid fa-right-from-bracket"></i> Log Out
-                                </button>
+                                </a>
                             </div>
                         </div>
     

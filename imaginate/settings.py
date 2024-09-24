@@ -28,11 +28,11 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-DEBUG = False
+DEBUG = True
+# DEBUG = False
 
 ALLOWED_HOSTS = [
-    "8000-marcusfdev-imaginatepro-nnvyly3p6cc.ws-eu116.gitpod.io",
+    "8000-marcusfdev-imaginatepro-isk66m0hnxb.ws-eu116.gitpod.io",
     ".herokuapp.com",
 ]
 
@@ -46,10 +46,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
     'django_summernote',
     'stories',
     'accounts',
 ]
+
+SITE_ID = 1
+LOGIN_REDIRECT_URL = 'stories'
+LOGOUT_REDIRECT_URL = 'homepage'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -60,6 +68,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'imaginate.urls'
@@ -100,7 +109,7 @@ DATABASES = {
 CSRF_TRUSTED_ORIGINS = [
     "https://*.codeinstitute-ide.net/",
     "https://*.herokuapp.com",
-    "https://*8000-marcusfdev-imaginatepro-nnvyly3p6cc.ws-eu116.gitpod.io",
+    "https://8000-marcusfdev-imaginatepro-isk66m0hnxb.ws-eu116.gitpod.io",
 ]
 
 
@@ -122,6 +131,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/

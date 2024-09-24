@@ -70,9 +70,9 @@
         <div class="col-12 col-md-6 d-flex flex-column align-items-center pf-opt-section justify-content-center pt-3">
             <h2>Options</h2>
             <!-- Log Out Button -->
-            <button type="button" class="btn btn-light text-dark custom-logout-btn w-50 fs-4">
+            <a class="btn btn-light text-dark custom-logout-btn w-50 fs-4 {% if request.path == logout_url %}active{% endif %}" aria-current="page" href="{% url 'account_logout' %}">
                 <i class="fa-solid fa-right-from-bracket"></i> Log Out
-            </button>
+            </a>
         </div>
 
         <div

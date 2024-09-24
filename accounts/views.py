@@ -18,3 +18,7 @@ def user_profile(request):
         "users/user_profile.html",
         context
     )
+
+
+def home_page(request):
+    return render(request, 'home/home_page.html')
