@@ -8,6 +8,10 @@
     font-size: 150%;
 }
 
+.icon-xl {
+    font-size: 400%;
+}
+
 .underline:hover {
     text-decoration: underline;
     text-decoration-thickness: 2px;
