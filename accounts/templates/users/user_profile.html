@@ -34,12 +34,12 @@
 
             <div class="d-flex align-items-center">
                 <h2 class="mb-0 mt-2">About Me</h2>
-                <button type="button" class="btn fs-6 ml-lg mt-3 text-hover">
+                <button type="button" class="btn fs-6 ml-lg mt-3 link-yellow">
                     <i class="fa-solid fa-pen-to-square icon-bg"></i> Edit <span
                         class="d-none d-lg-inline">Description</span>
                 </button>
             </div>
-            <div class="about-description justify-content-center">
+            <div class="pf-description justify-content-center">
                 <p>{{ about.content | safe }}</p>
             </div>
         </div>
@@ -49,10 +49,10 @@
                 <h2 class="mb-0 py-lg-3">Avatar</h2>
             </div>
             <div class="align-items-center">
-                <img src="{% static 'images/default-user-icon.webp' %}" alt="Profile Image" class="profile-img">
+                <img src="{% static 'images/default-user-icon.webp' %}" alt="Profile Image" class="pf-img">
             </div>
             <div>
-                <button type="button" class="btn fs-5 mb-3 text-hover">
+                <button type="button" class="btn fs-5 mb-3 link-yellow">
                     <i class="fa-solid fa-pen-to-square"></i> Edit <span class="d-none d-lg-inline">Picture</span>
                 </button>
             </div>
@@ -70,7 +70,7 @@
         <div class="col-12 col-md-6 d-flex flex-column align-items-center pf-opt-section justify-content-center pt-3">
             <h2>Options</h2>
             <!-- Log Out Button -->
-            <a class="btn btn-light text-dark custom-logout-btn w-50 fs-4 {% if request.path == logout_url %}active{% endif %}" aria-current="page" href="{% url 'account_logout' %}">
+            <a class="btn btn-light text-dark btn-logout w-50 fs-4 {% if request.path == logout_url %}active{% endif %}" aria-current="page" href="{% url 'account_logout' %}">
                 <i class="fa-solid fa-right-from-bracket"></i> Log Out
             </a>
         </div>

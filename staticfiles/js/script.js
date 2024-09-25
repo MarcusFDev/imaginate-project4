@@ -47,3 +47,15 @@ $(document).ready(function() {
         console.log("Request Complete.");
     });
 });
+
+$(document).ready(function() {
+
+    console.log('Page Loaded, animations intialized')
+
+    $('#imaginate-titles h1').addClass('animate__animated animate__fadeInUp');
+    console.log('Animation 1 finished')
+    setTimeout(function() {
+        $('#imaginate-titles h3').addClass('animate__animated animate__fadeInUp');
+    }, 500);
+    console.log('Animation 2 finished')
+});

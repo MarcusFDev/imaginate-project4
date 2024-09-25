@@ -1,3 +1,5 @@
+/* -------------------------------------------------> General styles */
+
 .hidden {
     display: none !important;
 }
@@ -6,22 +8,22 @@
     font-size: 150%;
 }
 
-.text-hover:hover {
+.link-yellow:hover {
     color: #ffc107 !important;
 }
 
-.custom-logout-btn {
+.btn-logout {
     background-color: #f8f9fa;
     color: #343a40;
     transition: background-color 0.3s, color 0.3s;
 }
 
-.custom-logout-btn:hover {
+.btn-logout:hover {
     background-color: #ffc107;
     color: white;
 }
 
-.custom-page-link{
+.paginator{
     color: black;
     background-color: #f8f9fa;
     text-decoration: none;
@@ -31,7 +33,7 @@
     padding: 5px;
 }
 
-.custom-page-link:hover{
+.paginator:hover{
     background-color: #ffc107;
     transition: background-color 0.3s, color 0.3s;
 }
@@ -44,10 +46,7 @@
     background-color: #0e1a26 !important;
 }
 
-.imaginate-title {
-    font-size: 900%;
-    padding-bottom: 15px;
-}
+/* ------------------------------------------------->  Profile Page styles */
 
 .pf-danger-section {
     height: auto;
@@ -69,7 +68,7 @@
     background-color: #5e1914 !important;
 }
 
-.about-description {
+.pf-description {
     border: 2px solid #343a40;
     border-radius: 10px;
     margin-top: 5px;
@@ -78,13 +77,15 @@
     height: auto;
 }
 
-.profile-img {
+.pf-img {
     border: 1px solid #343a40;
     border-radius: 20px;
     width: 40%;
     height: auto;
     margin-bottom: 10px;
 }
+
+/* ------------------------------------------------->  Navbar styles */
 
 .offcanvas-body #nav-home-mobile, #nav-stories-mobile, #nav-profile-mobile {
     padding: 15px !important;
@@ -104,7 +105,6 @@
     background-color: #cff4fc;
 }
 
-/* Defines icon-beat animation */
 @keyframes icon-beat {
     0%, 100% {
         transform: scale(1);
@@ -114,7 +114,6 @@
     }
 }
 
-/* Defines icon-bounce animation */
 @keyframes icon-bounce {
     0%, 100% {
         transform: translateY(0);
@@ -124,7 +123,6 @@
     }
 }
 
-/* Apply animations to classes */
 .icon-beat {
     animation: icon-beat 0.9s linear infinite;
 }
@@ -141,19 +139,44 @@
     margin-right: 40rem;
 }
 
+/* ------------------------------------------------->  Home Page styles */
 
+.imaginate-title {
+    font-size: 900%;
+    padding-bottom: 15px;
+}
+
+.bg-blue {
+    background-color: #007bff !important;
+}
+
+.bg-white {
+    background-color: #ffffff !important;
+}
+
+.reg-btn {
+    border: 3px solid #343a40;
+
+}
+
+.log-btn {
+    border: 3px solid #343a40;
+
+}
+
+/* ------------------------------------------------->  (768px to 1200px) Device styles */
 @media (max-width: 1200px) {
     .ml-lg {
         margin-left: 500px;
     }
 
-    .profile-img {
+    .pf-img {
         width: 60%;
         height: auto;
         margin-top: 10px;
     }
 
-    .about-description {
+    .pf-description {
         border: 2px solid #343a40;
         border-radius: 10px;
         margin-top: 5px;
@@ -163,6 +186,7 @@
     }
 }
 
+/* ------------------------------------------------->  (576px to 768px) Device styles */
 @media (max-width: 768px) {
     .ml-lg {
         margin-left: 320px;
@@ -174,7 +198,7 @@
         margin-left: 60px;
     }
 
-    .profile-img {
+    .pf-img {
         width: 90%;
         height: auto;
     }

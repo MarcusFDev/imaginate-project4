@@ -78,7 +78,7 @@
                         </nav>
     
                         <!-- Log Out Button  -->
-                        <a class="btn btn-light text-dark custom-logout-btn d-none d-lg-block ms-5 {% if request.path == logout_url %}active{% endif %}" aria-current="page" href="{% url 'account_logout' %}">
+                        <a class="btn btn-light text-dark btn-logout d-none d-lg-block ms-5 {% if request.path == logout_url %}active{% endif %}" aria-current="page" href="{% url 'account_logout' %}">
                             <i class="fa-solid fa-right-from-bracket"></i> Log Out
                         </a>
     
