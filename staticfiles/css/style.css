@@ -38,6 +38,7 @@
     transition: background-color 0.3s, color 0.3s;
 }
 
+/* Large Margin-left */
 .ml-lg {
     margin-left: 700px;
 }
@@ -104,6 +105,8 @@
 #nav-profile-mobile {
     background-color: #cff4fc;
 }
+
+/* Navbar Icon animations */
 
 @keyframes icon-beat {
     0%, 100% {

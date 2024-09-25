@@ -4,17 +4,26 @@
 {% block content %}
 
 {% block header %}
-<header class="container-fluid px-3 py-3 text-bg-dark border-bottom">
+<header class="container-fluid px-3 py-3 nav-bg border-bottom">
     <div class="row justify-content-between align-items-center">
 
         <!-- Navigation Links -->
-        <nav class="col-lg d-flex justify-content-end align-items-center">
-            <ul class="nav">
+        <nav class="col-lg d-flex justify-content-between align-items-center">
+            <ul class="nav d-flex align-items-center">
+                <li class="nav-item d-flex align-items-center ps-3 pe-4 fs-5"><a href="/"
+                        class="nav-link text-white underline">
+                        <i class="fa-solid fa-newspaper icon-bg pe-2"></i><span class="mb-3">News</span></a></li>
+                <li class="nav-item pe-4 fs-5"><a href="#home-socials" class="nav-link text-white underline">
+                        <i class="fa-solid fa-square-share-nodes icon-bg pe-2"></i>Socials</a></li>
+                <li class="nav-item pe-4 fs-5"><a href="/" class="nav-link text-white underline">
+                        <i class="fa-solid fa-scale-balanced icon-bg pe-2"></i>Policy</a></li>
+            </ul>
+            <ul class="nav d-flex">
                 <li class="nav-item">
                     <form method="post" action="{% url 'account_signup' %}">
                         {% csrf_token %}
                         <button type="submit"
-                            class="nav-link text-white d-flex flex-column align-items-center {% if request.path == signup_url %}active{% endif %}"
+                            class="nav-link text-white d-flex flex-column align-items-center underline {% if request.path == signup_url %}active{% endif %}"
                             aria-current="page">
                             Register
                         </button>
@@ -25,7 +34,7 @@
                     <form method="post" action="{% url 'account_login' %}">
                         {% csrf_token %}
                         <button type="submit"
-                            class="nav-link text-white d-flex flex-column align-items-center {% if request.path == login_url %}active{% endif %}"
+                            class="nav-link text-white d-flex flex-column align-items-center underline {% if request.path == login_url %}active{% endif %}"
                             aria-current="page">
                             Login
                         </button>
@@ -74,11 +83,40 @@
             </div>
         </div>
     </section>
+    <section id="home-socials" class="row d-flex text-white social-section justify-content-center">
+        <div class="d-flex w-100">
+            <div class="d-flex border-left social-dividers flex-column justify-content-center w-50">
+                <h2>Socials</h2>
+                <p>Follow us on our Socials</p>
+            </div>
+
+            <div class="w-50 d-flex justify-content-start align-items-center">
+
+                <ul class="nav d-flex mb-3 px-3 py-4">
+                    <li class="nav-item d-flex"><a href="https://x.com" target="_blank"
+                            class="nav-link px-5 pb-4 text-body-secondary">
+                            <i class="fa-brands fa-x-twitter fa-3x text-white icon-bg fs-1"></i></a></li>
+                    <li class="nav-item"><a href="https://www.facebook.com" target="_blank"
+                            class="nav-link px-5 text-body-secondary">
+                            <i class="fa-brands fa-facebook-f fa-3x text-white icon-bg fs-1"></i></a></li>
+                    <li class="nav-item"><a href="https://www.instagram.com" target="_blank"
+                            class="nav-link px-5 text-body-secondary">
+                            <i class="fa-brands fa-instagram fa-3x text-white icon-bg fs-1"></i></a></li>
+                    <li class="nav-item"><a href="https://www.reddit.com" target="_blank"
+                            class="nav-link px-5 text-body-secondary">
+                            <i class="fa-brands fa-reddit-alien fa-3x text-white icon-bg fs-1"></i></a></li>
+                    <li class="nav-item"><a href="https://www.youtube.com" target="_blank"
+                            class="nav-link px-5 text-body-secondary">
+                            <i class="fa-brands fa-youtube fa-3x text-white icon-bg fs-1"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
 </main>
 {% endblock main %}
 
 {% block footer %}
-<footer class="py-3 mt-auto text-bg-dark footer">
+<footer class="py-3 mt-auto nav-bg footer">
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="border-bottom"></div>
@@ -93,4 +131,5 @@
 {% block bodyscripts %}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{% static 'js/script.js' %}"></script>
+<script src="https://kit.fontawesome.com/ca4eb2dde7.js" crossorigin="anonymous"></script>
 {% endblock bodyscripts %}

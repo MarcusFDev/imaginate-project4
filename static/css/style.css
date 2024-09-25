@@ -8,6 +8,16 @@
     font-size: 150%;
 }
 
+.underline:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 15px;
+}
+
+.border-left {
+    border-left: 7px solid #080F17;
+}
+
 .link-yellow:hover {
     color: #ffc107 !important;
 }
@@ -38,6 +48,7 @@
     transition: background-color 0.3s, color 0.3s;
 }
 
+/* Large Margin-left */
 .ml-lg {
     margin-left: 700px;
 }
@@ -85,6 +96,9 @@
     margin-bottom: 10px;
 }
 
+
+  
+
 /* ------------------------------------------------->  Navbar styles */
 
 .offcanvas-body #nav-home-mobile, #nav-stories-mobile, #nav-profile-mobile {
@@ -104,6 +118,12 @@
 #nav-profile-mobile {
     background-color: #cff4fc;
 }
+
+.nav-bg {
+    background-color: #080F17;
+}
+
+/* Navbar Icon animations */
 
 @keyframes icon-beat {
     0%, 100% {
@@ -163,6 +183,32 @@
     border: 3px solid #343a40;
 
 }
+
+.social-section {
+    min-height: 30vh;
+    background-color: #0b151f;
+}
+
+.social-section h2 {
+    font-size: 3.5rem;
+}
+
+.social-section p {
+    font-size: 2.25rem;
+}
+
+.social-dividers {
+    height: 100%;
+    background: linear-gradient(135deg, #0e1a26 50%, #0b151f 50%);
+    padding: 20px;
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-bottom: 20px;
+  }
+  
+  section.row {
+    background-color: #0b151f;
+  }
 
 /* ------------------------------------------------->  (768px to 1200px) Device styles */
 @media (max-width: 1200px) {
