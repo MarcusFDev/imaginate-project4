@@ -22,6 +22,7 @@ from accounts.views import home_page
 urlpatterns = [
     path("my-accounts/", include("accounts.urls"), name="accounts-urls"),
     path("accounts/", include("allauth.urls")),
+    path('accounts/', include('accounts.urls')),
     path('admin/', admin.site.urls),
     path('summernote/', include('django_summernote.urls')),
     path('stories/', include('stories.urls'), name='story-urls'),
