@@ -5,6 +5,8 @@
 {% url 'account_signup' as signup_url %}
 {% url 'account_logout' as logout_url %}
 
+{% include 'site-modals/register_modal.html' %}
+
 <!DOCTYPE html>
 <html class="h-100" lang="en">
 
@@ -124,8 +126,8 @@
             </div>
         </div>
     </header>
-    {% endblock header %}   
-    
+    {% endblock header %}
+
     {% block main %}
     <main class="flex-shrink-0 pt-5 imaginate-bg">
 
