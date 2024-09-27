@@ -19,6 +19,7 @@
                         <i class="fa-solid fa-scale-balanced icon-bg pe-2"></i>Policy</a></li>
             </ul>
             <ul class="nav d-flex">
+                {% if not user.is_authenticated %}
                 <li class="nav-item">
                     <form method="post" action="{% url 'account_signup' %}">
                         {% csrf_token %}
@@ -34,12 +35,28 @@
                     <form method="post" action="{% url 'account_login' %}">
                         {% csrf_token %}
                         <button type="submit"
-                            class="nav-link text-white d-flex flex-column align-items-center underline {% if request.path == login_url %}active{% endif %}"
+                            class="nav-link text-white d-flex flex-column align-items-center underline"
                             aria-current="page">
                             Login
                         </button>
                     </form>
                 </li>
+                {% else %}
+                <li class="nav-item">
+                    <a href="{% url 'stories' %}" class="nav-link text-white d-flex flex-column align-items-center underline" aria-current="page">
+                        To Library
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <form method="post" action="{% url 'account_logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="nav-link text-white d-flex flex-column align-items-center underline">
+                            <i class="fa-solid fa-right-from-bracket"></i> Log Out
+                        </button>
+                    </form>
+                </li>
+                {% endif %}
             </ul>
         </nav>
     </div>
@@ -58,6 +75,7 @@
 
             <div class="d-flex justify-content-center mt-5">
                 <ul class="nav">
+                    {% if not user.is_authenticated %}
                     <li class="nav-item">
                         <form method="post" action="{% url 'account_signup' %}">
                             {% csrf_token %}
@@ -73,12 +91,19 @@
                         <form method="post" action="{% url 'account_login' %}">
                             {% csrf_token %}
                             <button type="submit"
-                                class="nav-link fs-3 btn log-btn btn-lg bg-blue text-dark d-flex flex-column align-items-center {% if request.path == login_url %}active{% endif %}"
+                                class="nav-link fs-3 btn log-btn btn-lg bg-blue text-dark d-flex flex-column align-items-center"
                                 aria-current="page">
                                 Login
                             </button>
                         </form>
                     </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a href="{% url 'stories' %}" class="fs-3 btn log-btn btn-lg bg-blue text-dark d-flex flex-column align-items-center" aria-current="page">
+                            Go to Library
+                        </a>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

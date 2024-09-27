@@ -33,94 +33,112 @@
         <div class="px-3 py-3 nav-bg border-bottom">
             <div class="container">
                 <div class="row justify-content-between align-items-center">
-    
+
                     <!-- Logo and Site Name -->
                     <div class="col-lg-auto d-flex align-items-center justify-content-between">
                         <a href="/" class="d-flex align-items-center text-white text-decoration-none">
                             <h1 class="mb-0">Imaginate</h1>
                         </a>
                         <!-- Navbar Toggle Button (Small to Medium devices, hidden on Large) -->
-                        <button class="btn btn-light text-dark d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                        <button class="btn btn-light text-dark d-lg-none" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                             <i class="fa-solid fa-bars"></i>
                         </button>
                     </div>
-    
+
                     <!-- Search Bar -->
                     <div class="col-lg-auto d-none d-lg-block">
                         <form class="d-flex" role="search">
                             <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
                         </form>
                     </div>
-    
+
                     <!-- Navigation Links -->
                     <div class="col-lg d-flex justify-content-end align-items-center">
-                        
+
                         <!-- Navigation Links (Large devices) -->
                         <nav class="d-none d-lg-block">
                             <ul class="nav">
                                 <li class="nav-item text-center">
-                                    <a href="/" id="nav-home" class="nav-link text-white d-flex flex-column align-items-center">
+                                    <a href="/" id="nav-home"
+                                        class="nav-link text-white d-flex flex-column align-items-center">
                                         <i class="fa-solid fa-house bi d-block mx-auto mb-1 icon-bg"></i>
                                         <span class="no-animation">Home</span>
                                     </a>
                                 </li>
                                 <li class="nav-item text-center">
-                                    <a href="#" id="nav-stories" class="nav-link text-white d-flex flex-column align-items-center">
+                                    <a href="#" id="nav-stories"
+                                        class="nav-link text-white d-flex flex-column align-items-center">
                                         <i class="fa-solid fa-box-open bi d-block mx-auto mb-1 icon-bg"></i>
                                         <span class="no-animation">My Stories</span>
                                     </a>
                                 </li>
                                 <li class="nav-item text-center">
-                                    <a href="{% url 'user_profile' %}" id="nav-profile" class="nav-link text-white d-flex flex-column align-items-center">
+                                    <a href="{% url 'user_profile' %}" id="nav-profile"
+                                        class="nav-link text-white d-flex flex-column align-items-center">
                                         <i class="fa-solid fa-user bi d-block mx-auto mb-1 icon-bg"></i>
                                         <span class="no-animation">My Profile</span>
                                     </a>
                                 </li>
+                                <!-- Log Out Button -->
+                                <li class="nav-item">
+                                    <form method="post" action="{% url 'account_logout' %}">
+                                        {% csrf_token %}
+                                        <button type="submit"
+                                            class="btn btn-light text-dark btn-logout d-none d-lg-block mt-3 ms-5">
+                                            <i class="fa-solid fa-right-from-bracket"></i> Log Out
+                                        </button>
+                                    </form>
+                                </li>
                             </ul>
                         </nav>
-    
-                        <!-- Log Out Button  -->
-                        <a class="btn btn-light text-dark btn-logout d-none d-lg-block ms-5 {% if request.path == logout_url %}active{% endif %}" aria-current="page" href="{% url 'account_logout' %}">
-                            <i class="fa-solid fa-right-from-bracket"></i> Log Out
-                        </a>
-    
+
                         <!-- Navigation Links (Small to Medium devices) -->
-                        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                            aria-labelledby="offcanvasNavbarLabel">
                             <div class="offcanvas-header text-bg-dark text-center">
                                 <h4 id="offcanvasNavbarLabel">Imaginate | Menu</h4>
-                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                                    aria-label="Close"></button>
                             </div>
                             <div class="offcanvas-body d-flex flex-column">
                                 <nav>
                                     <ul class="nav flex-column">
                                         <li id="nav-home-mobile" class="nav-item text-center mb-3">
-                                            <a href="/" id="nav-home" class="nav-link text-dark d-flex flex-column align-items-center">
+                                            <a href="/" id="nav-home"
+                                                class="nav-link text-dark d-flex flex-column align-items-center">
                                                 <i class="fa-solid fa-house d-block mx-auto mb-1 icon-bg"></i>
                                                 <span class="no-animation">Home</span>
                                             </a>
                                         </li>
                                         <li id="nav-stories-mobile" class="nav-item text-center mb-3">
-                                            <a href="#" id="nav-stories" class="nav-link text-dark d-flex flex-column align-items-center">
+                                            <a href="#" id="nav-stories"
+                                                class="nav-link text-dark d-flex flex-column align-items-center">
                                                 <i class="fa-solid fa-box-open d-block mx-auto mb-1 icon-bg"></i>
                                                 <span class="no-animation">My Stories</span>
                                             </a>
                                         </li>
                                         <li id="nav-profile-mobile" class="nav-item text-center mb-3">
-                                            <a href="{% url 'user_profile' %}" id="nav-profile" class="nav-link text-dark d-flex flex-column align-items-center">
+                                            <a href="{% url 'user_profile' %}" id="nav-profile"
+                                                class="nav-link text-dark d-flex flex-column align-items-center">
                                                 <i class="fa-solid fa-user d-block mx-auto mb-1 icon-bg"></i>
                                                 <span class="no-animation">My Profile</span>
                                             </a>
                                         </li>
+                                        <!-- Log Out Button -->
+                                        <li class="nav-item mt-5">
+                                            <form method="post" action="{% url 'account_logout' %}">
+                                                {% csrf_token %}
+                                                <button type="submit"
+                                                    class="btn btn-light text-dark text-bg-warning w-100 ">
+                                                    <i class="fa-solid fa-right-from-bracket"></i> Log Out
+                                                </button>
+                                            </form>
+                                        </li>
                                     </ul>
                                 </nav>
-    
-                                <!-- Log Out Button -->
-                                <a class="btn btn-light text-dark text-bg-warning w-100 mt-auto {% if request.path == logout_url %}active{% endif %}" aria-current="page" href="{% url 'account_logout' %}">
-                                    <i class="fa-solid fa-right-from-bracket"></i> Log Out
-                                </a>
                             </div>
                         </div>
-    
                     </div>
                 </div>
             </div>
