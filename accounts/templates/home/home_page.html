@@ -51,7 +51,7 @@
                 <li class="nav-item d-flex flex-column ms-2 fs-6">
                     <form method="post" action="{% url 'account_logout' %}">
                         {% csrf_token %}
-                        <button type="submit" class="nav-link pb-0 text-white d-flex">
+                        <button type="submit" class="btn btn-light text-dark w-100">
                             <i class="fa-solid fa-right-from-bracket icon-bg pe-2"></i> <span class="underline">Log Out</span>
                         </button>
                     </form>
