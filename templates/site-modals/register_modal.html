@@ -1,16 +1,31 @@
-<div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="signupModalLabel">Register</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered imaginate-modal-dialog">
+        <div class="modal-content imaginate-modal-content border-glow">
+            <div class="modal-header imaginate-modal-header">
+                <button type="button" class="btn-close imaginate-close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <form id="signupForm" method="POST" action="{% url 'register' %}">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit" class="btn btn-primary">Register Me!</button>
-                </form>
+            <div class="modal-body d-flex flex-column">
+                <div class="container-fluid d-flex align-items-center">
+                    <div class="row w-100">
+                        <div class="col-6 d-flex imaginate-modal-info flex-column justify-content-center align-items-center">
+                            <h1 class="pb-5 imaginate-modal-title">Imaginate</h1>
+                            <p class="imaginate-modal-p pb-3">Create an Account with us today.</p>
+                            <ul class="d-flex list-unstyled">
+                                <li class="me-3"><i class="fa-solid fa-dollar-sign"></i> 100% Free</li>
+                                <li class="me-3"><i class="fa-solid fa-heart-circle-check"></i> No Subscriptions</li>
+                                <li class="me-3"><i class="fa-solid fa-universal-access"></i> Access to All Content</li>
+                            </ul>
+                        </div>
+                        <div class="col-6 ps-5 justify-content-center align-items-center">
+                            <form id="signupForm" method="POST" action="{% url 'register' %}"></form>
+                                {% csrf_token %}
+                                {{ form.as_p }}
+                                <button type="submit" class="btn btn-primary">Register Me!</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
