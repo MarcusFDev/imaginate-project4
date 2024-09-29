@@ -24,6 +24,10 @@
     text-underline-offset: 15px;
 }
 
+.form-input-50 {
+    width: 50%;
+}
+
 .border-left {
     border-left: 7px solid #080F17;
 }

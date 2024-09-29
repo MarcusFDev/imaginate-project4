@@ -1,5 +1,6 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth.models import User # noqa
+from django.shortcuts import render, redirect  # noqa
+from django.contrib.auth import login, authenticate
+from django.http import JsonResponse
 from .models import About
 from .forms import RegistrationForm
 
@@ -7,13 +8,21 @@ from .forms import RegistrationForm
 def register_view(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
+
         if form.is_valid():
             form.save()
-            return redirect('home_page')
-    else:
-        form = RegistrationForm()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
 
-    return render(request, 'home/home_page.html', {'form': form})
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return JsonResponse({'success': True})
+
+        return JsonResponse({'success': False})
+
+    return JsonResponse(
+        {'success': False}, status=405)
 
 
 def user_profile(request):
@@ -35,12 +44,5 @@ def user_profile(request):
 
 
 def home_page(request):
-    if request.method == 'POST':
-        form = RegistrationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('home_page')
-    else:
-        form = RegistrationForm()
-
+    form = RegistrationForm()
     return render(request, 'home/home_page.html', {'form': form})

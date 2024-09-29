@@ -12,10 +12,20 @@
     font-size: 400%;
 }
 
+.border-glow {
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.6); 
+    border-radius: 10px;
+}
+
 .underline:hover {
     text-decoration: underline;
     text-decoration-thickness: 2px;
     text-underline-offset: 15px;
+}
+
+.form-input-50 {
+    width: 50%;
 }
 
 .border-left {
@@ -59,6 +69,52 @@
 
 .imaginate-bg {
     background-color: #0e1a26 !important;
+}
+
+.min-vh-80 {
+    min-height: 80vh;
+}
+
+/* ------------------------------------------------->  Modal styles */
+
+.imaginate-modal-content {
+    background-color: #0E1A26;
+    height: 50vh;
+    color: white;
+    border-radius: 10px;
+}
+
+.imaginate-modal-header {
+    background-color: #080F17;
+    color: white;
+}
+
+.imaginate-modal-info {
+    background-color: #0B151F;
+    border: 3px solid #080F17;
+    color: white;
+    height: 44vh;
+}
+
+.imaginate-modal-title {
+    font-size: 600%;
+    color: white;
+}
+
+.imaginate-modal-p {
+    font-size: 200%;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 15px;
+}
+
+.imaginate-close-btn {
+    filter: invert(1);
+}
+
+.imaginate-modal-dialog {
+    width: 60vw !important;
+    max-width: 100% !important;
 }
 
 /* ------------------------------------------------->  Profile Page styles */

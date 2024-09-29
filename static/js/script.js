@@ -59,3 +59,27 @@ $(document).ready(function() {
     }, 500);
     console.log('Animation 2 finished')
 });
+
+$(document).ready(function() {
+    $('#signupForm').on('submit', function(event) {
+        event.preventDefault();
+
+        $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            success: function(response) {
+                if (response.success) {
+                    $('#signupModal').modal('hide');
+                    location.reload();
+                } else {
+                    $('#signupModal').modal('show');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log("Something went wrong. Error:", error);
+                $('#signupModal').modal('show');
+            }
+        });
+    });
+});
