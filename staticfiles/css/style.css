@@ -89,7 +89,7 @@
     border-radius: 10px;
 }
 
-.imaginate-modal-vh-50 {
+.imaginate-modal-vh {
     height: 50vh !important;
 }
 
@@ -306,26 +306,80 @@
         width: 100%;
         height: auto;
     }
+
+    /* Modal styles */
+
+    .imaginate-modal-vh {
+        height: 90vh !important;
+    }
+
+    .imaginate-modal-dialog {
+        width: 75vw !important;
+        max-width: 100% !important;
+    }
+
+    .imaginate-modal-title {
+        font-size: 500%;
+    }
+
+    .imaginate-modal-p {
+        font-size: 160%;
+        text-underline-offset: 6px;
+    }
+
+    .imaginate-modal-info {
+        height: 60vh;
+        width: 100%;
+    }
 }
 
 /* ------------------------------------------------->  (576px to 768px) Device styles */
 @media (max-width: 768px) {
 
     /* General styles */
+
     .ml-lg {
         margin-left: 320px;
     }
+
+    /* Modal styles */
+
+    .imaginate-modal-vh {
+        height: 90vh !important;
+    }
+
+    .imaginate-modal-dialog {
+        width: 75vw !important;
+        max-width: 100% !important;
+    }
+
+    .imaginate-modal-title {
+        font-size: 500%;
+    }
+
+    .imaginate-modal-p {
+        font-size: 160%;
+        text-underline-offset: 6px;
+    }
+
+    .imaginate-modal-info {
+        height: 60vh;
+        width: 100%;
+    }
+
 }
 
 /* ------------------------------------------------->  (576px and below) Device styles */
 @media (max-width: 576px) {
 
     /* General styles */
+
     .ml-lg {
         margin-left: 60px;
     }
     
     /* Profile Page styles */
+
     .pf-img {
         width: 90%;
         height: auto;
@@ -334,6 +388,36 @@
     /* Home Page styles */
 
     .imaginate-title {
-    font-size: 450%;
+    font-size: 410%;
     }
+
+    .social-title {        
+        background-color:#0b151f;
+    }
+
+    /* Modal styles */
+    
+    .imaginate-modal-vh {
+        height: 90vh !important;
+    }
+
+    .imaginate-modal-dialog {
+        width: 95vw !important;
+        max-width: 100% !important;
+    }
+
+    .imaginate-modal-title {
+        font-size: 300%;
+    }
+
+    .imaginate-modal-p {
+        font-size: 140%;
+        text-underline-offset: 6px;
+    }
+
+    .imaginate-modal-info {
+        height: 60vh;
+        width: 100%;
+    }
+
 }

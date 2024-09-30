@@ -1,33 +1,32 @@
-<div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true"
-    data-bs-backdrop="static" data-bs-keyboard="false">
-    <div class="modal-dialog modal-dialog-centered imaginate-modal-dialog">
-        <div id="modal-content" class="modal-content imaginate-modal-content imaginate-modal-vh-50 border-glow">
-
+<div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered imaginate-modal-dialog modal-dialog-scrollable">
+        <div id="modal-content" class="modal-content imaginate-modal-content imaginate-modal-vh border-glow">
             <!-- Modal Close Button -->
             <div class="modal-header imaginate-modal-header">
                 <button type="button" class="btn-close imaginate-close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <div class="modal-body d-flex flex-column">
-                <div class="container-fluid d-flex align-items-center">
+            <div class="modal-body">
+                <div class="container-fluid d-flex justify-content-center px-0">
                     <div class="row w-100">
 
                         <!-- Modal Description -->
-                        <div class="col-6 d-flex imaginate-modal-info flex-column justify-content-center align-items-center">
-                            <h1 class="pb-5 imaginate-modal-title">Imaginate</h1>
-                            <p class="imaginate-modal-p pb-3">Create an Account with us today.</p>
-                            <ul class="d-flex list-unstyled">
+                        <div class="col-12 col-lg-6 d-flex imaginate-modal-info flex-column justify-content-center align-items-center text-center px-0 mb-4 mb-lg-0">
+                            <h1 class="pb-4 pb-lg-5 imaginate-modal-title">Imaginate</h1>
+                            <p class="imaginate-modal-p pb-lg-3 pb-5">Create an Account with us today.</p>
+                            <ul class="d-flex flex-column flex-lg-row list-unstyled justify-content-center">
                                 <li class="me-3"><i class="fa-solid fa-dollar-sign"></i> 100% Free</li>
                                 <li class="me-3"><i class="fa-solid fa-heart-circle-check"></i> No Subscriptions</li>
                                 <li class="me-3"><i class="fa-solid fa-universal-access"></i> Access to All Content</li>
                             </ul>
                         </div>
-                        
-                        <!-- Modal Form -->
-                        <div class="col-6 ps-5 justify-content-center align-items-center">
+
+                        <!-- Modal Form  -->
+                        <div class="col-12 col-xl-6 ps-xl-5">
                             <form id="signupForm" method="POST" action="{% url 'register' %}">
                                 {% csrf_token %}
 
+                                <!-- Error message -->
                                 <div class="text-danger hidden">
                                     <h4 class="pb-2"><i class="fa-solid fa-triangle-exclamation pe-1"></i> Account Creation failed.</h4>
                                 </div>
@@ -42,16 +41,8 @@
                                     </div>
                                     {% endif %}
                                     <ul class="pt-2 list-unstyled">
-                                        <li>
-                                            <span class="form-text text-white">
-                                                <i class="fa-solid fa-circle-info"></i> Max 12 characters in length.
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="form-text text-white">
-                                                <i class="fa-solid fa-circle-info"></i> Does not contain special characters.
-                                            </span>
-                                        </li>
+                                        <li><span class="form-text text-white"><i class="fa-solid fa-circle-info"></i> Max 12 characters in length.</span></li>
+                                        <li><span class="form-text text-white"><i class="fa-solid fa-circle-info"></i> Does not contain special characters.</span></li>
                                     </ul>
                                 </div>
 
@@ -60,9 +51,7 @@
                                     <label for="id_email" class="form-label">Email</label>
                                     {{ form.email }}
                                     {% if form.email.errors %}
-                                    <div class="text-danger">
-                                        {{ form.email.errors }}
-                                    </div>
+                                    <div class="text-danger">{{ form.email.errors }}</div>
                                     {% endif %}
                                 </div>
 
@@ -71,22 +60,11 @@
                                     <label for="id_password" class="form-label">Password</label>
                                     {{ form.password }}
                                     {% if form.password.errors %}
-                                    <div class="text-danger">
-                                        {{ form.password.errors }}
-                                    </div>
+                                    <div class="text-danger">{{ form.password.errors }}</div>
                                     {% endif %}
-
                                     <ul class="pt-2 list-unstyled">
-                                        <li>
-                                            <span class="form-text text-white">
-                                                <i class="fa-solid fa-circle-info"></i> Must be between 8-20 characters in length.
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="form-text text-white">
-                                                <i class="fa-solid fa-circle-info"></i> Must contain at least one special character.
-                                            </span>
-                                        </li>
+                                        <li><span class="form-text text-white"><i class="fa-solid fa-circle-info"></i> Must be between 8-20 characters in length.</span></li>
+                                        <li><span class="form-text text-white"><i class="fa-solid fa-circle-info"></i> Must contain at least one special character.</span></li>
                                     </ul>
                                 </div>
 
@@ -95,9 +73,7 @@
                                     <label for="id_password_confirm" class="form-label">Confirm Password</label>
                                     {{ form.password_confirm }}
                                     {% if form.password_confirm.errors %}
-                                    <div class="text-danger">
-                                        {{ form.password_confirm.errors }}
-                                    </div>
+                                    <div class="text-danger">{{ form.password_confirm.errors }}</div>
                                     {% endif %}
                                 </div>
 
