@@ -243,6 +243,10 @@
     background-color: #ffffff !important;
 }
 
+.bg-rich-black {
+    background-color: #0B151F;
+}
+
 .reg-btn {
     border: 3px solid #343a40;
 
@@ -281,10 +285,13 @@
 
 /* ------------------------------------------------->  (768px to 1200px) Device styles */
 @media (max-width: 1200px) {
+
+    /* General styles */
     .ml-lg {
         margin-left: 500px;
     }
 
+    /* Profile Page styles */
     .pf-img {
         width: 60%;
         height: auto;
@@ -303,18 +310,30 @@
 
 /* ------------------------------------------------->  (576px to 768px) Device styles */
 @media (max-width: 768px) {
+
+    /* General styles */
     .ml-lg {
         margin-left: 320px;
     }
 }
 
+/* ------------------------------------------------->  (576px and below) Device styles */
 @media (max-width: 576px) {
+
+    /* General styles */
     .ml-lg {
         margin-left: 60px;
     }
-
+    
+    /* Profile Page styles */
     .pf-img {
         width: 90%;
         height: auto;
+    }
+
+    /* Home Page styles */
+
+    .imaginate-title {
+    font-size: 450%;
     }
 }
