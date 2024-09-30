@@ -1,0 +1,57 @@
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered imaginate-modal-dialog">
+        <div id="modal-content" class="modal-content imaginate-modal-content border-glow">
+
+            <!-- Modal Close Button -->
+            <div class="modal-header imaginate-modal-header">
+                <button type="button" class="btn-close imaginate-close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body d-flex flex-column">
+                <div class="container-fluid d-flex align-items-center">
+                    <div class="row w-100">
+
+                        <!-- Modal Description -->
+                        <div class="col-6 d-flex imaginate-modal-info flex-column justify-content-center align-items-center">
+                            <h1 class="pb-5 imaginate-modal-title">Imaginate</h1>
+                            <p class="imaginate-modal-p pb-3">Login to start reading.</p>
+                            <ul class="d-flex list-unstyled">
+                                <li class="me-3"><i class="fa-solid fa-book pe-1"></i> No Read limit</li>
+                                <li class="me-3"><i class="fa-solid fa-pen pe-1"></i> Write Stories</li>
+                                <li class="me-3"><i class="fa-solid fa-thumbs-up pe-1"></i> Like & Comment</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Modal Form -->
+                        <div class="col-6 ps-5 justify-content-center align-items-center">
+                            <form id="loginForm" method="POST" action="{% url 'login' %}">
+                                {% csrf_token %}
+
+                                <div class="text-danger hidden">
+                                    <h4 class="pb-2"><i class="fa-solid fa-triangle-exclamation pe-1"></i> Account Login failed.</h4>
+                                </div>
+
+                                <!-- Username Field -->
+                                <div class="mb-3">
+                                    <label for="id_username" class="form-label">Username</label>
+                                    {{ form.username }}
+                                </div>
+
+                                <!-- Password Field -->
+                                <div class="mb-3">
+                                    <label for="id_password" class="form-label">Password</label>
+                                    {{ form.password }}
+
+                                <!-- Register Button -->
+                                <div class="d-flex mt-2 justify-content-center">
+                                    <button type="submit" class="btn btn-lg btn-primary mt-1">Login</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

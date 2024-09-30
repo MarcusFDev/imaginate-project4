@@ -56,6 +56,7 @@ INSTALLED_APPS = [
 ]
 
 SITE_ID = 1
+LOGIN_URL = '/my-accounts/login/'
 LOGIN_REDIRECT_URL = 'stories'
 LOGOUT_REDIRECT_URL = 'homepage'
 
