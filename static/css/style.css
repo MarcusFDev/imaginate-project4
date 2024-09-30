@@ -85,9 +85,12 @@
 
 .imaginate-modal-content {
     background-color: #0E1A26;
-    height: 50vh;
     color: white;
     border-radius: 10px;
+}
+
+.imaginate-modal-vh-50 {
+    height: 50vh !important;
 }
 
 .imaginate-modal-header {

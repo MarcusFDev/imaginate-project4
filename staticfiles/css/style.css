@@ -18,6 +18,12 @@
     border-radius: 10px;
 }
 
+.border-glow-red {
+    border: 2px solid rgba(220, 53, 69, 0.5);
+    box-shadow: 0 0 15px 5px rgba(220, 53, 69, 0.6);
+    border-radius: 10px;
+}
+
 .underline:hover {
     text-decoration: underline;
     text-decoration-thickness: 2px;
@@ -79,9 +85,12 @@
 
 .imaginate-modal-content {
     background-color: #0E1A26;
-    height: 50vh;
     color: white;
     border-radius: 10px;
+}
+
+.imaginate-modal-vh-50 {
+    height: 50vh !important;
 }
 
 .imaginate-modal-header {
