@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect  # noqa
 from django.contrib.auth import login, authenticate
 from django.http import JsonResponse
 from .models import About
-from .forms import RegistrationForm
+from .forms import RegistrationForm, LoginForm
 
 
 def register_view(request):
@@ -23,6 +23,24 @@ def register_view(request):
 
     return JsonResponse(
         {'success': False}, status=405)
+
+
+def login_view(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+
+            if user:
+                login(request, user)
+                return redirect('stories')
+    else:
+        form = LoginForm()
+
+    return render(request, 'home', {'form': form})
 
 
 def user_profile(request):
