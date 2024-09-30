@@ -21,26 +21,19 @@
             <ul class="nav d-flex">
                 {% if not user.is_authenticated %}
                 <li class="nav-item">
-                    <form method="post" action="{% url 'account_signup' %}">
-                        {% csrf_token %}
-                        <button type="button"
-                            class="nav-link text-white d-flex flex-column align-items-center underline"
-                            data-bs-toggle="modal" data-bs-target="#signupModal">
-                            Register
-                        </button>
-                    </form>
+                    <button type="button" class="nav-link text-white d-flex flex-column align-items-center underline"
+                        data-bs-toggle="modal" data-bs-target="#signupModal" aria-current="page">
+                        Register
+                    </button>
                 </li>
 
                 <li class="nav-item">
-                    <form method="post" action="{% url 'account_login' %}">
-                        {% csrf_token %}
-                        <button type="submit"
-                            class="nav-link text-white d-flex flex-column underline"
-                            aria-current="page">
-                            Login
-                        </button>
-                    </form>
+                    <button type="submit" class="nav-link text-white d-flex flex-column underline"
+                        data-bs-toggle="modal" data-bs-target="#loginModal" aria-current="page">
+                        Login
+                    </button>
                 </li>
+
                 {% else %}
                 <li class="nav-item">
                     <a href="{% url 'stories' %}" class="nav-link text-white d-flex flex-column align-items-center underline" aria-current="page">
@@ -49,12 +42,10 @@
                 </li>
                 
                 <li class="nav-item d-flex flex-column ms-2 fs-6">
-                    <form method="post" action="{% url 'account_logout' %}">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-light text-dark w-100">
-                            <i class="fa-solid fa-right-from-bracket icon-bg pe-2"></i> <span class="underline">Log Out</span>
-                        </button>
-                    </form>
+                    <button type="submit" class="btn btn-light text-dark w-100"
+                    data-bs-toggle="modal" data-bs-target="#logoutmodal" aria-current="page">
+                        <i class="fa-solid fa-right-from-bracket icon-bg pe-2"></i> <span class="underline">Log Out</span>
+                    </button>
                 </li>
                 {% endif %}
             </ul>
@@ -77,26 +68,21 @@
                 <ul class="nav">
                     {% if not user.is_authenticated %}
                     <li class="nav-item">
-                        <form method="post" action="{% url 'account_signup' %}">
-                            {% csrf_token %}
-                            <button type="button"
-                                class="nav-link fs-3 btn reg-btn btn-lg bg-white text-dark d-flex flex-column align-items-center me-5"
-                                data-bs-toggle="modal" data-bs-target="#signupModal">
-                                Register
-                            </button>
-                        </form>
+                        <button type="button"
+                            class="nav-link fs-3 btn reg-btn btn-lg bg-white text-dark d-flex flex-column align-items-center me-5"
+                            data-bs-toggle="modal" data-bs-target="#signupModal" aria-current="page">
+                            Register
+                        </button>
                     </li>
 
                     <li class="nav-item">
-                        <form method="post" action="{% url 'account_login' %}">
-                            {% csrf_token %}
-                            <button type="submit"
-                                class="nav-link fs-3 btn log-btn btn-lg bg-blue text-dark d-flex flex-column align-items-center"
-                                aria-current="page">
-                                Login
-                            </button>
-                        </form>
+                        <button type="submit"
+                            class="nav-link fs-3 btn log-btn btn-lg bg-blue text-dark d-flex flex-column align-items-center"
+                            data-bs-toggle="modal" data-bs-target="#loginModal" aria-current="page">
+                            Login
+                        </button>
                     </li>
+
                     {% else %}
                     <li class="nav-item">
                         <a href="{% url 'stories' %}" class="fs-3 btn log-btn btn-lg bg-blue text-dark d-flex flex-column align-items-center" aria-current="page">
@@ -151,7 +137,7 @@
 </footer>
 {% endblock footer %}
 
-{% endblock content%}
+{% endblock content %}
 
 {% block bodyscripts %}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

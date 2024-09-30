@@ -72,12 +72,10 @@
             <ul class="nav d-flex">
                 <!-- Log Out Button -->
                 <li class="nav-item mt-5">
-                    <form method="post" action="{% url 'account_logout' %}">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-light text-dark btn-logout fs-4">
-                            <i class="fa-solid fa-right-from-bracket"></i> Log Out
-                        </button>
-                    </form>
+                    <button type="submit" class="btn btn-light text-dark btn-logout fs-4" data-bs-toggle="modal"
+                        data-bs-target="#logoutmodal" aria-current="page">
+                        <i class="fa-solid fa-right-from-bracket"></i> Log Out
+                    </button>
                 </li>
             </ul>
         </div>
