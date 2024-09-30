@@ -1,13 +1,18 @@
 <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true"
     data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog modal-dialog-centered imaginate-modal-dialog">
-        <div class="modal-content imaginate-modal-content border-glow">
+        <div id="modal-content" class="modal-content imaginate-modal-content border-glow">
+
+            <!-- Modal Close Button -->
             <div class="modal-header imaginate-modal-header">
                 <button type="button" class="btn-close imaginate-close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+
             <div class="modal-body d-flex flex-column">
                 <div class="container-fluid d-flex align-items-center">
                     <div class="row w-100">
+
+                        <!-- Modal Description -->
                         <div class="col-6 d-flex imaginate-modal-info flex-column justify-content-center align-items-center">
                             <h1 class="pb-5 imaginate-modal-title">Imaginate</h1>
                             <p class="imaginate-modal-p pb-3">Create an Account with us today.</p>
@@ -17,31 +22,37 @@
                                 <li class="me-3"><i class="fa-solid fa-universal-access"></i> Access to All Content</li>
                             </ul>
                         </div>
+                        
+                        <!-- Modal Form -->
                         <div class="col-6 ps-5 justify-content-center align-items-center">
                             <form id="signupForm" method="POST" action="{% url 'register' %}">
                                 {% csrf_token %}
+
+                                <div class="text-danger hidden">
+                                    <h4 class="pb-2"><i class="fa-solid fa-triangle-exclamation pe-1"></i> Account Creation failed.</h4>
+                                </div>
+
                                 <!-- Username Field -->
                                 <div class="mb-3">
                                     <label for="id_username" class="form-label">Username</label>
                                     {{ form.username }}
+                                    {% if form.username.errors %}
+                                    <div class="text-danger">
+                                        {{ form.username.errors }}
+                                    </div>
+                                    {% endif %}
                                     <ul class="pt-2 list-unstyled">
                                         <li>
-                                            <span id="passwordHelpInline" class="form-text text-white">
+                                            <span class="form-text text-white">
                                                 <i class="fa-solid fa-circle-info"></i> Max 12 characters in length.
                                             </span>
                                         </li>
                                         <li>
-                                            <span id="passwordHelpInline" class="form-text text-white">
+                                            <span class="form-text text-white">
                                                 <i class="fa-solid fa-circle-info"></i> Does not contain special characters.
                                             </span>
                                         </li>
                                     </ul>
-                                    
-                                    {% if form.username.errors %}
-                                        <div class="invalid-feedback">
-                                            {{ form.username.errors.0 }}
-                                        </div>
-                                    {% endif %}
                                 </div>
 
                                 <!-- Email Field -->
@@ -49,9 +60,9 @@
                                     <label for="id_email" class="form-label">Email</label>
                                     {{ form.email }}
                                     {% if form.email.errors %}
-                                        <div class="invalid-feedback">
-                                            {{ form.email.errors.0 }}
-                                        </div>
+                                    <div class="text-danger">
+                                        {{ form.email.errors }}
+                                    </div>
                                     {% endif %}
                                 </div>
 
@@ -59,24 +70,24 @@
                                 <div class="mb-3">
                                     <label for="id_password" class="form-label">Password</label>
                                     {{ form.password }}
+                                    {% if form.password.errors %}
+                                    <div class="text-danger">
+                                        {{ form.password.errors }}
+                                    </div>
+                                    {% endif %}
 
                                     <ul class="pt-2 list-unstyled">
                                         <li>
-                                            <span id="passwordHelpInline" class="form-text text-white">
+                                            <span class="form-text text-white">
                                                 <i class="fa-solid fa-circle-info"></i> Must be between 8-20 characters in length.
                                             </span>
                                         </li>
                                         <li>
-                                            <span id="passwordHelpInline" class="form-text text-white">
+                                            <span class="form-text text-white">
                                                 <i class="fa-solid fa-circle-info"></i> Must contain at least one special character.
                                             </span>
                                         </li>
                                     </ul>
-                                    {% if form.password.errors %}
-                                        <div class="invalid-feedback">
-                                            {{ form.password.errors.0 }}
-                                        </div>
-                                    {% endif %}
                                 </div>
 
                                 <!-- Confirm Password Field -->
@@ -84,13 +95,15 @@
                                     <label for="id_password_confirm" class="form-label">Confirm Password</label>
                                     {{ form.password_confirm }}
                                     {% if form.password_confirm.errors %}
-                                        <div class="invalid-feedback">
-                                            {{ form.password_confirm.errors.0 }}
-                                        </div>
+                                    <div class="text-danger">
+                                        {{ form.password_confirm.errors }}
+                                    </div>
                                     {% endif %}
                                 </div>
-                                <div class="d-flex mt-3 justify-content-center">
-                                    <button type="submit" class="btn btn-lg btn-primary mt-5">Register Me!</button>
+
+                                <!-- Register Button -->
+                                <div class="d-flex mt-2 justify-content-center">
+                                    <button type="submit" class="btn btn-lg btn-primary mt-1">Register Me!</button>
                                 </div>
                             </form>
                         </div>
