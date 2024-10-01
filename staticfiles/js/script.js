@@ -9,6 +9,16 @@ $(document).ready(function(){
             $(this).find('i').removeClass('icon-beat');
         }
     );
+    $('#nav-library').hover(
+        function() {
+            // Mouse enters the element
+            $(this).find('i').addClass('icon-shake');
+        },
+        function() {
+            // Mouse leaves the element
+            $(this).find('i').removeClass('icon-shake');
+        }
+    )
     $('#nav-stories').hover(
         function() {
             // Mouse enters the element

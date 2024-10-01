@@ -170,14 +170,17 @@
 
 /* ------------------------------------------------->  Navbar styles */
 
-.offcanvas-body #nav-home-mobile, #nav-stories-mobile, #nav-profile-mobile {
-    padding: 15px !important;
-    border-radius: 8px !important;
-    margin-bottom: 15px !important;
+#nav-home-mobile,
+#nav-stories-mobile,
+#nav-profile-mobile,
+#nav-library-mobile {
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
 }
 
-.offcanvas-body .nav-item#nav-home-mobile {
-    background-color: #f8d7da !important;
+#nav-home-mobile {
+    background-color: #f8d7da;
 }
 
 #nav-stories-mobile {
@@ -186,6 +189,10 @@
 
 #nav-profile-mobile {
     background-color: #cff4fc;
+}
+
+#nav-library-mobile {
+    background-color: #a9a9a9;
 }
 
 .nav-bg {
@@ -212,12 +219,24 @@
     }
 }
 
+@keyframes icon-shake {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(14deg); }
+    50% { transform: rotate(0deg); }
+    75% { transform: rotate(-14deg); }
+    100% { transform: rotate(0deg); }
+}
+
 .icon-beat {
     animation: icon-beat 0.9s linear infinite;
 }
 
 .icon-bounce {
     animation: icon-bounce 1.0s infinite;
+}
+
+.icon-shake {
+    animation: icon-shake 1.0s infinite;
 }
 
 .no-animation {

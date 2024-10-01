@@ -43,7 +43,7 @@
                     </div>
 
                     <!-- Search Bar -->
-                    <div class="col-lg-auto d-none d-lg-block">
+                    <div class="col-lg-auto d-flex d-none d-lg-block">
                         <form class="d-flex" role="search">
                             <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
                         </form>
@@ -58,21 +58,27 @@
                                 <li class="nav-item text-center">
                                     <a href="/" id="nav-home"
                                         class="nav-link text-white d-flex flex-column align-items-center">
-                                        <i class="fa-solid fa-house bi d-block mx-auto mb-1 icon-bg"></i>
+                                        <i class="fa-solid fa-house bi d-block px-2 mb-1 icon-bg"></i>
                                         <span class="no-animation">Home</span>
                                     </a>
                                 </li>
                                 <li class="nav-item text-center">
+                                    <a href="{% url 'stories' %}" id="nav-library"
+                                        class="nav-link text-white d-flex flex-column align-items-center">
+                                        <i class="fa-solid fa-book bi d-block px-2 mb-1 icon-bg"></i>
+                                        <span class="no-animation">Library</span></a>
+                                </li>
+                                <li class="nav-item text-center">
                                     <a href="#" id="nav-stories"
                                         class="nav-link text-white d-flex flex-column align-items-center">
-                                        <i class="fa-solid fa-box-open bi d-block mx-auto mb-1 icon-bg"></i>
+                                        <i class="fa-solid fa-box-open bi d-block px-2 mb-1 icon-bg"></i>
                                         <span class="no-animation">My Stories</span>
                                     </a>
                                 </li>
                                 <li class="nav-item text-center">
                                     <a href="{% url 'user_profile' %}" id="nav-profile"
                                         class="nav-link text-white d-flex flex-column align-items-center">
-                                        <i class="fa-solid fa-user bi d-block mx-auto mb-1 icon-bg"></i>
+                                        <i class="fa-solid fa-user bi d-block px-2 mb-1 icon-bg"></i>
                                         <span class="no-animation">My Profile</span>
                                     </a>
                                 </li>
@@ -102,26 +108,32 @@
                                             <a href="/" id="nav-home"
                                                 class="nav-link text-dark d-flex flex-column align-items-center">
                                                 <i class="fa-solid fa-house d-block mx-auto mb-1 icon-bg"></i>
-                                                <span class="no-animation">Home</span>
+                                                Home
                                             </a>
+                                        </li>
+                                        <li class="nav-item text-center">
+                                            <a href="{% url 'stories' %}" id="nav-library-mobile"
+                                                class="nav-link text-dark d-flex flex-column align-items-center">
+                                                <i class="fa-solid fa-book bi d-block mx-auto mb-1 icon-bg"></i>
+                                                Library</a>
                                         </li>
                                         <li id="nav-stories-mobile" class="nav-item text-center mb-3">
                                             <a href="#" id="nav-stories"
                                                 class="nav-link text-dark d-flex flex-column align-items-center">
                                                 <i class="fa-solid fa-box-open d-block mx-auto mb-1 icon-bg"></i>
-                                                <span class="no-animation">My Stories</span>
+                                                My Stories
                                             </a>
                                         </li>
-                                        <li id="nav-profile-mobile" class="nav-item text-center mb-3">
+                                        <li id="nav-profile-mobile" class="nav-item text-center mb-5">
                                             <a href="{% url 'user_profile' %}" id="nav-profile"
                                                 class="nav-link text-dark d-flex flex-column align-items-center">
                                                 <i class="fa-solid fa-user d-block mx-auto mb-1 icon-bg"></i>
-                                                <span class="no-animation">My Profile</span>
+                                                My Profile
                                             </a>
                                         </li>
                                         <!-- Log Out Button -->
                                         <li class="nav-item mt-5">
-                                            <button type="submit" class="btn btn-light text-dark text-bg-warning w-100"
+                                            <button type="submit" class="btn text-dark text-bg-warning w-100"
                                                 data-bs-toggle="modal" data-bs-target="#logoutmodal"
                                                 aria-current="page">
                                                 <i class="fa-solid fa-right-from-bracket"></i> Log Out
