@@ -165,15 +165,9 @@
     margin-bottom: 10px;
 }
 
-
-  
-
 /* ------------------------------------------------->  Navbar styles */
 
-#nav-home-mobile,
-#nav-stories-mobile,
-#nav-profile-mobile,
-#nav-library-mobile {
+.imaginate-nav-mobile {
     padding: 15px;
     border-radius: 8px;
     margin-bottom: 15px;
