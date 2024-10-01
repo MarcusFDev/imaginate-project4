@@ -1,6 +1,6 @@
 <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true"
     data-bs-backdrop="static" data-bs-keyboard="false">
-    <div class="modal-dialog modal-dialog-centered imaginate-modal-dialog">
+    <div class="modal-dialog modal-dialog-centered imaginate-modal-dialog modal-dialog-scrollable">
         <div id="modal-content" class="modal-content imaginate-modal-content imaginate-modal-vh border-glow">
 
             <!-- Modal Close Button -->
@@ -9,22 +9,22 @@
             </div>
 
             <div class="modal-body d-flex flex-column">
-                <div class="container-fluid d-flex align-items-center">
+                <div class="container-fluid d-flex justify-content-center align-items-center">
                     <div class="row w-100">
 
                         <!-- Modal Description -->
-                        <div class="col-6 d-flex imaginate-modal-info flex-column justify-content-center align-items-center">
-                            <h1 class="pb-5 imaginate-modal-title">Imaginate</h1>
-                            <p class="imaginate-modal-p pb-3">Login to start reading.</p>
-                            <ul class="d-flex list-unstyled">
-                                <li class="me-3"><i class="fa-solid fa-book pe-1"></i> No Read limit</li>
-                                <li class="me-3"><i class="fa-solid fa-pen pe-1"></i> Write Stories</li>
-                                <li class="me-3"><i class="fa-solid fa-thumbs-up pe-1"></i> Like & Comment</li>
+                        <div class="col-12 col-lg-6 d-flex imaginate-modal-info flex-column justify-content-center align-items-center text-center px-0 mb-4 mb-lg-0">
+                            <h1 class="pb-4 pb-lg-5 imaginate-modal-title">Imaginate</h1>
+                            <p class="imaginate-modal-p pb-5 pb-lg-3">Login to start reading.</p>
+                            <ul class="d-flex flex-column flex-lg-row list-unstyled justify-content-center">
+                                <li class="me-xl-3"><i class="fa-solid fa-book pe-1"></i> No Read limit</li>
+                                <li class="me-xl-3"><i class="fa-solid fa-pen pe-1"></i> Write Stories</li>
+                                <li class="me-xl-3"><i class="fa-solid fa-thumbs-up pe-1"></i> Like & Comment</li>
                             </ul>
                         </div>
                         
                         <!-- Modal Form -->
-                        <div class="col-6 ps-5 justify-content-center align-items-center">
+                        <div class="col-12 col-xl-6 ps-xl-5 justify-content-center align-items-center">
                             <form id="loginForm" method="POST" action="{% url 'login' %}">
                                 {% csrf_token %}
 
