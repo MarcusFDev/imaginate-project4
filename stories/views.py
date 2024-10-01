@@ -7,10 +7,25 @@ from .models import Story
 
 # Create your views here.
 class StoryList(LoginRequiredMixin, generic.ListView):
-    queryset = Story.objects.filter(status=1, is_private=False)
+    model = Story
     template_name = "stories/index.html"
     paginate_by = 15
     login_url = 'homepage'
+
+    def get_queryset(self):
+        queryset = Story.objects.filter(status=1, is_private=False)
+        sort_filter = self.request.GET.get('sort', 'upvotes_desc')
+
+        if sort_filter == 'upvotes_asc':
+            queryset = queryset.order_by('upvotes')
+        elif sort_filter == 'upvotes_desc':
+            queryset = queryset.order_by('-upvotes')
+        elif sort_filter == 'created_on_asc':
+            queryset = queryset.order_by('created_on')
+        elif sort_filter == 'created_on_desc':
+            queryset = queryset.order_by('-created_on')
+
+        return queryset
 
 
 @login_required(login_url='homepage')

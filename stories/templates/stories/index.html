@@ -10,14 +10,20 @@
             <nav aria-label="Page navigation">
                 <ul class="pagination justify-content-center">
                     {% if page_obj.has_next %}
-                    <li><a href="?page={{ page_obj.next_page_number }}" class="paginator"> NEXT &raquo;</a></li>
+                    <li><a href="?page={{ page_obj.next_page_number }}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}" class="paginator"> NEXT &raquo;</a></li>
                     {% endif %}
                     {% if page_obj.has_previous %}
-                    <li><a href="?page={{ page_obj.previous_page_number }}" class="paginator"> &laquo; PREVIOUS</a></li>
+                    <li><a href="?page={{ page_obj.previous_page_number }}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}" class="paginator"> &laquo; PREVIOUS</a></li>
                     {% endif %}
                 </ul>
             </nav>
             {% endif %}
+        </div>
+        <div class="sorting-options">
+            <a href="?sort=upvotes_desc">Most Upvotes</a> |
+            <a href="?sort=upvotes_asc">Least Upvotes</a> |
+            <a href="?sort=created_on_desc">Newest</a> |
+            <a href="?sort=created_on_asc">Oldest</a>
         </div>
 
         <!-- Story Entries Column -->
@@ -29,16 +35,21 @@
                         <div class="card-body">
                             <div class="image-container">
                                 <div class="image-flash">
-                                    <p class="author">Author: {{ story.author }}</p>
+                                    
                                 </div>
                             </div>
                             <a href="{% url 'story_page' story.slug %}" class="post-link" style="text-decoration: none; color: black;">
                                 <h2 class="card-title">{{ story.title }}</h2>
+                                <p class="author">Author: {{ story.author }}</p>
                                 <p class="card-text">{{ story.excerpt }}</p>
                             </a>
 
-                            <hr />
-                            <p class="card-text text-muted h6">{{ story.created_on}}
+                            <hr>
+                            <p class="card-text text-muted h6">
+                                {{ story.created_on}}
+                            </p>
+                            <p class="card-text text-muted h6 fs-3">
+                                <i class="fa-solid fa-heart text-danger pe-2"></i>{{ story.upvotes }}
                             </p>
                         </div>
                     </div>
@@ -56,10 +67,10 @@
     <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
             {% if page_obj.has_next %}
-            <li><a href="?page={{ page_obj.next_page_number }}" class="paginator"> NEXT &raquo;</a></li>
+            <li><a href="?page={{ page_obj.next_page_number }}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}" class="paginator"> NEXT &raquo;</a></li>
             {% endif %}
             {% if page_obj.has_previous %}
-            <li><a href="?page={{ page_obj.previous_page_number }}" class="paginator"> &laquo; PREVIOUS</a></li>
+            <li><a href="?page={{ page_obj.previous_page_number }}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}" class="paginator"> &laquo; PREVIOUS</a></li>
             {% endif %}
         </ul>
     </nav>
