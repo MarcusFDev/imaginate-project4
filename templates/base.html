@@ -26,116 +26,118 @@
 <body class="d-flex flex-column h-100">
     {% block header %}
     <header>
-        <div class="px-3 py-3 nav-bg border-bottom">
-            <div class="container">
-                <div class="row justify-content-between align-items-center">
+        <div class="container-fluid px-3 py-3 nav-bg border-bottom">
+            <div class="row d-flex align-items-center">
 
-                    <!-- Logo and Site Name -->
-                    <div class="col-lg-auto d-flex align-items-center justify-content-between">
-                        <a href="/" class="d-flex align-items-center text-white text-decoration-none">
-                            <h1 class="mb-0">Imaginate</h1>
-                        </a>
-                        <!-- Navbar Toggle Button (Small to Medium devices, hidden on Large) -->
+                <!-- Logo and Site Name -->
+                <div class="col-xxl-3 col-xl-4 d-flex align-items-center justify-content-center position-relative">
+                    <a href="/" class="d-flex align-items-center text-white text-decoration-none">
+                        <h1 class="mb-0">Imaginate</h1>
+                    </a>
+                    <!-- Navbar Toggle Button (Small to Medium devices, hidden on Large) -->
+                    <div class="position-absolute top-0 end-0">
                         <button class="btn btn-light text-dark d-lg-none" type="button" data-bs-toggle="offcanvas"
                             data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                             <i class="fa-solid fa-bars"></i>
                         </button>
                     </div>
+                </div>
 
-                    <!-- Navigation Links -->
-                    <div class="col-lg d-flex justify-content-end align-items-center">
+                <div class="col-xxl-3 d-xxl-block"></div>
+                
+                <!-- Navigation Links (Large Devices) -->
+                <div class="col-xl-3 col-lg-4 d-flex justify-content-end align-items-center">
+                    <nav class="d-none d-lg-block">
+                        <ul class="nav">
+                            <li class="nav-item text-center">
+                                <a href="/" id="nav-home"
+                                    class="nav-link text-white d-flex flex-column align-items-center">
+                                    <i class="fa-solid fa-house bi d-block px-2 mb-1 icon-bg"></i>
+                                    <span class="no-animation">Home</span>
+                                </a>
+                            </li>
+                            <li class="nav-item text-center">
+                                <a href="{% url 'stories' %}" id="nav-library"
+                                    class="nav-link text-white d-flex flex-column align-items-center">
+                                    <i class="fa-solid fa-book bi d-block px-2 mb-1 icon-bg"></i>
+                                    <span class="no-animation">Library</span></a>
+                            </li>
+                            <li class="nav-item text-center">
+                                <a href="#" id="nav-stories"
+                                    class="nav-link text-white d-flex flex-column align-items-center">
+                                    <i class="fa-solid fa-box-open bi d-block px-2 mb-1 icon-bg"></i>
+                                    <span class="no-animation">My Stories</span>
+                                </a>
+                            </li>
+                            <li class="nav-item text-center">
+                                <a href="{% url 'user_profile' %}" id="nav-profile"
+                                    class="nav-link text-white d-flex flex-column align-items-center">
+                                    <i class="fa-solid fa-user bi d-block px-2 mb-1 icon-bg"></i>
+                                    <span class="no-animation">My Profile</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
 
-                        <!-- Navigation Links (Large devices) -->
-                        <nav class="d-none d-lg-block">
-                            <ul class="nav">
-                                <li class="nav-item text-center">
+                <!-- Log Out Button -->
+                <div class="col-xxl-3 col-xl-4 d-flex justify-content-end">
+                    <button type="submit" class="btn text-dark btn-logout d-none d-lg-block mt-3 ms-5"
+                        data-bs-toggle="modal" data-bs-target="#logoutmodal" aria-current="page">
+                        <i class="fa-solid fa-right-from-bracket"></i> Log Out
+                    </button>
+                </div>
+
+                <!-- Navigation Links (Small to Medium devices) -->
+                <div class="offcanvas offcanvas-end px-0" tabindex="-1" id="offcanvasNavbar"
+                    aria-labelledby="offcanvasNavbarLabel">
+                    <div class="offcanvas-header text-white nav-bg border-bottom text-center">
+                        <h4 id="offcanvasNavbarLabel">Imaginate</h4>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body d-flex flex-column imaginate-bg px-0 pt-0">
+                        <div class="d-flex justify-content-center canvas-title mb-3">
+                            <h1 class="pt-2 pb-2 text-white">Menu</h1>
+                        </div>
+                        <nav class="px-4">
+                            <ul class="nav flex-column">
+                                <li id="nav-home-mobile" class="nav-item imaginate-nav-mobile text-center mb-3">
                                     <a href="/" id="nav-home"
-                                        class="nav-link text-white d-flex flex-column align-items-center">
-                                        <i class="fa-solid fa-house bi d-block px-2 mb-1 icon-bg"></i>
-                                        <span class="no-animation">Home</span>
+                                        class="nav-link text-dark d-flex flex-column align-items-center">
+                                        <i class="fa-solid fa-house d-block mx-auto mb-1 icon-bg"></i>
+                                        Home
                                     </a>
                                 </li>
-                                <li class="nav-item text-center">
+                                <li id="nav-library-mobile" class="nav-item text-center imaginate-nav-mobile">
                                     <a href="{% url 'stories' %}" id="nav-library"
-                                        class="nav-link text-white d-flex flex-column align-items-center">
-                                        <i class="fa-solid fa-book bi d-block px-2 mb-1 icon-bg"></i>
-                                        <span class="no-animation">Library</span></a>
+                                        class="nav-link text-dark d-flex flex-column align-items-center">
+                                        <i class="fa-solid fa-book bi d-block mx-auto mb-1 icon-bg"></i>
+                                        Library</a>
                                 </li>
-                                <li class="nav-item text-center">
+                                <li id="nav-stories-mobile" class="nav-item text-center mb-3 imaginate-nav-mobile">
                                     <a href="#" id="nav-stories"
-                                        class="nav-link text-white d-flex flex-column align-items-center">
-                                        <i class="fa-solid fa-box-open bi d-block px-2 mb-1 icon-bg"></i>
-                                        <span class="no-animation">My Stories</span>
+                                        class="nav-link text-dark d-flex flex-column align-items-center">
+                                        <i class="fa-solid fa-box-open d-block mx-auto mb-1 icon-bg"></i>
+                                        My Stories
                                     </a>
                                 </li>
-                                <li class="nav-item text-center">
+                                <li id="nav-profile-mobile" class="nav-item text-center imaginate-nav-mobile">
                                     <a href="{% url 'user_profile' %}" id="nav-profile"
-                                        class="nav-link text-white d-flex flex-column align-items-center">
-                                        <i class="fa-solid fa-user bi d-block px-2 mb-1 icon-bg"></i>
-                                        <span class="no-animation">My Profile</span>
+                                        class="nav-link text-dark d-flex flex-column align-items-center">
+                                        <i class="fa-solid fa-user d-block mx-auto mb-1 icon-bg"></i>
+                                        My Profile
                                     </a>
                                 </li>
                                 <!-- Log Out Button -->
-                                <li class="nav-item">
-                                    <button type="submit"
-                                        class="btn btn-light text-dark btn-logout d-none d-lg-block mt-3 ms-5"
+                                <li class="nav-item mt-5 align-items-center">
+                                    <button type="submit" class="btn text-dark text-bg-warning w-100"
                                         data-bs-toggle="modal" data-bs-target="#logoutmodal" aria-current="page">
                                         <i class="fa-solid fa-right-from-bracket"></i> Log Out
                                     </button>
                                 </li>
                             </ul>
                         </nav>
-
-                        <!-- Navigation Links (Small to Medium devices) -->
-                        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
-                            aria-labelledby="offcanvasNavbarLabel">
-                            <div class="offcanvas-header text-white nav-bg border-bottom text-center">
-                                <h4 id="offcanvasNavbarLabel">Imaginate | Menu</h4>
-                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="offcanvas-body d-flex flex-column imaginate-bg">
-                                <nav>
-                                    <ul class="nav flex-column">
-                                        <li id="nav-home-mobile" class="nav-item imaginate-nav-mobile text-center mb-3">
-                                            <a href="/" id="nav-home"
-                                                class="nav-link text-dark d-flex flex-column align-items-center">
-                                                <i class="fa-solid fa-house d-block mx-auto mb-1 icon-bg"></i>
-                                                Home
-                                            </a>
-                                        </li>
-                                        <li id="nav-library-mobile" class="nav-item text-center imaginate-nav-mobile">
-                                            <a href="{% url 'stories' %}" id="nav-library"
-                                                class="nav-link text-dark d-flex flex-column align-items-center">
-                                                <i class="fa-solid fa-book bi d-block mx-auto mb-1 icon-bg"></i>
-                                                Library</a>
-                                        </li>
-                                        <li id="nav-stories-mobile" class="nav-item text-center mb-3 imaginate-nav-mobile">
-                                            <a href="#" id="nav-stories"
-                                                class="nav-link text-dark d-flex flex-column align-items-center">
-                                                <i class="fa-solid fa-box-open d-block mx-auto mb-1 icon-bg"></i>
-                                                My Stories
-                                            </a>
-                                        </li>
-                                        <li id="nav-profile-mobile" class="nav-item text-center mb-5 imaginate-nav-mobile">
-                                            <a href="{% url 'user_profile' %}" id="nav-profile"
-                                                class="nav-link text-dark d-flex flex-column align-items-center">
-                                                <i class="fa-solid fa-user d-block mx-auto mb-1 icon-bg"></i>
-                                                My Profile
-                                            </a>
-                                        </li>
-                                        <!-- Log Out Button -->
-                                        <li class="nav-item mt-5">
-                                            <button type="submit" class="btn text-dark text-bg-warning w-100"
-                                                data-bs-toggle="modal" data-bs-target="#logoutmodal"
-                                                aria-current="page">
-                                                <i class="fa-solid fa-right-from-bracket"></i> Log Out
-                                            </button>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
