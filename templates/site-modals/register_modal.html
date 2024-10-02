@@ -34,11 +34,9 @@
                                 <!-- Username Field -->
                                 <div class="mb-3">
                                     <label for="id_username" class="form-label">Username</label>
-                                    {{ form.username }}
-                                    {% if form.username.errors %}
-                                    <div class="text-danger">
-                                        {{ form.username.errors }}
-                                    </div>
+                                    {{ reg_form.username }}
+                                    {% if reg_form.username.errors %}
+                                    <div class="text-danger">{{ reg_form.username.errors }}</div>
                                     {% endif %}
                                     <ul class="pt-2 list-unstyled">
                                         <li><span class="form-text text-white"><i class="fa-solid fa-circle-info"></i> Max 12 characters in length.</span></li>
@@ -49,8 +47,8 @@
                                 <!-- Email Field -->
                                 <div class="mb-3">
                                     <label for="id_email" class="form-label">Email</label>
-                                    {{ form.email }}
-                                    {% if form.email.errors %}
+                                    {{ reg_form.email }}
+                                    {% if reg_form.email.errors %}
                                     <div class="text-danger">{{ form.email.errors }}</div>
                                     {% endif %}
                                 </div>
@@ -58,9 +56,9 @@
                                 <!-- Password Field -->
                                 <div class="mb-3">
                                     <label for="id_password" class="form-label">Password</label>
-                                    {{ form.password }}
-                                    {% if form.password.errors %}
-                                    <div class="text-danger">{{ form.password.errors }}</div>
+                                    {{ reg_form.password }}
+                                    {% if reg_form.password.errors %}
+                                    <div class="text-danger">{{ reg_form.password.errors }}</div>
                                     {% endif %}
                                     <ul class="pt-2 list-unstyled">
                                         <li><span class="form-text text-white"><i class="fa-solid fa-circle-info"></i> Must be between 8-20 characters in length.</span></li>
@@ -71,14 +69,15 @@
                                 <!-- Confirm Password Field -->
                                 <div class="mb-3">
                                     <label for="id_password_confirm" class="form-label">Confirm Password</label>
-                                    {{ form.password_confirm }}
-                                    {% if form.password_confirm.errors %}
-                                    <div class="text-danger">{{ form.password_confirm.errors }}</div>
+                                    {{ reg_form.password_confirm }}
+                                    {% if reg_form.password_confirm.errors %}
+                                    <div class="text-danger">{{ reg_form.password_confirm.errors }}</div>
                                     {% endif %}
                                 </div>
 
                                 <!-- Register Button -->
                                 <div class="d-flex mt-2 justify-content-center">
+                                    <input type="hidden" name="form_type" value="register">
                                     <button type="submit" class="btn btn-lg btn-primary mt-1">Register Me!</button>
                                 </div>
                             </form>

@@ -6,41 +6,72 @@ from .forms import RegistrationForm, LoginForm
 
 
 def register_view(request):
-    if request.method == 'POST':
-        form = RegistrationForm(request.POST)
 
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
+    reg_form = RegistrationForm(request.POST)
+    print("Registration Form Value:", reg_form)
+    print("Registration Request:", request.method)
 
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return JsonResponse({'success': True})
+    if reg_form.is_valid():
+        reg_form.save()
+        username = reg_form.cleaned_data.get('username')
+        password = reg_form.cleaned_data.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            JsonResponse({'success': True})
+            return render(request, "home/home.html")
 
-        return JsonResponse({'success': False})
+        # If the form is invalid or the user couldn't be authenticated
+        return JsonResponse(
+            {'success': False, 'errors': reg_form.errors},
+            status=400)
 
+    # In case the request method is not POST
     return JsonResponse(
-        {'success': False}, status=405)
+        {'success': False, 'error': 'Invalid request method'},
+        status=405)
 
 
 def login_view(request):
+
+    login_form = LoginForm(request.POST)
+    print("Login Form Value:", login_form)
+    print("Login request:", request.method)
+
+    if login_form.is_valid():
+        username = login_form.cleaned_data.get('username')
+        password = login_form.cleaned_data.get('password')
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return JsonResponse({'success': True})
+
+        # If the form is invalid or the user couldn't be authenticated
+        return JsonResponse(
+            {'success': False, 'errors': login_form.errors},
+            status=400)
+
+    # In case the request method is not POST
+    return JsonResponse(
+        {'success': False, 'error': 'Invalid request method'},
+        status=405)
+
+
+def handle_post(request):
+    print("Post Detected.")
     if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():
+        form_type = request.POST.get('form_type')
 
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)
+        if form_type == 'register':
+            return register_view(request)
 
-            if user:
-                login(request, user)
-                return redirect('stories')
-    else:
-        form = LoginForm()
+        elif form_type == 'login':
+            return login_view(request)
 
-    return render(request, 'home', {'form': form})
+    return JsonResponse(
+        {'success': False, 'error': 'Invalid form type or request method'},
+        status=400)
 
 
 def user_profile(request):
@@ -62,5 +93,17 @@ def user_profile(request):
 
 
 def home_page(request):
-    form = RegistrationForm()
-    return render(request, 'home/home_page.html', {'form': form})
+
+    reg_form = RegistrationForm()
+    login_form = LoginForm()
+
+    context = {
+        "reg_form": reg_form,
+        "login_form": login_form,
+    }
+
+    return render(
+        request,
+        'home/home_page.html',
+        context
+    )

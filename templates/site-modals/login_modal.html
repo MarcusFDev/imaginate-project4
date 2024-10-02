@@ -35,16 +35,23 @@
                                 <!-- Username Field -->
                                 <div class="mb-3">
                                     <label for="id_username" class="form-label">Username</label>
-                                    {{ form.username }}
+                                    {{ login_form.username }}
+                                    {% if login_form.username.errors %}
+                                    <div class="text-danger">{{ login_form.username.errors }}</div>
+                                    {% endif %}
                                 </div>
 
                                 <!-- Password Field -->
                                 <div class="mb-3">
                                     <label for="id_password" class="form-label">Password</label>
-                                    {{ form.password }}
+                                    {{ login_form.password }}
+                                    {% if login_form.username.errors %}
+                                    <div class="text-danger">{{ login_form.username.errors }}</div>
+                                    {% endif %}
 
-                                <!-- Register Button -->
+                                <!-- Login Button -->
                                 <div class="d-flex mt-2 justify-content-center">
+                                    <input type="hidden" name="form_type" value="login">
                                     <button type="submit" class="btn btn-lg btn-primary mt-1">Login</button>
                                 </div>
                             </form>

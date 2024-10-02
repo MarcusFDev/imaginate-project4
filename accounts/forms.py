@@ -82,7 +82,7 @@ class RegistrationForm(forms.ModelForm):
         return user
 
 
-class LoginForm(forms.ModelForm):
+class LoginForm(forms.Form):
     username = forms.CharField(
         widget=forms.TextInput(attrs={
             'class': 'form-control',

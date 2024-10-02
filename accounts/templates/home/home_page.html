@@ -63,12 +63,18 @@
                 <ul class="nav">
                     {% if not user.is_authenticated %}
                     <li class="nav-item">
+                        <input type="hidden" name="form_type" value="register">
                         <button type="button" class="nav-link px-3 text-white d-flex flex-column align-items-center underline"
-                            data-bs-toggle="modal" data-bs-target="#signupModal" aria-current="page">Register</button>
+                            data-bs-toggle="modal" data-bs-target="#signupModal" aria-current="page">
+                            Register
+                        </button>
                     </li>
                     <li class="nav-item">
+                        <input type="hidden" name="form_type" value="login">
                         <button type="submit" class="nav-link text-white d-flex flex-column underline"
-                            data-bs-toggle="modal" data-bs-target="#loginModal" aria-current="page">Login</button>
+                            data-bs-toggle="modal" data-bs-target="#loginModal" aria-current="page">
+                            Login
+                        </button>
                     </li>
                     {% else %}
                     <li class="nav-item">
@@ -104,6 +110,7 @@
                 <ul class="nav">
                     {% if not user.is_authenticated %}
                     <li class="nav-item">
+                        <input type="hidden" name="form_type" value="register">
                         <button type="button"
                             class="nav-link fs-3 btn reg-btn btn-lg bg-white text-dark d-flex flex-column align-items-center me-lg-5 me-3"
                             data-bs-toggle="modal" data-bs-target="#signupModal" aria-current="page">
@@ -112,6 +119,7 @@
                     </li>
 
                     <li class="nav-item">
+                        <input type="hidden" name="form_type" value="login">
                         <button type="submit"
                             class="nav-link fs-3 btn log-btn btn-lg bg-blue text-dark d-flex flex-column align-items-center"
                             data-bs-toggle="modal" data-bs-target="#loginModal" aria-current="page">
