@@ -2,78 +2,195 @@
 
 {% block content %}
 
-<!-- index.html content starts here -->
-<div class="container-fluid min-vh-80">
+<!-- Library Titles -->
+<section class="container-fluid library-header pt-3 mb-5">
     <div class="row">
-        <div class="col-12 mt-3">
-            {% if is_paginated %}
-            <nav aria-label="Page navigation">
-                <ul class="pagination">
-                    {% if page_obj.has_next %}
-                    <li><a href="?page={{ page_obj.next_page_number }}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}"
-                            class=""> NEXT &raquo;</a></li>
-                    {% endif %}
-                    {% if page_obj.has_previous %}
-                    <li><a href="?page={{ page_obj.previous_page_number }}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}"
-                            class=""> &laquo; PREVIOUS</a></li>
-                    {% endif %}
-                </ul>
-
-                <a id="dropdownMenuButton" class="text-white ps-1" type="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    <i class="fa-solid fa-filter icon-bg"></i>
-                </a>
-
-                <ul class="dropdown-menu bg-rich-black border-glow" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item text-white" href="?sort=upvotes_desc">Most Upvotes</a></li>
-                    <li><a class="dropdown-item text-white" href="?sort=upvotes_asc">Least Upvotes</a></li>
-                    <li><a class="dropdown-item text-white" href="?sort=created_on_desc">Newest</a></li>
-                    <li><a class="dropdown-item text-white" href="?sort=created_on_asc">Oldest</a></li>
-                </ul>
-            </nav>
-            {% endif %}
+        <div class="d-flex justify-content-center align-items-center">
+            <h1 class="py-3 text-white">
+                <i class="fa-solid fa-book"></i>
+                Library
+            </h1>
         </div>
+        <div class="row py-3 d-flex align-items-center">
+            <div class="col-6 d-flex justify-content-center">
 
-        <!-- Story Entries Column -->
-        <div class="col-12 mt-3">
-            <div class="row justify-content-center">
-                {% for story in story_list %}
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <div class="image-container">
-                                <div class="image-flash">
+                <!-- Search Bar -->
+                <div class="d-flex">
+                    <form class="d-flex highlight-none" role="search">
+                        <div class="input-group library-search-bar">
 
-                                </div>
-                            </div>
-                            <a href="{% url 'story_page' story.slug %}" class="post-link"
-                                style="text-decoration: none; color: black;">
-                                <h2 class="card-title">{{ story.title }}</h2>
-                                <p class="author">Author: {{ story.author }}</p>
-                                <p class="card-text">{{ story.excerpt }}</p>
-                            </a>
+                            <!-- Search Icon -->
+                            <span class="input-group-text" id="search-icon">
+                                <i class="fa-solid fa-magnifying-glass icon-bg px-1 py-1"></i>
+                            </span>
 
-                            <hr>
-                            <p class="card-text text-muted h6">
-                                {{ story.created_on}}
-                            </p>
-                            <p class="card-text text-muted h6 fs-3">
-                                <i class="fa-solid fa-heart text-danger pe-2"></i>{{ story.upvotes }}
-                            </p>
+                            <!-- Search Input -->
+                            <input type="search" class="form-control" placeholder="Search..." aria-label="Search"
+                                aria-describedby="search-icon">
+    
+                            <!-- Search Filter -->
+                            <span class="input-group-text rounded-end">
+                                <a id="dropdownMenuButton" class="text-dark ps-1" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="true">
+                                    <i class="fa-solid fa-filter icon-bg"></i>
+                                </a>
+                                <!-- Filter Dropdown -->
+                                <ul class="dropdown-menu bg-rich-black border-glow"
+                                    aria-labelledby="dropdownMenuButton">
+                                    <li><a class="dropdown-item text-white" href="?sort=upvotes_desc">Most Upvotes</a>
+                                    </li>
+                                    <li><a class="dropdown-item text-white" href="?sort=upvotes_asc">Least Upvotes</a>
+                                    </li>
+                                    <li><a class="dropdown-item text-white" href="?sort=created_on_desc">Newest</a></li>
+                                    <li><a class="dropdown-item text-white" href="?sort=created_on_asc">Oldest</a></li>
+                                </ul>
+                            </span>
                         </div>
-                    </div>
+                    </form>
                 </div>
-                {% if forloop.counter|divisibleby:2 %}
             </div>
-            <div class="row justify-content-center">
-                {% endif %}
-                {% endfor %}
 
+            <div class="col-6">
+                {% if is_paginated %}
+                <!-- Paginator -->
+                <div class="d-flex justify-content-center align-items-center">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination pagination justify-content-center paginator">
+                            {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link"
+                                    href="?page=1{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}"
+                                    aria-label="First">
+                                    <span aria-hidden="true"><i class="fa-solid fa-left-long"></i> First</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link"
+                                    href="?page={{ page_obj.previous_page_number }}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}"
+                                    aria-label="Previous">
+                                    <span aria-hidden="true"><i class="fa-solid fa-arrow-left"></i></span>
+                                </a>
+                            </li>
+                            {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" aria-label="First">
+                                    <span aria-hidden="true"><i class="fa-solid fa-left-long"></i> First</span>
+                                </a>
+                            </li>
+                            <li class="page-item disabled">
+                                <a class="page-link" aria-label="Previous">
+                                    <span aria-hidden="true"><i class="fa-solid fa-arrow-left"></i></span>
+                                </a>
+                            </li>
+                            {% endif %}
+
+                            <!-- Page numbers with ellipses -->
+                            {% if page_obj.number > 4 %}
+                            <li class="page-item">
+                                <a class="page-link"
+                                    href="?page=1{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">1</a>
+                            </li>
+                            <li class="page-item disabled">
+                                <span class="page-link">…</span>
+                            </li>
+                            {% endif %}
+
+                            {% for num in page_obj.paginator.page_range %}
+                            {% if num == page_obj.number %}
+                            <li class="page-item active" aria-current="page">
+                                <span class="page-link">{{ num }}</span>
+                            </li>
+                            {% elif num > page_obj.number|add:'-2' and num < page_obj.number|add:'3' %}
+                            <li class="page-item">
+                                <a class="page-link"
+                                    href="?page={{ num }}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">{{ num }}</a>
+                            </li>
+                            {% endif %}
+                            {% endfor %}
+
+                            {% if page_obj.number < page_obj.paginator.num_pages|add:'-3' %}
+                            <li class="page-item disabled">
+                                <span class="page-link">…</span>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link"
+                                    href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">{{ page_obj.paginator.num_pages }}</a>
+                            </li>
+                            {% endif %}
+
+                            {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link"
+                                    href="?page={{ page_obj.next_page_number }}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}"
+                                    aria-label="Next">
+                                    <span aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link"
+                                    href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}"
+                                    aria-label="Last">
+                                    <span aria-hidden="true">Last <i class="fa-solid fa-right-long"></i></span>
+                                </a>
+                            </li>
+                            {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" aria-label="Next">
+                                    <span aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></span>
+                                </a>
+                            </li>
+                            <li class="page-item disabled">
+                                <a class="page-link" aria-label="Last">
+                                    <span aria-hidden="true">Last <i class="fa-solid fa-right-long"></i></span>
+                                </a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>
-</div>
-<div class="container-fluid px-0">
+</section>
+
+<!-- Story Entries Column -->
+<section class="container-fluid min-vh-80">
+    <div class="row justify-content-center">
+
+        {% for story in story_list %}
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <a href="{% url 'story_page' story.slug %}" class="post-link"
+                        style="text-decoration: none; color: black;">
+                        <h2 class="card-title">{{ story.title }}</h2>
+                        <p class="author">Author: {{ story.author }}</p>
+                        <p class="card-text">{{ story.excerpt }}</p>
+                    </a>
+                    <hr>
+                    <p class="card-text text-muted h6">
+                        {{ story.created_on}}
+                    </p>
+                    <p class="card-text text-muted h6 fs-3">
+                        <i class="fa-solid fa-heart text-danger pe-2"></i>{{ story.upvotes }}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        {% if forloop.counter|divisibleby:2 %}
+        
+    </div>
+    <div class="row justify-content-center">
+
+        {% endif %}
+        {% endfor %}
+
+    </div>
+</section>
+
+<section class="container-fluid px-0">
     {% if is_paginated %}
     <!-- Paginator -->
     <div class="paginator-section d-flex justify-content-center align-items-center">
@@ -170,6 +287,6 @@
         </nav>
     </div>    
     {% endif %}
-</div>
+</section>
 
 {% endblock %}
