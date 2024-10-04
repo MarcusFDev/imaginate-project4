@@ -4,6 +4,10 @@
     display: none !important;
 }
 
+.show {
+    display: block !important;
+}
+
 .icon-bg {
     font-size: 150%;
 }

@@ -69,30 +69,3 @@ $(document).ready(function() {
     }, 500);
     console.log('Animation 2 finished')
 });
-
-$(document).ready(function() {
-    $('#signupForm', '#loginForm').on('submit', function(event) {
-        event.preventDefault();
-
-        $.ajax({
-            type: 'POST',
-            url: $(this).attr('action'),
-            data: $(this).serialize(),
-            success: function(response, status, xhr) {
-                if (xhr.getResponseHeader('X-Form-Invalid') === 'true') {
-                    update_form_error();
-                } else if (response.success) {
-                    location.reload();
-                }
-            },
-            error: function(xhr, status, error) {
-                console.log("Something went wrong. Error:", error);
-            }
-        });
-    });
-});
-
-function update_form_error() {
-    $('#modal-content').removeClass('border-glow').addClass('border-glow-red');
-    $('#modal-error-msg').removeClass('hidden');
-}

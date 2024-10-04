@@ -8,6 +8,8 @@ def register_view(request):
 
     reg_form = RegistrationForm(request.POST)
 
+    context = {}
+
     if reg_form.is_valid():
         reg_form.save()
 
@@ -21,7 +23,10 @@ def register_view(request):
 
     # If the form is invalid or the user couldn't be authenticated
     else:
-        return render(request, 'home/home_page.html', {'reg_form': reg_form})
+        context['has_error'] = True
+        context['reg_form'] = reg_form
+        return render(
+            request, 'home/home_page.html', context)
 
 
 def login_view(request):
