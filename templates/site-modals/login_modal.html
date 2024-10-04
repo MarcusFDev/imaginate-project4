@@ -36,8 +36,13 @@
                                 <div class="mb-3">
                                     <label for="id_username" class="form-label">Username</label>
                                     {{ login_form.username }}
+
                                     {% if login_form.username.errors %}
-                                    <div class="text-danger">{{ login_form.username.errors }}</div>
+                                    <div class="text-danger">
+                                        {% for error in login_form.username.errors %}
+                                        <div>{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
                                     {% endif %}
                                 </div>
 
@@ -45,9 +50,15 @@
                                 <div class="mb-3">
                                     <label for="id_password" class="form-label">Password</label>
                                     {{ login_form.password }}
+
                                     {% if login_form.username.errors %}
-                                    <div class="text-danger">{{ login_form.username.errors }}</div>
-                                    {% endif %}
+                                    <div class="text-danger">
+                                        {% for error in login_form.username.errors %}
+                                        <div>{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                </div>
 
                                 <!-- Login Button -->
                                 <div class="d-flex mt-2 justify-content-center">

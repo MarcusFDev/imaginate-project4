@@ -71,25 +71,28 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
-    $('#signupForm').on('submit', function(event) {
+    $('#signupForm', '#loginForm').on('submit', function(event) {
         event.preventDefault();
 
         $.ajax({
             type: 'POST',
             url: $(this).attr('action'),
             data: $(this).serialize(),
-            success: function(response) {
-                if (response.success) {
-                    $('#signupModal').modal('hide');
+            success: function(response, status, xhr) {
+                if (xhr.getResponseHeader('X-Form-Invalid') === 'true') {
+                    update_form_error();
+                } else if (response.success) {
                     location.reload();
-                } else {
-                    $('#signupModal').modal('show');
                 }
             },
             error: function(xhr, status, error) {
                 console.log("Something went wrong. Error:", error);
-                $('#signupModal').modal('show');
             }
         });
     });
 });
+
+function update_form_error() {
+    $('#modal-content').removeClass('border-glow').addClass('border-glow-red');
+    $('#modal-error-msg').removeClass('hidden');
+}

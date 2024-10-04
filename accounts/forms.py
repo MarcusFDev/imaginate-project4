@@ -34,6 +34,15 @@ class RegistrationForm(forms.ModelForm):
         model = User
         fields = ['username', 'email', 'password', 'password_confirm']
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for field in self.fields:
+            if self.errors.get(field):
+                self.fields[field].widget.attrs['class'] += ' is-invalid'
+            else:
+                self.fields[field].widget.attrs['class'] += ' is-valid'
+
     def clean_username(self):
         username = self.cleaned_data.get('username')
         if User.objects.filter(username=username).exists():
@@ -52,25 +61,39 @@ class RegistrationForm(forms.ModelForm):
 
         return username
 
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError("This email is already registered.")
+
+        return email
+
     def clean(self):
         cleaned_data = super().clean()
         password = cleaned_data.get("password")
         password_confirm = cleaned_data.get("password_confirm")
 
+        # Check if passwords match
         if password and password_confirm and password != password_confirm:
-            raise forms.ValidationError("Passwords do not match.")
+            # Attach error to the password_confirm field
+            self.add_error('password_confirm', forms.ValidationError(
+                "Passwords do not match."))
 
+        # Validate password length
         if password:
             if len(password) < 8 or len(password) > 20:
-                raise forms.ValidationError(
-                    "Password must be between 8 and 20 characters")
+                self.add_error('password', forms.ValidationError(
+                    "Password must be between 8 and 20 characters."))
 
+            # Validate for at least one digit
             if not re.search(r'\d', password):
-                raise forms.ValidationError(
-                    "Password must contain at least one digit.")
+                self.add_error('password', forms.ValidationError(
+                    "Password must contain at least one digit."))
+
+            # Validate for special characters
             if not re.search(r'[!@#$%^&*(),.?":{}|<>]', password):
-                raise forms.ValidationError(
-                    "Password must contain at least one special character.")
+                self.add_error('password', forms.ValidationError(
+                    "Password must contain at least one special character."))
 
         return cleaned_data
 
@@ -96,6 +119,13 @@ class LoginForm(forms.Form):
         })
     )
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for field in self.fields:
+            if self.errors.get(field):
+                self.fields[field].widget.attrs['class'] += ' is-invalid'
+
     def clean(self):
         cleaned_data = super().clean()
         username = cleaned_data.get('username')
@@ -104,6 +134,7 @@ class LoginForm(forms.Form):
         if username and password:
             user = authenticate(username=username, password=password)
             if user is None:
-                raise forms.ValidationError("Invalid Username or Password")
+                self.add_error('username', "Invalid Username or Password")
+                self.add_error('password', "Invalid Username or Password")
 
         return cleaned_data

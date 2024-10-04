@@ -1,6 +1,6 @@
 <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog modal-dialog-centered imaginate-modal-dialog modal-dialog-scrollable">
-        <div id="modal-content" class="modal-content imaginate-modal-content imaginate-modal-vh border-glow">
+        <div id="modal-content" class="modal-content imaginate-modal-content imaginate-modal-vh border-glow-red">
             <!-- Modal Close Button -->
             <div class="modal-header imaginate-modal-header">
                 <button type="button" class="btn-close imaginate-close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -23,21 +23,32 @@
 
                         <!-- Modal Form  -->
                         <div class="col-12 col-xl-6 ps-xl-5">
+                            
                             <form id="signupForm" method="POST" action="{% url 'register' %}">
                                 {% csrf_token %}
-
+                                
+                                {% if messages %}
                                 <!-- Error message -->
-                                <div class="text-danger hidden">
-                                    <h4 class="pb-2"><i class="fa-solid fa-triangle-exclamation pe-1"></i> Account Creation failed.</h4>
+                                <div id="modal-error-msg" class="text-danger hidden">
+                                    {% for message in messages %}
+                                    <h4 class="pb-2"><i class="fa-solid fa-triangle-exclamation pe-1"></i>{{ message }}</h4>
+                                    {% endfor %}
                                 </div>
+                                {% endif %}
 
                                 <!-- Username Field -->
                                 <div class="mb-3">
                                     <label for="id_username" class="form-label">Username</label>
                                     {{ reg_form.username }}
+
                                     {% if reg_form.username.errors %}
-                                    <div class="text-danger">{{ reg_form.username.errors }}</div>
+                                    <div class="text-danger">
+                                        {% for error in reg_form.username.errors %}
+                                            <div>{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
                                     {% endif %}
+                                    
                                     <ul class="pt-2 list-unstyled">
                                         <li><span class="form-text text-white"><i class="fa-solid fa-circle-info"></i> Max 12 characters in length.</span></li>
                                         <li><span class="form-text text-white"><i class="fa-solid fa-circle-info"></i> Does not contain special characters.</span></li>
@@ -48,8 +59,13 @@
                                 <div class="mb-3">
                                     <label for="id_email" class="form-label">Email</label>
                                     {{ reg_form.email }}
+
                                     {% if reg_form.email.errors %}
-                                    <div class="text-danger">{{ form.email.errors }}</div>
+                                    <div class="text-danger">
+                                        {% for error in reg_form.email.errors %}
+                                            <div>{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
                                     {% endif %}
                                 </div>
 
@@ -57,9 +73,15 @@
                                 <div class="mb-3">
                                     <label for="id_password" class="form-label">Password</label>
                                     {{ reg_form.password }}
+
                                     {% if reg_form.password.errors %}
-                                    <div class="text-danger">{{ reg_form.password.errors }}</div>
+                                    <div class="text-danger">
+                                        {% for error in reg_form.password.errors %}
+                                        <div>{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
                                     {% endif %}
+                                    
                                     <ul class="pt-2 list-unstyled">
                                         <li><span class="form-text text-white"><i class="fa-solid fa-circle-info"></i> Must be between 8-20 characters in length.</span></li>
                                         <li><span class="form-text text-white"><i class="fa-solid fa-circle-info"></i> Must contain at least one special character.</span></li>
@@ -70,8 +92,13 @@
                                 <div class="mb-3">
                                     <label for="id_password_confirm" class="form-label">Confirm Password</label>
                                     {{ reg_form.password_confirm }}
+                        
                                     {% if reg_form.password_confirm.errors %}
-                                    <div class="text-danger">{{ reg_form.password_confirm.errors }}</div>
+                                    <div class="text-danger">
+                                        {% for error in reg_form.password_confirm.errors %}
+                                        <div>{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
                                     {% endif %}
                                 </div>
 
@@ -81,6 +108,7 @@
                                     <button type="submit" class="btn btn-lg btn-primary mt-1">Register Me!</button>
                                 </div>
                             </form>
+                            
                         </div>
                     </div>
                 </div>
