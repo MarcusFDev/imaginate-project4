@@ -1,7 +1,7 @@
 <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true"
     data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog modal-dialog-centered imaginate-modal-dialog modal-dialog-scrollable">
-        <div id="modal-content" class="modal-content imaginate-modal-content imaginate-modal-vh border-glow">
+        <div id="modal-content" class="modal-content imaginate-modal-content imaginate-modal-vh {% if has_error %}border-glow-red{% else %}border-glow{% endif %}">
 
             <!-- Modal Close Button -->
             <div class="modal-header imaginate-modal-header">
@@ -28,8 +28,12 @@
                             <form id="loginForm" method="POST" action="{% url 'login' %}">
                                 {% csrf_token %}
 
-                                <div class="text-danger hidden">
-                                    <h4 class="pb-2"><i class="fa-solid fa-triangle-exclamation pe-1"></i> Account Login failed.</h4>
+                                <!-- Error message -->
+                                <div id="modal-error-msg"
+                                    class="text-danger {% if has_error %}show{% else %}hidden{% endif %}">
+                                    <h4 class="pb-2"><i class="fa-solid fa-triangle-exclamation pe-1"></i>
+                                        Account Login Failed
+                                    </h4>
                                 </div>
 
                                 <!-- Username Field -->

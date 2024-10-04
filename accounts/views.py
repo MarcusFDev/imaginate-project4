@@ -5,7 +5,6 @@ from .forms import RegistrationForm, LoginForm
 
 
 def register_view(request):
-
     reg_form = RegistrationForm(request.POST)
 
     context = {}
@@ -32,6 +31,8 @@ def register_view(request):
 def login_view(request):
     login_form = LoginForm(request.POST)
 
+    context = {}
+
     if login_form.is_valid():
 
         username = login_form.cleaned_data.get('username')
@@ -44,9 +45,10 @@ def login_view(request):
 
     # If the form is invalid or the user couldn't be authenticated
     else:
-        print(login_form.errors)
+        context['has_error'] = True
+        context['login_form'] = login_form
         return render(
-            request, 'home/home_page.html', {'login_form': login_form})
+            request, 'home/home_page.html', context)
 
 
 def handle_post(request):
