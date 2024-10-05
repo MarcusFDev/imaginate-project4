@@ -3,10 +3,10 @@
 {% block content %}
 
 <!-- Library Titles -->
-<section class="container-fluid library-header pt-3 mb-5">
+<section class="container-fluid library-header pt-5 mb-5">
     <div class="row">
         <div class="d-flex justify-content-center align-items-center">
-            <h1 class="py-3 text-white">
+            <h1 class="py-5 text-white">
                 <i class="fa-solid fa-book"></i>
                 Library
             </h1>
@@ -175,8 +175,7 @@
         <div class="col-md-4">
             <div class="card mb-4">
                 <div class="card-body">
-                    <a href="{% url 'story_page' story.slug %}" class="post-link"
-                        style="text-decoration: none; color: black;">
+                    <a href="{% url 'story_page' story.slug %}" class="post-link text-dark text-decoration-none">
                         <h2 class="card-title">{{ story.title }}</h2>
                         <p class="author">Author: {{ story.author }}</p>
                         <p class="card-text">{{ story.excerpt }}</p>

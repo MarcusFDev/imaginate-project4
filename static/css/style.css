@@ -70,6 +70,10 @@
     min-height: 80vh;
 }
 
+.min-vh-60 {
+    min-height: 60vh;
+}
+
 /* ------------------------------------------------->  Index Page styles */
 
 .library-header {
@@ -118,6 +122,30 @@
 
 .text-hover-black:hover span {
     color: black;
+}
+
+/* ------------------------------------------------->  Story Page styles */
+
+.story-border {
+    border: 10px solid #0B151F;
+    border-radius: 5px;
+}
+
+.story-header {
+    background-color: #0B151F;
+    border-bottom: 4px solid #080F17;
+}
+
+.story-header h1 {
+    font-size: 500%;
+}
+
+.story-header p {
+    font-size: 130%;
+}
+
+.story-header p span {
+    font-size: 80%;
 }
 
 /* ------------------------------------------------->  Modal styles */
@@ -445,6 +473,12 @@
 
     .social-title {        
         background-color:#0b151f;
+    }
+
+    /* Story Page styles */
+
+    .story-header h1 {
+        font-size: 400%;
     }
 
     /* Modal styles */

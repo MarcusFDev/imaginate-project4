@@ -3,30 +3,30 @@
 
 {% load static %}
 
-<div class="masthead"></div>
-    <div class="container">
-        <div class="row g-0">
-            <div class="col-md-6 masthead-text">
-                <!-- Post title goes in these h1 tags -->
-                <h1 class="post-title">{{ story.title }}</h1>
-                <!-- Post author goes before the | the post's created date goes after -->
-                <p class="post-subtitle">{{ story.author }} | {{ story.created_on }}</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="container">
+<section class="container-fluid story-header pt-3 mb-5">
     <div class="row">
-        <div class="col card mb-4  mt-3 left top">
+        <div class="col-lg-4"></div>
+        <div class="col col-lg-4 d-flex justify-content-center flex-column align-items-center">
+            <!-- Post title goes in these h1 tags -->
+            <h1 class="post-title text-white pt-2 pb-5">{{ story.title }}</h1>
+            <!-- Post author goes before the | the post's created date goes after -->
+            <p class="post-subtitle text-white">Written by {{ story.author }}</p>
+            <p class="post-subtitle text-white"><span>{{ story.created_on }}</span></p>
+        </div>
+        <div class="col-lg-4"></div>
+    </div>
+</section>
+
+
+<section class="container min-vh-60">
+    <div class="row">
+        <div class="col justify-content-center card mx-3 my-3 px-3 py-3 story-border">
             <div class="card-body">
-                <!-- The post content goes inside the card-text. -->
-                <!-- Use the | safe filter inside the template tags -->
                 <p class="card-text">
                     {{ story.content | safe }}
                 </p>
             </div>
         </div>
     </div>
-</div>
+</section>
 {% endblock %}
