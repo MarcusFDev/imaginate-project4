@@ -111,6 +111,15 @@
     box-shadow: none;
 }
 
+.filter-btn {
+    border: none;
+    background: whitesmoke;
+}
+
+.text-hover-black:hover span {
+    color: black;
+}
+
 /* ------------------------------------------------->  Modal styles */
 
 .imaginate-modal-content {

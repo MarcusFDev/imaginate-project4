@@ -14,6 +14,12 @@ class StoryList(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         queryset = Story.objects.filter(status=1, is_private=False)
+
+        search_query = self.request.GET.get('q')
+
+        if search_query:
+            queryset = queryset.filter(title__icontains=search_query)
+
         sort_filter = self.request.GET.get('sort', 'upvotes_desc')
 
         if sort_filter == 'upvotes_asc':

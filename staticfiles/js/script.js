@@ -69,3 +69,25 @@ $(document).ready(function() {
     }, 500);
     console.log('Animation 2 finished')
 });
+
+
+$(document).ready(function() {
+
+    const $searchIcon = $('#search-icon');
+    const $searchInput = $('#search-input');
+    const $form = $searchIcon.closest('form');
+
+    $searchIcon.on('click', function(event) {
+        event.preventDefault();
+        $searchInput.focus();
+        $form.submit();
+    });
+});
+
+$(document).ready(function() {
+    
+    $('#filter-button').on('click', function() {
+        console.log('Filter button triggered')
+        $('#filter-select').toggleClass('hidden');
+      });
+});

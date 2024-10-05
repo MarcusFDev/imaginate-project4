@@ -16,34 +16,47 @@
 
                 <!-- Search Bar -->
                 <div class="d-flex">
-                    <form class="d-flex highlight-none" role="search">
+                    <form method="GET" action="{% url 'stories' %}" class="d-flex highlight-none" role="search">
                         <div class="input-group library-search-bar">
 
                             <!-- Search Icon -->
-                            <span class="input-group-text" id="search-icon">
+                            <button type="button" class="input-group-text" id="search-icon" aria-label="Trigger Search">
                                 <i class="fa-solid fa-magnifying-glass icon-bg px-1 py-1"></i>
-                            </span>
+                            </button>
 
                             <!-- Search Input -->
-                            <input type="search" class="form-control" placeholder="Search..." aria-label="Search"
-                                aria-describedby="search-icon">
-    
+                            <input type="search" name="q" class="form-control" placeholder="Search..."
+                                value="{{ request.GET.q }}" aria-label="Search" aria-describedby="search-icon">
+
+                            <!-- Hidden input to keep the sort filter -->
+                            <input type="hidden" name="sort" value="{{ request.GET.sort|default:'upvotes_desc' }}">
+
                             <!-- Search Filter -->
                             <span class="input-group-text rounded-end">
-                                <a id="dropdownMenuButton" class="text-dark ps-1" type="button"
-                                    data-bs-toggle="dropdown" aria-expanded="true">
+                                <button id="filter-button" class="text-dark ps-1 filter-btn" type="button" aria-expanded="true">
                                     <i class="fa-solid fa-filter icon-bg"></i>
-                                </a>
-                                <!-- Filter Dropdown -->
-                                <ul class="dropdown-menu bg-rich-black border-glow"
-                                    aria-labelledby="dropdownMenuButton">
-                                    <li><a class="dropdown-item text-white" href="?sort=upvotes_desc">Most Upvotes</a>
-                                    </li>
-                                    <li><a class="dropdown-item text-white" href="?sort=upvotes_asc">Least Upvotes</a>
-                                    </li>
-                                    <li><a class="dropdown-item text-white" href="?sort=created_on_desc">Newest</a></li>
-                                    <li><a class="dropdown-item text-white" href="?sort=created_on_asc">Oldest</a></li>
-                                </ul>
+                                </button>
+                                <!-- Filter Options -->
+                                <div id="filter-select" class="hidden ps-2">
+                                    <select name="sort" class="form-select">
+                                        <option value="upvotes_desc"
+                                            {% if request.GET.sort == 'upvotes_desc' %}selected{% endif %}>
+                                            Most Upvoted
+                                        </option>
+                                        <option value="upvotes_asc"
+                                            {% if request.GET.sort == 'upvotes_asc' %}selected{% endif %}>
+                                            Least Upvoted
+                                        </option>
+                                        <option value="created_on_desc"
+                                            {% if request.GET.sort == 'created_on_desc' %}selected{% endif %}>
+                                            Newest to Oldest
+                                        </option>
+                                        <option value="created_on_asc"
+                                            {% if request.GET.sort == 'created_on_asc' %}selected{% endif %}>
+                                            Oldest to Newest
+                                        </option>
+                                    </select>
+                                </div>
                             </span>
                         </div>
                     </form>
