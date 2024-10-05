@@ -148,6 +148,17 @@
     font-size: 80%;
 }
 
+.btn-library-return {
+    background-color: #f8f9fa;
+    color: #343a40;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-library-return:hover {
+    background-color: #87ceeb;
+    border: 3px solid #080F17;
+}
+
 /* ------------------------------------------------->  Modal styles */
 
 .imaginate-modal-content {
