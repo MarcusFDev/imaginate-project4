@@ -1,8 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from django import forms
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
-from .models import Story
+from .models import Story, Comment
 
 
 # Create your views here.
@@ -34,6 +35,25 @@ class StoryList(LoginRequiredMixin, generic.ListView):
         return queryset
 
 
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('body',)
+        widgets = {
+            'body': forms.Textarea(
+                attrs={'rows': 1, 'placeholder': 'Add a comment...'}),
+        }
+
+    def clean(self):
+        cleaned_data = super().clean()
+        comment = cleaned_data.get('body')
+
+        if comment and len(comment) > 500:
+            self.add_error('body', "Comments are a Maximum of 500 characters.")
+
+        return cleaned_data
+
+
 @login_required(login_url='homepage')
 def story_page(request, slug):
     """
@@ -51,9 +71,29 @@ def story_page(request, slug):
 
     queryset = Story.objects.filter(status=1)
     story = get_object_or_404(queryset, slug=slug)
+    comments = story.comments.all()
+    comment_form = CommentForm()
+
+    if request.method == "POST":
+        comment_form = CommentForm(request.POST)
+
+        if not request.user.is_authenticated:
+            return redirect('home')
+
+        if comment_form.is_valid():
+
+            new_comment = comment_form.save(commit=False)
+            new_comment.story = story
+            new_comment.author = request.user
+            new_comment.save()
+            return redirect('story_page', slug=story.slug)
 
     return render(
         request,
         "stories/story_page.html",
-        {"story": story},
+        {
+            "story": story,
+            "comments": comments,
+            "comment_form": comment_form,
+        }
     )
