@@ -129,3 +129,27 @@ $(document).ready(function() {
         $(this).find('i').removeClass('icon-shake text-danger');
     });
 });
+
+
+$(document).ready(function() {
+    $('.upvote-btn').on('click', function(event) {
+        event.preventDefault();
+        var form = $(this).closest('form');
+        var commentId = form.find('input[name="comment_id"]').val();
+        var csrfToken = form.find('input[name="csrfmiddlewaretoken"]').val();
+
+        $.ajax({
+            type: 'POST',
+            url: form.attr('action'),
+            data: {
+                comment_id: commentId,
+                csrfmiddlewaretoken: csrfToken
+             },
+            dataType: 'json',
+            success: function(data) {
+                
+                $(form).find('.upvote-count').text(data.upvotes);
+            }
+        });
+    });
+});

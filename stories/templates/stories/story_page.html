@@ -92,13 +92,21 @@
                             class="text-light ms-2 fs-6">({{ comment.created_on|date:"F d, Y" }})</span>
                         <p class="pt-2">{{ comment.body }}</p>
 
-                        <button class="upvote-btn comment-btn text-white" type="submit">
-                            <i class="fa-regular fa-heart"></i>
-                        </button> {{ comment.upvotes }}
+                        <form method="POST" action="{% url 'upvote_comment' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                            <button class="upvote-btn comment-btn text-white" type="submit">
+                                <i class="fa-regular fa-heart"></i>
+                            </button> <span class="upvote-count">{{ comment.upvotes }}</span>
+                        </form>
+
+                        <button class="edit-btn comment-btn text-white px-5 py-3 position-absolute top-0 end-0" type="submit">
+                            <i class="fa-solid fa-pen-to-square icon-md link-yellow pe-3"></i>
+                        </button> 
 
                         <button class="delete-btn comment-btn text-white px-3 py-3 position-absolute top-0 end-0" type="submit">
                             <i class="fa-solid fa-trash-can icon-md"></i>
-                        </button> 
+                        </button>
                     </li>
                 </div>
                 {% endfor %}

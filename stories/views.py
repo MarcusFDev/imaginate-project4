@@ -2,6 +2,8 @@ from django import forms
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
 from django.views import generic
 from .models import Story, Comment
 
@@ -71,7 +73,8 @@ def story_page(request, slug):
 
     queryset = Story.objects.filter(status=1)
     story = get_object_or_404(queryset, slug=slug)
-    comments = story.comments.all()
+
+    comments = story.comments.all().order_by('-upvotes', 'created_on')
     comment_form = CommentForm()
 
     if request.method == "POST":
@@ -97,3 +100,25 @@ def story_page(request, slug):
             "comment_form": comment_form,
         }
     )
+
+
+@login_required(login_url='homepage')
+@require_POST
+def upvote_comment(request):
+
+    comment_id = request.POST.get('comment_id')
+
+    try:
+        comment = Comment.objects.get(id=comment_id)
+        comment.upvotes += 1
+        comment.save()
+
+        # Prepare JSON response
+        response_data = {
+            'upvotes': comment.upvotes,
+        }
+
+        return JsonResponse(response_data)
+
+    except Comment.DoesNotExist:
+        return JsonResponse({'error': 'Comment not found.'}, status=404)
