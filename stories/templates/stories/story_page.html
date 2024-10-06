@@ -103,10 +103,13 @@
                         <button class="edit-btn comment-btn text-white px-5 py-3 position-absolute top-0 end-0" type="submit">
                             <i class="fa-solid fa-pen-to-square icon-md link-yellow pe-3"></i>
                         </button> 
-
-                        <button class="delete-btn comment-btn text-white px-3 py-3 position-absolute top-0 end-0" type="submit">
-                            <i class="fa-solid fa-trash-can icon-md"></i>
-                        </button>
+                        <form method="POST" action="{% url 'delete_comment' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                            <button class="delete-btn comment-btn text-white px-3 py-3 position-absolute top-0 end-0" type="submit">
+                                <i class="fa-solid fa-trash-can icon-md"></i>
+                            </button>
+                        </form>
                     </li>
                 </div>
                 {% endfor %}

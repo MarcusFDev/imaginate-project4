@@ -130,7 +130,6 @@ $(document).ready(function() {
     });
 });
 
-
 $(document).ready(function() {
     $('.upvote-btn').on('click', function(event) {
         event.preventDefault();
@@ -154,6 +153,29 @@ $(document).ready(function() {
                     $(form).find('.upvote-btn i').removeClass('fa-regular').addClass('fa-solid').addClass('text-danger');
                 } else if (data.action == 'removed') {
                     $(form).find('.upvote-btn i').removeClass('fa-solid text-danger').addClass('fa-regular');
+                }
+            }
+        });
+    });
+});
+
+$(document).ready(function() {
+    $('.delete-btn').on('click', function(event) {
+        event.preventDefault();
+        var form = $(this).closest('form');
+        var csrfToken = form.find('input[name="csrfmiddlewaretoken"]').val();
+
+        $.ajax({
+            type: 'POST',
+            url: form.attr('action'),
+            data: { 
+                comment_id: form.find('input[name="comment_id"]').val(), 
+                csrfmiddlewaretoken: csrfToken 
+            },
+            dataType: 'json',
+            success: function(data) {
+                if (data.success) {
+                    $(form).closest('.comment').remove();
                 }
             }
         });

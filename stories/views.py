@@ -137,3 +137,19 @@ def upvote_comment(request):
 
     except Comment.DoesNotExist:
         return JsonResponse({'error': 'Comment not found.'}, status=404)
+
+
+@login_required(login_url='homepage')
+@require_POST
+def delete_comment(request):
+
+    comment_id = request.POST.get('comment_id')
+    comment = Comment.objects.get(id=comment_id)
+
+    try:
+        if comment.author == request.user:
+            comment.delete()
+            return JsonResponse({'success': 'Comment deleted successfully'})
+
+    except Comment.DoesNotExist:
+        return JsonResponse({'error': 'Comment not found'}, status=404)
