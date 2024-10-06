@@ -149,6 +149,12 @@ $(document).ready(function() {
             success: function(data) {
                 
                 $(form).find('.upvote-count').text(data.upvotes);
+
+                if (data.action == 'added') {
+                    $(form).find('.upvote-btn i').removeClass('fa-regular').addClass('fa-solid').addClass('text-danger');
+                } else if (data.action == 'removed') {
+                    $(form).find('.upvote-btn i').removeClass('fa-solid text-danger').addClass('fa-regular');
+                }
             }
         });
     });

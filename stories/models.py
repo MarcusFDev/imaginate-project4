@@ -46,6 +46,7 @@ class Comment(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     edited_on = models.DateTimeField(auto_now=True)
     upvotes = models.IntegerField(default=0)
+    upvoters = models.ManyToManyField(User, related_name='upvoted_comments')
 
     class Meta:
         ordering = ["upvotes", 'created_on']

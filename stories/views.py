@@ -107,15 +107,30 @@ def story_page(request, slug):
 def upvote_comment(request):
 
     comment_id = request.POST.get('comment_id')
+    comment = Comment.objects.get(id=comment_id)
 
     try:
-        comment = Comment.objects.get(id=comment_id)
+        if comment.upvoters.filter(id=request.user.id).exists():
+            # User has already upvoted, remove the upvote
+            comment.upvotes -= 1
+            comment.upvoters.remove(request.user)
+            comment.save()
+
+            response_data = {
+                'upvotes': comment.upvotes,
+                'action': 'removed',
+            }
+
+            return JsonResponse(response_data)
+
         comment.upvotes += 1
+        comment.upvoters.add(request.user)
         comment.save()
 
         # Prepare JSON response
         response_data = {
             'upvotes': comment.upvotes,
+            'action': 'added',
         }
 
         return JsonResponse(response_data)

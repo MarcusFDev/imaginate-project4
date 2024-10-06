@@ -96,7 +96,7 @@
                             {% csrf_token %}
                             <input type="hidden" name="comment_id" value="{{ comment.id }}">
                             <button class="upvote-btn comment-btn text-white" type="submit">
-                                <i class="fa-regular fa-heart"></i>
+                                <i class="fa-regular fa-heart {% if request.user in comment.upvoters.all %}fa-solid text-danger animate__animated animate__bounceIn{% endif %}"></i>
                             </button> <span class="upvote-count">{{ comment.upvotes }}</span>
                         </form>
 
