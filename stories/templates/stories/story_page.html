@@ -86,17 +86,32 @@
             {% if comments %}
             <ul class="list-group w-75">
                 {% for comment in comments %}
-                <li class="list-group-item comment text-white mb-4 fs-5">
-                    <strong class="text-success fs-5">{{ comment.author }}</strong> <span class="text-light ms-2 fs-6">({{ comment.created_on|date:"F d, Y" }})</span>
-                    <p class="pt-2">{{ comment.body }}</p>
-                    
-                    <button class="comment-vote-btn text-white" type="submit"><i class="fa-regular fa-heart"></i></button> {{ comment.upvotes }}
-                    
-                </li>
+                <div>
+                    <li class="list-group-item comment text-white mb-4 fs-5 position-relative">
+                        <strong class="text-success fs-5">{{ comment.author }}</strong> <span
+                            class="text-light ms-2 fs-6">({{ comment.created_on|date:"F d, Y" }})</span>
+                        <p class="pt-2">{{ comment.body }}</p>
+
+                        <button class="upvote-btn comment-btn text-white" type="submit">
+                            <i class="fa-regular fa-heart"></i>
+                        </button> {{ comment.upvotes }}
+
+                        <button class="delete-btn comment-btn text-white px-3 py-3 position-absolute top-0 end-0" type="submit">
+                            <i class="fa-solid fa-trash-can icon-md"></i>
+                        </button> 
+                    </li>
+                </div>
                 {% endfor %}
             </ul>
             {% else %}
-            <p>No comments yet. Be the first to comment!</p>
+            <div class="comment w-25 px-3 py-3">
+                <h4 class="text-warning">
+                    <strong>No Comments.</strong>
+                </h4>
+                <p class="pt-3 text-white">
+                    Be the first to share your thoughts!
+                </p>
+            </div>
             {% endif %}
         </div>
     </div>

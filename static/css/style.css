@@ -8,6 +8,10 @@
     display: block !important;
 }
 
+.icon-md {
+    font-size: 125%;
+}
+
 .icon-bg {
     font-size: 150%;
 }
@@ -176,9 +180,9 @@
    max-width: 100%;
 }
 
-.comment-vote-btn {
+.comment-btn {
     border: none;
-    background: #0E1A26;
+    background: transparent;
 }
 
 /* ------------------------------------------------->  Modal styles */

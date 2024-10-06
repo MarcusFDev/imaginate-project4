@@ -110,3 +110,22 @@ $(document).ready(function() {
     // Initial resize
     autoResize();
 });
+
+$(document).ready(function() {
+
+    $(document).on('click', '.upvote-btn', function() {
+
+        $(this).find('i').toggleClass('fa-solid text-danger animate__animated animate__bounceIn');
+    });
+});
+
+$(document).ready(function() {
+
+    $(document).on('mouseenter', '.delete-btn', function() {
+
+        $(this).find('i').addClass('icon-shake text-danger');
+    }).on('mouseleave', '.delete-btn', function() {
+
+        $(this).find('i').removeClass('icon-shake text-danger');
+    });
+});
