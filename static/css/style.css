@@ -159,6 +159,28 @@
     border: 3px solid #080F17;
 }
 
+/* Comments Section */
+
+.comment-section {
+    background-color: #0B151F;
+}
+
+.comment-header {
+    background-color:#080F17;
+}
+
+.comment {
+   background-color: #0E1A26;
+   border: 3px solid #080F17;
+   border-radius: 15px;
+   max-width: 100%;
+}
+
+.comment-vote-btn {
+    border: none;
+    background: #0E1A26;
+}
+
 /* ------------------------------------------------->  Modal styles */
 
 .imaginate-modal-content {

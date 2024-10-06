@@ -91,3 +91,22 @@ $(document).ready(function() {
         $('#filter-select').toggleClass('hidden');
       });
 });
+
+$(document).ready(function() {
+    var $textarea = $('#comment-input');
+    
+    // Function to resize the textarea
+    function autoResize() {
+        console.log('resize function triggered')
+        // Reset height to auto to calculate new height
+        $textarea.css('height', 'auto');
+        // Set height to scroll height
+        $textarea.css('height', $textarea[0].scrollHeight + 'px');
+    }
+    
+    // Bind the input event to the textarea
+    $textarea.on('input', autoResize);
+    
+    // Initial resize
+    autoResize();
+});
