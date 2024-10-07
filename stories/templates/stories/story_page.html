@@ -28,7 +28,21 @@
             <i class="fa-solid fa-arrow-left"></i> <span class="fs-4">Go back</span>
             </a>
         </div>
-        <div class="col-lg-4"></div>
+
+        <!-- Upvote Button (Large Devices) -->
+        <div class="col-lg-4 nav-item d-flex justify-content-center mt-5 pt-5 flex-column align-items-center">
+            
+            <form method="POST" action="{% url 'upvote_story' story.slug %}">
+                {% csrf_token %}
+                <input type="hidden" name="story_upvote" value="{{ story.slug }}">
+                <div>
+                    <button class="btn d-none d-lg-block mt-3 ms-5 story-upvote-btn text-white" type="submit">
+                        <i class="fa-regular fa-heart icon-bg {% if request.user in story.upvoters.all %}fa-solid text-danger animate__animated animate__bounceIn{% endif %}"></i>
+                    </button>
+                    <span class="story-upvote-count text-white">{{ story.upvotes }}</span>
+                </div>
+            </form>
+        </div>
     </div>
 </section>
 

@@ -100,7 +100,7 @@ $(document).ready(function() {
 
 
 // ====================================
-// Story Comment Functions
+// story_page.html Functions
 // ====================================
 
 
@@ -283,6 +283,40 @@ $(document).ready(function() {
                 setTimeout(function() {
                     errorMessage.toggleClass('hidden');
                 }, 5000);
+            }
+        });
+    });
+});
+
+
+$(document).ready(function() {
+
+    // Handle the upvote story button click.
+    $('.story-upvote-btn').on('click', function(event) {
+        event.preventDefault();
+        var form = $(this).closest('form');
+        var storySlug = form.find('input[name="story_upvote"]').val();
+        var csrfToken = form.find('input[name="csrfmiddlewaretoken"]').val();
+        
+        // Send the upvote data via AJAX.
+        $.ajax({
+            type: 'POST',
+            url: form.attr('action'),
+            data: {
+                story_slug: storySlug,
+                csrfmiddlewaretoken: csrfToken
+             },
+            dataType: 'json',
+            success: function(data) {
+                // Update the story upvote count.
+                $(form).find('.story-upvote-count').text(data.upvotes);
+                
+                // Toggle icon based on story Upvote or Remove Upvote.
+                if (data.action == 'added') {
+                    $(form).find('.story-upvote-btn i').removeClass('fa-regular').addClass('fa-solid').addClass('text-danger');
+                } else if (data.action == 'removed') {
+                    $(form).find('.story-upvote-btn i').removeClass('fa-solid text-danger').addClass('fa-regular');
+                }
             }
         });
     });
