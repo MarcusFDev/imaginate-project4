@@ -77,20 +77,6 @@ def story_page(request, slug):
     comments = story.comments.all().order_by('-upvotes', 'created_on')
     comment_form = CommentForm()
 
-    if request.method == "POST":
-        comment_form = CommentForm(request.POST)
-
-        if not request.user.is_authenticated:
-            return redirect('home')
-
-        if comment_form.is_valid():
-
-            new_comment = comment_form.save(commit=False)
-            new_comment.story = story
-            new_comment.author = request.user
-            new_comment.save()
-            return redirect('story_page', slug=story.slug)
-
     return render(
         request,
         "stories/story_page.html",
@@ -100,6 +86,24 @@ def story_page(request, slug):
             "comment_form": comment_form,
         }
     )
+
+
+@login_required(login_url='homepage')
+def add_comment(request, slug):
+
+    story = get_object_or_404(Story, slug=slug)
+
+    if request.method == "POST":
+        comment_form = CommentForm(request.POST)
+
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.story = story
+            new_comment.author = request.user
+            new_comment.save()
+            return redirect('story_page', slug=story.slug)
+
+    return JsonResponse({'error': 'Error adding comment'}, status=400)
 
 
 @login_required(login_url='homepage')
