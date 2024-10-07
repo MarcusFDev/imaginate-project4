@@ -68,23 +68,22 @@
                             <textarea class="comment-input form-control" name="body" row="1"
                                 placeholder="Add a comment..."></textarea>
                             <label for="comment-input">Add a Comment</label>
+
+                            <!-- Comment Submit Button -->
+                            <div class="d-flex my-3 comment-btn">
+                                <button class="btn btn-primary" type="submit">Submit</button>
+                                <!-- Comment Errors -->
+                                {% if comment_form.body.errors %}
+                                <div class="ms-3 pt-2 text-danger">
+                                    {% for error in comment_form.body.errors %}
+                                    <div>{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
                         </div>
-                        
-                        <!-- Comment Errors -->
-                        {% if comment_form.body.errors %}
-                        <div class="mx-5 text-danger">
-                            {% for error in comment_form.body.errors %}
-                            <div>{{ error }}</div>
-                            {% endfor %}
-                        </div>
-                        {% endif %}
-                    </div>
-                    <!-- Comment Submit Button -->
-                    <div class="mx-5 my-3 comment-btn">
-                        <button class="btn btn-primary" type="submit">Submit</button>
                     </div>
                 </form>
-
             </div>
 
             <!-- Comment Logout Error -->
@@ -109,7 +108,7 @@
 
                         <!-- Edit Comment Field -->
                         <div class="my-3 edited-comment form-floating w-100 hidden">
-                            <form method="POST" action="{% url 'edit_comment' comment.id %}" class="edit-comment-form">
+                            <form method="POST" action="{% url 'edit_comment' comment.id %}" class="edit-comment-form" id="form-{{ comment.id }}">
                                 {% csrf_token %}
                                 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
                                 <div class="px-0">
@@ -117,15 +116,21 @@
                                         placeholder="Add a comment...">{{ comment.body }}
                                     </textarea>
                                     <input type="hidden" name="comment_id" value="{{ comment.id }}">
-                                    <button class="save-btn btn btn-primary" type="submit">Save</button>
+                                    
                                 </div>
                             </form>
+                            
+                            <!-- Comment Errors -->
+                            <div class="mx-5 text-danger error-message hidden">
+                                An error occured submitting the comment. Please try again.
+                            </div>
+                           
                         </div>
 
                         <!-- Edit Comment Buttons -->
                         <div class="edited-comment position-absolute bottom-0 end-0 mt-3 pe-3 py-3 hidden">
                             <button class="cancel-btn me-1 btn btn-secondary">Cancel</button>
-                            
+                            <button class="save-btn btn btn-primary" type="button">Save</button>
                         </div>
 
                         <!-- Upvote Button -->

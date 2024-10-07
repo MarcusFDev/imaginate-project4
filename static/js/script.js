@@ -198,11 +198,11 @@ $(document).ready(function() {
 $(document).ready(function() {
     $('.save-btn').on('click', function(e) {
         e.preventDefault();
-        var commentId = $(this).closest('form').find('input[name="comment_id"]').val();
-        var form = $(this).closest('form');
-        var commentBody = $(this).closest('form').find('textarea[name="body"]').val();
-        var csrfToken = $(this).closest('form').find('input[name="csrfmiddlewaretoken"]').val();
         var button = $(this);
+        var form = button.closest('li').find('form');
+        var commentId = form.find('input[name="comment_id"]').val();
+        var commentBody = form.find('textarea[name="body"]').val();
+        var csrfToken = form.find('input[name="csrfmiddlewaretoken"]').val();
 
         $.ajax({
             type: 'POST',
@@ -225,6 +225,18 @@ $(document).ready(function() {
             },
             error: function(xhr, status, error) {
                 console.log(xhr.responseText);
+
+                var parentLi = button.closest('li');
+                parentLi.toggleClass('border-glow-red');
+                setTimeout(function() {
+                    parentLi.toggleClass('border-glow-red');
+                }, 5000);
+
+                var errorMessage = button.closest('li').find('.error-message');
+                errorMessage.toggleClass('hidden');
+                setTimeout(function() {
+                    errorMessage.toggleClass('hidden');
+                }, 5000);
             }
         });
     });
