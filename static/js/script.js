@@ -93,21 +93,21 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
-    var $textarea = $('#comment-input');
-    
-    // Function to resize the textarea
+    var $textareas = $('.comment-input');
+
     function autoResize() {
-        console.log('resize function triggered')
-        // Reset height to auto to calculate new height
-        $textarea.css('height', 'auto');
-        // Set height to scroll height
-        $textarea.css('height', $textarea[0].scrollHeight + 'px');
+
+        $textareas.each(function() {
+            $(this).css('height', 'auto');
+            $(this).css('height', this.scrollHeight + 'px');
+        });
     }
-    
-    // Bind the input event to the textarea
-    $textarea.on('input', autoResize);
-    
-    // Initial resize
+
+    $textareas.on('input', function() {
+        $(this).css('height', 'auto');
+        $(this).css('height', this.scrollHeight + 'px');
+    });
+
     autoResize();
 });
 
@@ -178,6 +178,46 @@ $(document).ready(function() {
                     $(form).closest('.comment').remove();
                 }
             }
+        });
+    });
+});
+
+$(document).ready(function() {
+    $('.edit-btn, .cancel-btn').on('click', function(event) {
+        event.preventDefault();
+        var commentId = $(this).data('comment-id');
+        var editCommentField = $(this).closest('li').find('.edited-comment');
+        var commentBody = $(this).closest('li').find('.comment-list-body');
+        var parentLi = editCommentField.closest('li');
+
+        editCommentField.toggleClass('hidden');
+        commentBody.toggleClass('hidden');
+        parentLi.toggleClass('border-glow');
+    });
+});
+
+$(document).ready(function() {
+    $('.save-btn').on('click', function(event) {
+        event.preventDefault();
+        var form = $(this).closest('form');
+        var commentId = form.find('input[name="comment_id"]').val();
+        var csrfToken = form.find('input[name="csrfmiddlewaretoken"]').val();
+        var editedComment = $(form).closest('li').find('textarea[name="body"]').val();
+
+        $.ajax({
+            type: 'POST',
+            url: form.attr('action'),
+            data: {
+                comment_id: commentId,
+                csrfmiddlewaretoken: csrfToken,
+                body: editedComment,
+            },
+            dataType: 'json',
+            success: function(data) {
+                if (data.success) {
+                    location.reload();
+                }
+            },
         });
     });
 });
