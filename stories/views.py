@@ -104,14 +104,30 @@ def story_page(request, slug):
 
 @login_required(login_url='homepage')
 @require_POST
-def upvote_comment(request):
+def edit_comment(request, comment_id):
+    comment = Comment.objects.get(id=comment_id)
+    if request.method == 'POST':
+        edited_comment = request.POST['body']
+        form = CommentForm({'body': edited_comment}, instance=comment)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({'message': 'Comment edited successfully'})
+        else:
+            return JsonResponse(
+                {'message': 'Error editing comment'}, status=400)
+    else:
+        return JsonResponse({'message': 'Error editing comment'}, status=400)
 
-    comment_id = request.POST.get('comment_id')
+
+@login_required(login_url='homepage')
+@require_POST
+def upvote_comment(request, comment_id):
+
     comment = Comment.objects.get(id=comment_id)
 
     try:
         if comment.upvoters.filter(id=request.user.id).exists():
-            # User has already upvoted, remove the upvote
+
             comment.upvotes -= 1
             comment.upvoters.remove(request.user)
             comment.save()
@@ -127,7 +143,6 @@ def upvote_comment(request):
         comment.upvoters.add(request.user)
         comment.save()
 
-        # Prepare JSON response
         response_data = {
             'upvotes': comment.upvotes,
             'action': 'added',
@@ -141,9 +156,8 @@ def upvote_comment(request):
 
 @login_required(login_url='homepage')
 @require_POST
-def delete_comment(request):
+def delete_comment(request, comment_id):
 
-    comment_id = request.POST.get('comment_id')
     comment = Comment.objects.get(id=comment_id)
 
     try:
