@@ -89,6 +89,41 @@ def story_page(request, slug):
 
 
 @login_required(login_url='homepage')
+@require_POST
+def upvote_story(request, slug):
+
+    story = Story.objects.get(slug=slug)
+
+    try:
+        if story.upvoters.filter(id=request.user.id).exists():
+
+            story.upvotes -= 1
+            story.upvoters.remove(request.user)
+            story.save()
+
+            response_data = {
+                'upvotes': story.upvotes,
+                'action': 'removed',
+            }
+
+            return JsonResponse(response_data)
+
+        story.upvotes += 1
+        story.upvoters.add(request.user)
+        story.save()
+
+        response_data = {
+            'upvotes': story.upvotes,
+            'action': 'added',
+        }
+
+        return JsonResponse(response_data)
+
+    except Story.DoesNotExist:
+        return JsonResponse({'error': 'Story not found.'}, status=404)
+
+
+@login_required(login_url='homepage')
 def add_comment(request, slug):
 
     story = get_object_or_404(Story, slug=slug)
