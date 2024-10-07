@@ -87,7 +87,6 @@ $(document).ready(function() {
 $(document).ready(function() {
     
     $('#filter-button').on('click', function() {
-        console.log('Filter button triggered')
         $('#filter-select').toggleClass('hidden');
       });
 });
@@ -197,27 +196,36 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
-    $('.save-btn').on('click', function(event) {
-        event.preventDefault();
+    $('.save-btn').on('click', function(e) {
+        e.preventDefault();
+        var commentId = $(this).closest('form').find('input[name="comment_id"]').val();
         var form = $(this).closest('form');
-        var commentId = form.find('input[name="comment_id"]').val();
-        var csrfToken = form.find('input[name="csrfmiddlewaretoken"]').val();
-        var editedComment = $(form).closest('li').find('textarea[name="body"]').val();
+        var commentBody = $(this).closest('form').find('textarea[name="body"]').val();
+        var csrfToken = $(this).closest('form').find('input[name="csrfmiddlewaretoken"]').val();
+        var button = $(this);
 
         $.ajax({
             type: 'POST',
             url: form.attr('action'),
             data: {
-                comment_id: commentId,
-                csrfmiddlewaretoken: csrfToken,
-                body: editedComment,
+                'csrfmiddlewaretoken': csrfToken,
+                'body': commentBody
             },
-            dataType: 'json',
             success: function(data) {
-                if (data.success) {
-                    location.reload();
-                }
+                console.log(data);
+
+                button.closest('li').find('.comment-list-body').text(commentBody);
+                var editCommentField = button.closest('li').find('.edited-comment');
+                var commentBodyElement = button.closest('li').find('.comment-list-body');
+                var parentLi = editCommentField.closest('li');
+
+                editCommentField.toggleClass('hidden');
+                commentBodyElement.toggleClass('hidden');
+                parentLi.toggleClass('border-glow');
             },
+            error: function(xhr, status, error) {
+                console.log(xhr.responseText);
+            }
         });
     });
 });

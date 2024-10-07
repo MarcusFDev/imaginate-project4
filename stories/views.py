@@ -105,18 +105,18 @@ def story_page(request, slug):
 @login_required(login_url='homepage')
 @require_POST
 def edit_comment(request, comment_id):
-    comment = Comment.objects.get(id=comment_id)
+
+    comment = get_object_or_404(Comment, id=comment_id)
+
     if request.method == 'POST':
-        edited_comment = request.POST['body']
-        form = CommentForm({'body': edited_comment}, instance=comment)
-        if form.is_valid():
-            form.save()
+        form = CommentForm(request.POST)
+        if form.is_valid() and comment.author == request.user:
+            comment.body = form.cleaned_data['body']
+            comment.save()
+
             return JsonResponse({'message': 'Comment edited successfully'})
-        else:
-            return JsonResponse(
-                {'message': 'Error editing comment'}, status=400)
-    else:
-        return JsonResponse({'message': 'Error editing comment'}, status=400)
+
+    return JsonResponse({'message': 'Error editing comment'}, status=400)
 
 
 @login_required(login_url='homepage')

@@ -109,13 +109,15 @@
 
                         <!-- Edit Comment Field -->
                         <div class="my-3 edited-comment form-floating w-100 hidden">
-                            <form method="POST" action="">
+                            <form method="POST" action="{% url 'edit_comment' comment.id %}" class="edit-comment-form">
                                 {% csrf_token %}
+                                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
                                 <div class="px-0">
-                                    <textarea class="comment-input px-0 pb-3 comment-edit text-white fs-5 form-control" name="body" row="1"
+                                    <textarea class="comment-input px-0 pb-3 comment-edit text-white fs-5 form-control" id="comment-body-{{ comment.id }}" value="comment-body-{{ comment.id }}" name="body" row="1"
                                         placeholder="Add a comment...">{{ comment.body }}
                                     </textarea>
                                     <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                                    <button class="save-btn btn btn-primary" type="submit">Save</button>
                                 </div>
                             </form>
                         </div>
@@ -123,7 +125,7 @@
                         <!-- Edit Comment Buttons -->
                         <div class="edited-comment position-absolute bottom-0 end-0 mt-3 pe-3 py-3 hidden">
                             <button class="cancel-btn me-1 btn btn-secondary">Cancel</button>
-                            <button class="save-btn btn btn-primary">Save</button>
+                            
                         </div>
 
                         <!-- Upvote Button -->
