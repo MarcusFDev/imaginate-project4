@@ -65,7 +65,7 @@
 
                         <!-- Comment Text Input -->
                         <div class="mx-5 my-3 form-floating w-25">
-                            <textarea id="comment-input" class="form-control" name="body" row="1"
+                            <textarea class="comment-input form-control" name="body" row="1"
                                 placeholder="Add a comment..."></textarea>
                             <label for="comment-input">Add a Comment</label>
                         </div>
@@ -84,6 +84,7 @@
                         <button class="btn btn-primary" type="submit">Submit</button>
                     </div>
                 </form>
+
             </div>
 
             <!-- Comment Logout Error -->
@@ -104,39 +105,59 @@
                     <li class="list-group-item comment text-white mb-4 fs-5 position-relative">
                         <strong class="text-success fs-5">{{ comment.author }}</strong> <span
                             class="text-light ms-2 fs-6">({{ comment.created_on|date:"F d, Y" }})</span>
-                        <p class="pt-3">{{ comment.body }}</p>
-                        
+                        <p class="comment-list-body pt-3">{{ comment.body }}</p>
+
+                        <!-- Edit Comment Field -->
+                        <div class="my-3 edited-comment form-floating w-100 hidden">
+                            <form method="POST" action="">
+                                {% csrf_token %}
+                                <div class="px-0">
+                                    <textarea class="comment-input px-0 pb-3 comment-edit text-white fs-5 form-control" name="body" row="1"
+                                        placeholder="Add a comment...">{{ comment.body }}
+                                    </textarea>
+                                    <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Edit Comment Buttons -->
+                        <div class="edited-comment position-absolute bottom-0 end-0 mt-3 pe-3 py-3 hidden">
+                            <button class="cancel-btn me-1 btn btn-secondary">Cancel</button>
+                            <button class="save-btn btn btn-primary">Save</button>
+                        </div>
+
                         <!-- Upvote Button -->
-                        <form method="POST" action="{% url 'upvote_comment' %}">
+                        <form method="POST" action="{% url 'upvote_comment' comment.id %}">
                             {% csrf_token %}
                             <input type="hidden" name="comment_id" value="{{ comment.id }}">
                             <button class="upvote-btn comment-btn text-white" type="submit">
                                 <i class="fa-regular fa-heart {% if request.user in comment.upvoters.all %}fa-solid text-danger animate__animated animate__bounceIn{% endif %}"></i>
                             </button> <span class="upvote-count">{{ comment.upvotes }}</span>
                         </form>
-                        
+
                         <!-- Edit Button -->
                         {% if request.user == comment.author %}
-                        <form method="POST" action="#">
+                        <form method="POST" action="{% url 'edit_comment' comment.id %}">
                             {% csrf_token %}
                             <input type="hidden" name="comment_id" value="{{ comment.id }}">
-                            <button class="edit-btn comment-btn text-white px-5 py-3 position-absolute top-0 end-0" type="submit">
+                            <button class="edit-btn comment-btn text-white px-5 py-3 position-absolute top-0 end-0"
+                                type="submit" data-comment-id="{{ comment.id }}">
                                 <i class="fa-solid fa-pen-to-square icon-md link-yellow pe-3"></i>
                             </button>
                         </form>
                         {% endif %}
-                        
+
                         <!-- Delete Button -->
                         {% if request.user == comment.author %}
-                        <form method="POST" action="{% url 'delete_comment' %}">
+                        <form method="POST" action="{% url 'delete_comment' comment.id %}">
                             {% csrf_token %}
                             <input type="hidden" name="comment_id" value="{{ comment.id }}">
-                            <button class="delete-btn comment-btn text-white px-3 py-3 position-absolute top-0 end-0" type="submit">
+                            <button class="delete-btn comment-btn text-white px-3 py-3 position-absolute top-0 end-0"
+                                type="submit">
                                 <i class="fa-solid fa-trash-can icon-md"></i>
                             </button>
                         </form>
                         {% endif %}
-
                     </li>
                 </div>
                 {% endfor %}

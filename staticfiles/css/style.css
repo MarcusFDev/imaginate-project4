@@ -180,6 +180,17 @@
    max-width: 100%;
 }
 
+.comment-edit {
+    background-color: #0E1A26;
+    border: none;
+}
+
+.comment-edit:focus {
+    background-color: #0E1A26;
+    border: none;
+    outline: none;
+}
+
 .comment-btn {
     border: none;
     background: transparent;
