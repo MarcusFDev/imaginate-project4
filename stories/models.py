@@ -22,6 +22,7 @@ class Story(models.Model):
     excerpt = models.TextField(blank=True)
     is_private = models.BooleanField(default=True)
     upvotes = models.IntegerField(default=0)
+    upvoters = models.ManyToManyField(User, related_name="upvoted_stories")
 
     class Meta:
         ordering = ["upvotes", 'created_on']
