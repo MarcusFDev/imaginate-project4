@@ -168,6 +168,10 @@ def delete_comment(request, comment_id):
         if comment.author == request.user:
             comment.delete()
             return JsonResponse({'success': 'Comment deleted successfully'})
+        else:
+            return JsonResponse(
+                {'error': 'You do not have permission to delete this comment'},
+                status=403)
 
     except Comment.DoesNotExist:
         return JsonResponse({'error': 'Comment not found'}, status=404)
