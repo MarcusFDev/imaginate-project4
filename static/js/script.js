@@ -1,74 +1,76 @@
-$(document).ready(function(){
-    $('#nav-home').hover(
-        function() {
-            // Mouse enters the element
-            $(this).find('i').addClass('icon-beat');
-        },
-        function() {
-            // Mouse leaves the element
-            $(this).find('i').removeClass('icon-beat');
-        }
-    );
-    $('#nav-library').hover(
-        function() {
-            // Mouse enters the element
-            $(this).find('i').addClass('icon-shake');
-        },
-        function() {
-            // Mouse leaves the element
-            $(this).find('i').removeClass('icon-shake');
-        }
-    )
-    $('#nav-stories').hover(
-        function() {
-            // Mouse enters the element
-            $(this).find('i').addClass('icon-bounce');
-        },
-        function() {
-            // Mouse leaves the element
-            $(this).find('i').removeClass('icon-bounce');
-        }
-    );
-    $('#nav-profile').hover(
-        function() {
-            // Mouse enters the element
-            $(this).find('i').addClass('icon-beat');
-        },
-        function() {
-            // Mouse leaves the element
-            $(this).find('i').removeClass('icon-beat');
-        }
-    );
-});
+// ====================================
+// base.html Functions
+// ====================================
+
 
 $(document).ready(function() {
 
+    // Define icon class for each nav element.
+    const iconClasses = {
+        '#nav-home': 'icon-beat',
+        '#nav-library': 'icon-shake',
+        '#nav-stories': 'icon-bounce',
+        '#nav-profile': 'icon-beat'
+    };
+
+    // Iterate over elements & set up hover.
+    $.each(iconClasses, function(selector, className) {
+        $(selector).hover(
+            function() {
+                // On Mouse enter Add class.
+                $(this).find('i').toggleClass(className, true);
+            },
+            function() {
+                // On Mouse leave Remove class.
+                $(this).find('i').toggleClass(className, false);
+            }
+        );
+    });
+});
+
+
+// ====================================
+// user_profile.html Functions
+// ====================================
+
+
+$(document).ready(function() {
+    
+    // Handle the close button click.
     $('.btn-close').on('click', function() {
-        console.log("Received Request.");
         
-        // Add the fade-out animation to #info-alert
+        // Targets #info-alert & applies animation.
         $('#info-alert').addClass('animate__animated animate__fadeOutUp');
 
-        // Start sliding up the #info-section
+        // Slides #info-section & applies hidden class.
         $('#info-section').slideUp(400, function() {
             $(this).addClass('hidden');
         });
 
-        console.log("Request Complete.");
     });
 });
 
+
+// ====================================
+// home_page.html Functions
+// ====================================
+
+
 $(document).ready(function() {
 
-    console.log('Page Loaded, animations intialized')
-
+    // Targets Home title applies animation class.
     $('#imaginate-titles h1').addClass('animate__animated animate__fadeInUp');
-    console.log('Animation 1 finished')
+    
+    // Targets Home title subheading applies animation class.
     setTimeout(function() {
         $('#imaginate-titles h3').addClass('animate__animated animate__fadeInUp');
     }, 500);
-    console.log('Animation 2 finished')
 });
+
+
+// ====================================
+// index.html / Library Page Functions
+// ====================================
 
 
 $(document).ready(function() {
@@ -76,7 +78,8 @@ $(document).ready(function() {
     const $searchIcon = $('#search-icon');
     const $searchInput = $('#search-input');
     const $form = $searchIcon.closest('form');
-
+    
+    
     $searchIcon.on('click', function(event) {
         event.preventDefault();
         $searchInput.focus();
@@ -84,58 +87,85 @@ $(document).ready(function() {
     });
 });
 
+
 $(document).ready(function() {
-    
+
+    // Handle the filter button click.
     $('#filter-button').on('click', function() {
+
+        // Toggle hidden class on element.
         $('#filter-select').toggleClass('hidden');
       });
 });
 
+
+// ====================================
+// Story Comment Functions
+// ====================================
+
+
 $(document).ready(function() {
+
     var $textareas = $('.comment-input');
-
+    
+    /** 
+     * Automatically resizes all <textarea> elements with the class 'comment-input'
+     * to fit their content by adjusting the height based on their scroll height.
+     */
     function autoResize() {
-
+        
+        // Loop over each <textarea> & adjust height content height.
         $textareas.each(function() {
             $(this).css('height', 'auto');
             $(this).css('height', this.scrollHeight + 'px');
         });
     }
 
+    // Attach the resize logic to the input event of each <textarea>.
     $textareas.on('input', function() {
         $(this).css('height', 'auto');
         $(this).css('height', this.scrollHeight + 'px');
     });
-
+    
+    // Initial resize on DOM load.
     autoResize();
 });
 
+
 $(document).ready(function() {
-
+    
+    // Listen for clicks on elements 'upvote-btn' class.
     $(document).on('click', '.upvote-btn', function() {
-
+        
+        // Toggle class on the <i> element within the clicked '.upvote-btn' element.
         $(this).find('i').toggleClass('fa-solid text-danger animate__animated animate__bounceIn');
     });
 });
 
+
 $(document).ready(function() {
 
+    // On Mouse Enter over element with 'delete-btn' class, add classes.
     $(document).on('mouseenter', '.delete-btn', function() {
-
         $(this).find('i').addClass('icon-shake text-danger');
-    }).on('mouseleave', '.delete-btn', function() {
-
+    })
+    // On Mouse Leave over element with 'delete-btn' class, remove classes.
+    .on('mouseleave', '.delete-btn', function() {
         $(this).find('i').removeClass('icon-shake text-danger');
     });
 });
 
+
 $(document).ready(function() {
+
+    // Handle the upvote comment button click.
     $('.upvote-btn').on('click', function(event) {
         event.preventDefault();
         var form = $(this).closest('form');
         var commentId = form.find('input[name="comment_id"]').val();
         var csrfToken = form.find('input[name="csrfmiddlewaretoken"]').val();
-
+        
+        // Send the upvote data via AJAX.
         $.ajax({
             type: 'POST',
             url: form.attr('action'),
@@ -145,9 +175,10 @@ $(document).ready(function() {
              },
             dataType: 'json',
             success: function(data) {
-                
+                // Update the comment upvote count.
                 $(form).find('.upvote-count').text(data.upvotes);
-
+                
+                // Toggle icon based on comment Upvote or Remove Upvote.
                 if (data.action == 'added') {
                     $(form).find('.upvote-btn i').removeClass('fa-regular').addClass('fa-solid').addClass('text-danger');
                 } else if (data.action == 'removed') {
@@ -158,12 +189,16 @@ $(document).ready(function() {
     });
 });
 
+
 $(document).ready(function() {
+
+    // Handle the delete comment button click.
     $('.delete-btn').on('click', function(event) {
         event.preventDefault();
         var form = $(this).closest('form');
         var csrfToken = form.find('input[name="csrfmiddlewaretoken"]').val();
-
+        
+        // Send the delete data via AJAX.
         $.ajax({
             type: 'POST',
             url: form.attr('action'),
@@ -173,6 +208,7 @@ $(document).ready(function() {
             },
             dataType: 'json',
             success: function(data) {
+                // Delete comment from page.
                 if (data.success) {
                     $(form).closest('.comment').remove();
                 }
@@ -181,21 +217,28 @@ $(document).ready(function() {
     });
 });
 
+
 $(document).ready(function() {
+
+    // Handle the edit & cancel button click.
     $('.edit-btn, .cancel-btn').on('click', function(event) {
         event.preventDefault();
         var commentId = $(this).data('comment-id');
         var editCommentField = $(this).closest('li').find('.edited-comment');
         var commentBody = $(this).closest('li').find('.comment-list-body');
         var parentLi = editCommentField.closest('li');
-
+        
+        // Toggles class on targetted elements.
         editCommentField.toggleClass('hidden');
         commentBody.toggleClass('hidden');
         parentLi.toggleClass('border-glow');
     });
 });
 
+
 $(document).ready(function() {
+
+    // Handle the save comment button click.
     $('.save-btn').on('click', function(e) {
         e.preventDefault();
         var button = $(this);
@@ -203,7 +246,8 @@ $(document).ready(function() {
         var commentId = form.find('input[name="comment_id"]').val();
         var commentBody = form.find('textarea[name="body"]').val();
         var csrfToken = form.find('input[name="csrfmiddlewaretoken"]').val();
-
+        
+        // Send the save data via AJAX.
         $.ajax({
             type: 'POST',
             url: form.attr('action'),
@@ -214,6 +258,7 @@ $(document).ready(function() {
             success: function(data) {
                 console.log(data);
 
+                // Add Classes to targetted elements
                 button.closest('li').find('.comment-list-body').text(commentBody);
                 var editCommentField = button.closest('li').find('.edited-comment');
                 var commentBodyElement = button.closest('li').find('.comment-list-body');
@@ -225,7 +270,8 @@ $(document).ready(function() {
             },
             error: function(xhr, status, error) {
                 console.log(xhr.responseText);
-
+                
+                // Add Error Classes to targetted elements.
                 var parentLi = button.closest('li');
                 parentLi.toggleClass('border-glow-red');
                 setTimeout(function() {
