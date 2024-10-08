@@ -171,14 +171,18 @@
 }
 
 .story-upvote-active {
-    background-color: #0E1A26 !important;
-    border: 3px solid #0f5132 !important;
-    border-radius: 15px !important;
-    max-width: 100% !important;
+    background-color: #87ceeb;
+    border: 6px solid #0f5132;
+    color: #343a40;
+    border-radius: 15px;
+    max-width: 100%;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .story-upvote:hover {
-    border: 3px solid #0f5132;
+    border: 6px solid #0f5132;
+    background-color: #87ceeb;
+    color: #343a40;
 }
 
 /* Comments Section */
