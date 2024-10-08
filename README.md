@@ -172,7 +172,10 @@ More user Stories can be found [here](https://github.com/users/MarcusFDev/projec
 
 ### Known Bugs
 
-No active known bugs have been detected in the program.
+- Story Upvote `<div>` not updating style upon AJAX button click. Page Refresh still required for styles to take effect.
+- Account Login & Register modals close & page refresh upon failed form submission.
+- If error in form is detected from either Login or Register, error styling is applied to other Modal, Register or Login respectively.
+
 
 ### Fixed Bugs
 
