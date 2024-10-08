@@ -30,23 +30,21 @@
             <div class="row d-flex align-items-center">
 
                 <!-- Logo and Site Name -->
-                <div class="col-xxl-3 col-xl-4 d-flex align-items-center justify-content-center position-relative">
+                <div class="col-lg-6 d-flex align-items-center justify-content-center position-relative">
                     <a href="/" class="d-flex align-items-center text-white text-decoration-none">
                         <h1 class="mb-0">Imaginate</h1>
                     </a>
                     <!-- Navbar Toggle Button (Small to Medium devices, hidden on Large) -->
-                    <div class="position-absolute top-0 end-0">
-                        <button class="btn btn-light text-dark d-lg-none" type="button" data-bs-toggle="offcanvas"
+                    <div class="position-absolute top-0 end-0 d-lg-none">
+                        <button class="btn btn-light text-dark " type="button" data-bs-toggle="offcanvas"
                             data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                             <i class="fa-solid fa-bars"></i>
                         </button>
                     </div>
                 </div>
 
-                <div class="col-xxl-3 d-xxl-block"></div>
-                
                 <!-- Navigation Links (Large Devices) -->
-                <div class="col-xl-3 col-lg-4 d-flex justify-content-end align-items-center">
+                <div class="col-lg-6 d-flex justify-content-end align-items-center">
                     <nav class="d-none d-lg-block">
                         <ul class="nav">
                             <li class="nav-item text-center">
@@ -69,23 +67,23 @@
                                     <span class="no-animation">My Stories</span>
                                 </a>
                             </li>
-                            <li class="nav-item text-center">
+                            <li class="nav-item text-center me-2">
                                 <a href="{% url 'user_profile' %}" id="nav-profile"
                                     class="nav-link text-white d-flex flex-column align-items-center">
                                     <i class="fa-solid fa-user bi d-block px-2 mb-1 icon-bg"></i>
                                     <span class="no-animation">My Profile</span>
                                 </a>
                             </li>
+
+                             <!-- Log Out Button -->
+                            <li class="nav-item text-center ms-5">
+                                <button type="submit" class="btn text-dark btn-logout mt-3"
+                                    data-bs-toggle="modal" data-bs-target="#logoutmodal" aria-current="page">
+                                    <i class="fa-solid fa-right-from-bracket"></i> <span>Log Out</span>
+                                </button>
+                            </li>
                         </ul>
                     </nav>
-                </div>
-
-                <!-- Log Out Button -->
-                <div class="col-xxl-3 col-xl-4 d-flex justify-content-end">
-                    <button type="submit" class="btn text-dark btn-logout d-none d-lg-block mt-3 ms-5"
-                        data-bs-toggle="modal" data-bs-target="#logoutmodal" aria-current="page">
-                        <i class="fa-solid fa-right-from-bracket"></i> Log Out
-                    </button>
                 </div>
 
                 <!-- Navigation Links (Small to Medium devices) -->

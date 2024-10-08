@@ -483,6 +483,16 @@
     }
 }
 
+/* ------------------------------------------------->  (990px to 1170px) Device styles */
+/* Media Query to target base.html nav element */
+@media (min-width: 990px) and (max-width: 1170px) {
+
+    .nav button span {
+        display: none;
+    }
+}
+
+
 /* ------------------------------------------------->  (576px to 768px) Device styles */
 @media (max-width: 768px) {
 
