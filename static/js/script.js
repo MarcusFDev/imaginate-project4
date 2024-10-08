@@ -51,6 +51,24 @@ $(document).ready(function() {
 });
 
 
+$(document).ready(function() {
+
+    // Handle click detected on element.
+    $('.danger-overlay').on('click', function() {
+
+        var $overlay = $(this);
+
+        // Add animation class to the overlay element.
+        $overlay.addClass('animate__animated animate__fadeOut');
+
+        // Remove the overlay element after animation.
+        setTimeout(function() {
+            $overlay.remove();
+        }, 5000);
+    });
+});
+
+
 // ====================================
 // home_page.html Functions
 // ====================================

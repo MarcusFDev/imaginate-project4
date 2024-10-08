@@ -20,6 +20,30 @@
     font-size: 400%;
 }
 
+.icon-xxl {
+    font-size: 1800%;
+}
+
+.imaginate-bg-3 {
+    background-color:#080F17;
+}
+
+.imaginate-bg-2 {
+    background-color: #0B151F;
+}
+
+.imaginate-bg-1 {
+    background-color: #0E1A26;
+}
+
+.imaginate-close-btn {
+    filter: invert(1);
+}
+
+.imaginate-border-bottom {
+    border-bottom: 5px solid #080F17;
+}
+
 .border-glow {
     border: 2px solid rgba(255, 255, 255, 0.5);
     box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.6); 
@@ -254,9 +278,7 @@
     text-underline-offset: 15px;
 }
 
-.imaginate-close-btn {
-    filter: invert(1);
-}
+
 
 .imaginate-modal-dialog {
     width: 60vw !important;
@@ -267,26 +289,27 @@
 
 .pf-danger-section {
     height: auto;
-    background-color: #ffb915 !important;
+    background-color: #ffb915;
     border: 3px solid #343a40;
 }
 
 .pf-opt-section {
     height: auto;
-    background-color: #a9a9a9 !important;
+    background-color: #a9a9a9;
     border: 3px solid #343a40;
 }
 
 .pf-danger-btn {
-    background-color: #dc3545 !important;
+    background-color: #dc3545;
 }
 
 .pf-danger-btn:hover {
-    background-color: #5e1914 !important;
+    background-color: #5e1914;
 }
 
 .pf-description {
-    border: 2px solid #343a40;
+    border: 3px solid #080F17;
+    background-color: #0B151F;
     border-radius: 10px;
     margin-top: 5px;
     padding: 15px;
@@ -295,11 +318,25 @@
 }
 
 .pf-img {
-    border: 1px solid #343a40;
+    border: 5px solid #080F17;
     border-radius: 20px;
     width: 40%;
     height: auto;
     margin-bottom: 10px;
+}
+
+.danger-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 1;
+    cursor: pointer;
+}
+
+.danger-overlay-text {
+    z-index: 2;
+    color: #b5b5b3;
 }
 
 /* ------------------------------------------------->  Navbar styles */

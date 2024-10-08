@@ -5,56 +5,60 @@
 {% block search_bar %}
 {% endblock %}
 
-<!-- Page Information Section -->
-<section id="info-section" class="container-fluid d-flex align-items-center bg-light-subtle justify-content-center py-lg-3">
-    <div class="row w-100 justify-content-center">
-        <div class="col-12 col-lg-8 mt-4 mt-3 d-flex align-items-center justify-content-center">
-            <div id="info-alert" class="alert alert-primary bg-info bg-opacity-10 border border-info border-start-0 rounded-end d-flex  w-md-75 flex-column flex-lg-row" role="alert">
+<!-- Info Alert Section -->
+<section id="info-section" class="container-fluid d-flex align-items-center imaginate-bg-2 justify-content-center py-lg-3">
+    <div class="row justify-content-center">
+
+        <div class="col-12 mt-4 mt-3 d-flex align-items-center justify-content-center">
+            <div id="info-alert" class="alert alert-primary bg-info bg-opacity-10 border border-info d-flex flex-column flex-lg-row" role="alert">
                 <div class="d-flex align-items-center justify-content-center">
-                    <h3><i class="fa-solid fa-circle-info icon-bg"></i></h3>
+                    <h3><i class="fa-solid fa-circle-info text-info icon-bg"></i></h3>
                 </div>
                 <div class="d-flex align-items-center justify-content-center flex-column text-center ms-lg-3">
-                    <p class="mb-0 text-center">
+                    <p class="mb-0 text-center text-white">
                         Currently we are working on Profile Manager to bring new customization features to make your site experience unique.
                         Please return back to this page in a future update!
                     </p>
                 </div>
-                <button type="button" class="btn-close ms-3" aria-label="Close"></button>
+                <button type="button" class="btn-close imaginate-close-btn ms-3" aria-label="Close"></button>
             </div>
         </div>
     </div>
 </section>
 
-<!-- About Me Section -->
-<section class="container-fluid bg-light-subtle d-flex align-items-center justify-content-center pt-3">
-    <div class="row w-100">
-        <div>
-            <h1><i class="fa-solid fa-user"></i>  Profile Info</h1>
-            <hr class="border-bottom border-5">
+<!-- Profile Info Section -->
+<section class="container-fluid pb-3">
+    <div class="row">
+
+        <div class="col-12 imaginate-bg-2 pt-5 imaginate-border-bottom">
+            <div class="text-white">
+                <h1 class="ps-4 pb-3"><i class="fa-solid fa-user py-2 me-3"></i>Profile Info</h1>    
+            </div>
         </div>
+
         <div class="col-12 col-lg-6 d-flex flex-column align-items-center pt-lg-3 border-right border-5">
 
-            <div class="d-flex align-items-center">
+            <div class="d-flex text-white">
                 <h2 class="mb-0 mt-2">About Me</h2>
-                <button type="button" class="btn fs-6 ml-lg mt-3 link-yellow">
+                <button class="btn fs-6 ml-lg mt-3 link-yellow text-white" type="button">
                     <i class="fa-solid fa-pen-to-square icon-bg"></i> Edit <span
                         class="d-none d-lg-inline">Description</span>
                 </button>
             </div>
-            <div class="pf-description justify-content-center">
-                <p>{{ about.content | safe }}</p>
+            <div class="pf-description justify-content-center text-white">
+                <p class="text-white">{{ about.content | safe }}</p>
             </div>
         </div>
 
         <div class="col-12 col-lg-6 d-flex flex-column text-center pt-3">
             <div>
-                <h2 class="mb-0 py-lg-3">Avatar</h2>
+                <h2 class="mb-0 py-lg-3 text-white">Avatar</h2>
             </div>
             <div class="align-items-center">
                 <img src="{% static 'images/default-user-icon.webp' %}" alt="Profile Image" class="pf-img">
             </div>
             <div>
-                <button type="button" class="btn fs-5 mb-3 link-yellow">
+                <button type="button" class="btn fs-5 mb-3 link-yellow text-white">
                     <i class="fa-solid fa-pen-to-square"></i> Edit <span class="d-none d-lg-inline">Picture</span>
                 </button>
             </div>
@@ -62,14 +66,16 @@
     </div>
 </section>
 
-<!-- User Button Section -->
-<section class="container-fluid px-0 bg-light-subtle d-flex align-items-center justify-content-center">
-    <div class="row w-100">
-        <div mb-3>
-            <h1><i class="fa-solid fa-gear"></i> Profile Settings</h1>
-            <hr class="border-bottom border-5">
+<!-- Profile Settings Section -->
+<section class="container-fluid pf-info-section">
+    <div class="row">
+        <div class="px-3 mx-0 border-bottom"></div>
+        <div class="col-12 py-4 imaginate-bg-3">
+            <h1 class="text-white ps-4"><i class="fa-solid fa-gear"></i> Profile Settings</h1>
         </div>
-        <div class="col-12 col-md-6 d-flex flex-column align-items-center pf-opt-section justify-content-center pt-3">
+    </div>
+    <div class="row">
+        <div class="col-12 col-lg-6 d-flex flex-column align-items-center pf-opt-section justify-content-center pt-3">
             <h2 class="fs-1">Options</h2>
             <ul class="nav d-flex">
                 <!-- Log Out Button -->
@@ -82,9 +88,18 @@
             </ul>
         </div>
 
-        <div class="col-12 col-md-6 pf-danger-section d-flex flex-column align-items-center justify-content-center pt-3">
-            <h2>
-                <i class="fa-solid fa-triangle-exclamation"></i> 
+        <div
+            class="col-12 col-lg-6 pf-danger-section d-flex flex-column align-items-center justify-content-center position-relative px-0">
+
+            <div
+                class="col-lg-6 d-flex justify-content-center flex-column align-items-center danger-overlay text-center z-1">
+                <div class="danger-overlay-text">
+                    <i class="fa-solid fa-triangle-exclamation icon-xxl"></i>
+                    <p>Click to Remove</p>
+                </div>
+            </div>
+            <h2 class="pt-3">
+                <i class="fa-solid fa-triangle-exclamation"></i>
                 Danger Zone
                 <i class="fa-solid fa-triangle-exclamation"></i>
             </h2>
@@ -93,7 +108,8 @@
             <div class="d-flex flex-column align-items-center justify-content-center p-3">
                 <p class="text-start w-100">
                     <i class="fa-solid fa-triangle-exclamation"></i>
-                    PLEASE NOTE: This removes all user stories from this account. Deleting Stories is irreversible and
+                    PLEASE NOTE: This removes all user stories from this account. Deleting Stories is irreversible
+                    and
                     any stories deleted cannot be recovered. Use this at your own risk.
                 </p>
                 <button type="button" class="btn text-light pf-danger-btn fs-4">
@@ -126,6 +142,7 @@
                 </button>
                 <hr class="border-bottom border-4">
             </div>
+
         </div>
     </div>
 </section>
