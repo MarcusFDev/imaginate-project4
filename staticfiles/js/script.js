@@ -313,8 +313,10 @@ $(document).ready(function() {
                 
                 // Toggle icon based on story Upvote or Remove Upvote.
                 if (data.action == 'added') {
+                    $(form).find('.story-upvote-div').removeClass('story-upvote').addClass('story-upvote-active');
                     $(form).find('.story-upvote-btn i').removeClass('fa-regular').addClass('fa-solid').addClass('text-danger');
                 } else if (data.action == 'removed') {
+                    $(form).find('.story-upvote-div').removeClass('story-upvote-active').addClass('story-upvote');
                     $(form).find('.story-upvote-btn i').removeClass('fa-solid text-danger').addClass('fa-regular');
                 }
             }

@@ -35,11 +35,16 @@
             <form method="POST" action="{% url 'upvote_story' story.slug %}">
                 {% csrf_token %}
                 <input type="hidden" name="story_upvote" value="{{ story.slug }}">
-                <div>
-                    <button class="btn d-none d-lg-block mt-3 ms-5 story-upvote-btn text-white" type="submit">
-                        <i class="fa-regular fa-heart icon-bg {% if request.user in story.upvoters.all %}fa-solid text-danger animate__animated animate__bounceIn{% endif %}"></i>
+                
+                <div
+                    class="d-flex align-items-center story-upvote {% if request.user in story.upvoters.all %} story-upvote-active {% endif %}">
+                    <button class="btn d-none d-lg-block story-upvote-btn text-white" type="submit">
+                        <i
+                            class="fa-regular fa-heart fs-2 {% if request.user in story.upvoters.all %}fa-solid text-danger animate__animated animate__bounceIn{% endif %}"></i>
                     </button>
-                    <span class="story-upvote-count text-white">{{ story.upvotes }}</span>
+                    <span class="story-upvote-count text-white pb-1 pe-2 fs-4">{{ story.upvotes }}</span><span
+                        class="text-white fs-4 pb-1 pe-3"> Upvotes</span>
+
                 </div>
             </form>
         </div>

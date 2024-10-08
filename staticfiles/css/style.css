@@ -163,6 +163,24 @@
     border: 3px solid #080F17;
 }
 
+.story-upvote {
+    background-color: #0E1A26;
+    border: 3px solid #080F17;
+    border-radius: 15px;
+    max-width: 100%;
+}
+
+.story-upvote-active {
+    background-color: #0E1A26 !important;
+    border: 3px solid #0f5132 !important;
+    border-radius: 15px !important;
+    max-width: 100% !important;
+}
+
+.story-upvote:hover {
+    border: 3px solid #0f5132;
+}
+
 /* Comments Section */
 
 .comment-section {
