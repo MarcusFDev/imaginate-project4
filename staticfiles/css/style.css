@@ -278,8 +278,6 @@
     text-underline-offset: 15px;
 }
 
-
-
 .imaginate-modal-dialog {
     width: 60vw !important;
     max-width: 100% !important;
@@ -294,7 +292,7 @@
 }
 
 .pf-opt-section {
-    height: auto;
+    min-height: 40vh;
     background-color: #a9a9a9;
     border: 3px solid #343a40;
 }

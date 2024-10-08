@@ -10,7 +10,8 @@
     <div class="row justify-content-center">
 
         <div class="col-12 mt-4 mt-3 d-flex align-items-center justify-content-center">
-            <div id="info-alert" class="alert alert-primary bg-info bg-opacity-10 border border-info d-flex flex-column flex-lg-row" role="alert">
+            <div id="info-alert" class="alert alert-primary bg-info bg-opacity-10 border border-info d-flex flex-column flex-lg-row position-relative" role="alert">
+
                 <div class="d-flex align-items-center justify-content-center">
                     <h3><i class="fa-solid fa-circle-info text-info icon-bg"></i></h3>
                 </div>
@@ -20,7 +21,9 @@
                         Please return back to this page in a future update!
                     </p>
                 </div>
-                <button type="button" class="btn-close imaginate-close-btn ms-3" aria-label="Close"></button>
+                <div class="position-absolute top-0 end-0 px-2 py-2">
+                    <button type="button" class="btn-close imaginate-close-btn ms-3" aria-label="Close"></button>
+                </div>
             </div>
         </div>
     </div>
@@ -32,15 +35,15 @@
 
         <div class="col-12 imaginate-bg-2 pt-5 imaginate-border-bottom">
             <div class="text-white">
-                <h1 class="ps-4 pb-3"><i class="fa-solid fa-user py-2 me-3"></i>Profile Info</h1>    
+                <h1 class="ps-lg-4 pb-lg-3 ps-1 pb-0"><i class="fa-solid fa-user py-2 me-3"></i>Profile Info</h1>    
             </div>
         </div>
 
         <div class="col-12 col-lg-6 d-flex flex-column align-items-center pt-lg-3 border-right border-5">
 
-            <div class="d-flex text-white">
-                <h2 class="mb-0 mt-2">About Me</h2>
-                <button class="btn fs-6 ml-lg mt-3 link-yellow text-white" type="button">
+            <div class="d-flex text-white align-items-center">
+                <h2 class="mb-0 mt-2 pe-5">About Me</h2>
+                <button class="btn fs-6 ps-5 mt-3 link-yellow text-white" type="button">
                     <i class="fa-solid fa-pen-to-square icon-bg"></i> Edit <span
                         class="d-none d-lg-inline">Description</span>
                 </button>
@@ -67,7 +70,7 @@
 </section>
 
 <!-- Profile Settings Section -->
-<section class="container-fluid pf-info-section">
+<section class="container-fluid">
     <div class="row">
         <div class="px-3 mx-0 border-bottom"></div>
         <div class="col-12 py-4 imaginate-bg-3">
