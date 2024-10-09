@@ -2,8 +2,6 @@
 {% load static %}
 
 {% block content %}
-{% block search_bar %}
-{% endblock %}
 
 <!-- Info Alert Section -->
 <section id="info-section" class="container-fluid d-flex align-items-center imaginate-bg-2 justify-content-center py-lg-3">
@@ -43,7 +41,7 @@
 
             <div class="d-flex text-white align-items-center">
                 <h2 class="mb-0 mt-2 pe-5">About Me</h2>
-                <button class="btn fs-6 ps-5 mt-3 link-yellow text-white" type="button">
+                <button class="btn fs-6 ps-5 mt-3 link-yellow text-white" type="button" data-bs-toggle="modal" data-bs-target="#aboutmemodal">
                     <i class="fa-solid fa-pen-to-square icon-bg"></i> Edit <span
                         class="d-none d-lg-inline">Description</span>
                 </button>
