@@ -2,6 +2,7 @@ import re
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
+from .models import About
 
 
 class RegistrationForm(forms.ModelForm):
@@ -138,3 +139,24 @@ class LoginForm(forms.Form):
                 self.add_error('password', "Invalid Username or Password")
 
         return cleaned_data
+
+
+class AboutForm(forms.ModelForm):
+    class Meta:
+        model = About
+        fields = ('content',)
+        widgets = {
+            'content': forms.Textarea(
+                attrs={'id': 'aboutme_textarea', 'class': 'form-control'}),
+        }
+
+    def clean_content(self):
+        content = self.cleaned_data.get('content')
+        content = re.sub(r'\s+', ' ', content)
+        content = content.strip()
+        if not content:
+            self.add_error('content', 'Content is required')
+        elif len(content) > 1500:
+            self.add_error(
+                'content', 'Content cannot be longer than 1500 characters')
+        return content
