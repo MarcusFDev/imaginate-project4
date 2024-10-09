@@ -134,6 +134,32 @@ AUTH_PASSWORD_VALIDATORS = [
 
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
+
+SUMMERNOTE_CONFIG = {
+
+    'summernote': {
+        'toolbar': [
+            ['style', ['style']],
+            ['font', ['bold', 'italic', 'underline', 'clear']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['view', ['fullscreen', 'help']],
+        ],
+        'colors': [
+            # Red, Green, Blue, Yellow
+            ['#FF0000', '#00FF00', '#0000FF', '#FFFF00'],
+            # Orange, Purple, White
+            ['#FFA500', '#800080', '#FFFFFF']
+
+        ],
+        'iframe': False,
+    },
+    'attachment_require_authentication': True,
+    'width': '800',
+    'height': '400',
+    'toolbar_BS5': True,
+}
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 

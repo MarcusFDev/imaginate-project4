@@ -7,3 +7,13 @@ from django_summernote.admin import SummernoteModelAdmin
 class AboutAdmin(SummernoteModelAdmin):
 
     summernote_fields = ('content',)
+
+    class Media:
+        css = {
+            'all': ('css/summernote.css',),
+        }
+
+        js = (
+            'https://code.jquery.com/jquery-3.6.0.min.js',
+            'js/summernote.js',
+            )
