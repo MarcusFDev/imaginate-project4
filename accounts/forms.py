@@ -2,7 +2,7 @@ import re
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
-from .models import About
+from .models import UserProfile
 
 
 class RegistrationForm(forms.ModelForm):
@@ -141,22 +141,24 @@ class LoginForm(forms.Form):
         return cleaned_data
 
 
-class AboutForm(forms.ModelForm):
+class BioForm(forms.ModelForm):
     class Meta:
-        model = About
-        fields = ('content',)
+        model = UserProfile
+        fields = ('bio',)
         widgets = {
-            'content': forms.Textarea(
+            'bio': forms.Textarea(
                 attrs={'id': 'aboutme_textarea', 'class': 'form-control'}),
         }
 
-    def clean_content(self):
-        content = self.cleaned_data.get('content')
-        content = re.sub(r'\s+', ' ', content)
-        content = content.strip()
-        if not content:
-            self.add_error('content', 'Content is required')
-        elif len(content) > 1500:
-            self.add_error(
-                'content', 'Content cannot be longer than 1500 characters')
-        return content
+    def clean_bio(self):
+        bio = self.cleaned_data.get('bio')
+
+        if bio is not None:
+            bio = re.sub(r'\s+', ' ', bio).strip()
+
+            # Check length after normalization
+            if len(bio) > 1500:
+                self.add_error(
+                    'bio', 'Bio cannot be longer than 1500 characters')
+
+        return bio
