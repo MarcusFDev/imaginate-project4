@@ -26,7 +26,7 @@ $(document).ready(function() {
         }
     });
   
-    // Optional: Destroy Summernote when modal is hidden (to avoid re-initialization issues)
+
     $('#aboutmemodal').on('hidden.bs.modal', function () {
         if ($('#aboutme_textarea').hasClass('summernote')) {
             $('#aboutme_textarea').summernote('destroy');
