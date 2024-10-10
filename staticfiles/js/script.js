@@ -84,13 +84,13 @@ $(document).ready(function() {
             url: form.attr('action'),
             data: {
                 csrfmiddlewaretoken: csrfToken,
-                content: form.find('textarea[name="content"]').val()
+                bio: form.find('textarea[name="bio"]').val()
             },
             dataType: 'json',
             success: function(data) {
                 if (data.status === 'success') {
                     modal.removeClass('border-glow-red');
-                    $('.pf-description p').html(data.content);
+                    $('.pf-description p').html(data.bio);
                     location.reload();
                 } else {
 
