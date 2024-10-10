@@ -3,6 +3,10 @@ from django.urls import path
 
 
 urlpatterns = [
+
+    path(
+        'delete-all-stories/',
+        views.delete_all_stories, name='delete_all_stories'),
     path(
         'edit-comment/<int:comment_id>/edit/',
         views.edit_comment, name='edit_comment'),

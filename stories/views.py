@@ -6,6 +6,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.views import generic
 from .models import Story, Comment
+from accounts.views import user_profile
 
 
 # Create your views here.
@@ -210,3 +211,13 @@ def delete_comment(request, comment_id):
 
     except Comment.DoesNotExist:
         return JsonResponse({'error': 'Comment not found'}, status=404)
+
+
+@login_required
+def delete_all_stories(request):
+    if request.method == 'POST':
+        stories = Story.objects.filter(author=request.user)
+        stories.delete()
+        return user_profile(request)
+
+    return JsonResponse({'error': 'No stories found'}, status=404)
