@@ -11,15 +11,18 @@
             </div>
 
             <div class="modal-body">
-                
-                <div name="content" id="aboutme_textarea"></div>
-            </div>
-
-            <div class="modal-footer">
-                <form id="aboutmeForm" method="POST" action="#">
+                <form id="aboutmeForm" method="POST" action="{% url 'about' %}">
                     {% csrf_token %}
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <textarea id="aboutme_textarea" name="content" class="form-control">{{ form.content }}</textarea>
+
+                    <div class="error-msg hidden text-danger py-4">
+                        <h3><i class="fa-solid fa-triangle-exclamation pe-2"></i>Something went wrong.</h3>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="submit-aboutme btn btn-primary">Save Changes</button>
+                    </div>
                 </form>
             </div>
         </div>

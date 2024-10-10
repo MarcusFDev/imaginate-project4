@@ -69,6 +69,60 @@ $(document).ready(function() {
 });
 
 
+$(document).ready(function() {
+    $('.submit-aboutme').on('click', function(event) {
+        event.preventDefault();
+        
+        var form = $(this).closest('form');
+        var csrfToken = form.find('input[name="csrfmiddlewaretoken"]').val();
+        var modal = form.closest('.modal-content');
+        var errormsg = form.find('.error-msg');
+        
+        // Send the aboutme data via AJAX.
+        $.ajax({
+            type: 'POST',
+            url: form.attr('action'),
+            data: {
+                csrfmiddlewaretoken: csrfToken,
+                content: form.find('textarea[name="content"]').val()
+            },
+            dataType: 'json',
+            success: function(data) {
+                if (data.status === 'success') {
+                    modal.removeClass('border-glow-red');
+                    $('.pf-description p').html(data.content);
+                    location.reload();
+                } else {
+
+                    modal.html(data.form);
+                    modal.addClass('border-glow-red');
+                    setTimeout(function() {
+                        modal.removeClass('border-glow-red');
+                    }, 5000);
+
+                    errormsg.removeClass('hidden');
+                    setTimeout(function() {
+                        errormsg.addClass('hidden');
+                    }, 5000);
+                }
+            },
+            error: function(xhr, status, error) {
+
+                modal.addClass('border-glow-red');
+                setTimeout(function() {
+                    modal.removeClass('border-glow-red');
+                }, 5000);
+
+                errormsg.removeClass('hidden');
+                setTimeout(function() {
+                    errormsg.addClass('hidden');
+                }, 5000);
+            }
+        });
+    });
+});
+
+
 // ====================================
 // home_page.html Functions
 // ====================================
