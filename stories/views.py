@@ -217,7 +217,23 @@ def delete_comment(request, comment_id):
 def delete_all_stories(request):
     if request.method == 'POST':
         stories = Story.objects.filter(author=request.user)
-        stories.delete()
-        return user_profile(request)
+        if stories.exists():
+            stories.delete()
+            return user_profile(request)
+        else:
+            return user_profile(request)
 
     return JsonResponse({'error': 'No stories found'}, status=404)
+
+
+@login_required
+def delete_all_comments(request):
+    if request.method == 'POST':
+        comments = Comment.objects.filter(author=request.user)
+        if comments.exists():
+            comments.delete()
+            return user_profile(request)
+        else:
+            return user_profile(request)
+
+    return JsonResponse({'error': 'No comments found'}, status=404)

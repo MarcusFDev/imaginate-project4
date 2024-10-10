@@ -7,7 +7,7 @@
             </div>
 
             <div class="modal-body">
-                <form id="" method="POST" action="">
+                <form id="" method="POST" action="{% url 'delete_all_comments' %}">
                     {% csrf_token %}
                     <div>
                         <p class="py-4 text-center fs-4">Are you absolutely sure you want to remove all comments from this account?</p>

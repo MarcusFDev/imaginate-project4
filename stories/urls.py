@@ -5,6 +5,9 @@ from django.urls import path
 urlpatterns = [
 
     path(
+        'delete-all-comments/',
+        views.delete_all_comments, name='delete_all_comments'),
+    path(
         'delete-all-stories/',
         views.delete_all_stories, name='delete_all_stories'),
     path(
