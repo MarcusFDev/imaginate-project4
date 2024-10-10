@@ -1,6 +1,6 @@
 from . import views
 from django.urls import path
-from .views import handle_post, add_about_description
+from .views import handle_post, update_bio
 
 
 urlpatterns = [
@@ -8,5 +8,5 @@ urlpatterns = [
     path('profile/', views.user_profile, name='user_profile'),
     path('register/', handle_post, name='register'),
     path('login/', handle_post, name='login'),
-    path('about/', add_about_description, name='about'),
+    path('about/', update_bio, name='about'),
 ]

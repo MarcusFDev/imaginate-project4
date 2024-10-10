@@ -3,8 +3,8 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
-from .models import About
-from .forms import RegistrationForm, LoginForm, AboutForm
+from .models import UserProfile
+from .forms import RegistrationForm, LoginForm, BioForm
 
 
 def register_view(request):
@@ -70,11 +70,13 @@ def user_profile(request):
     """
     Renders the User Profile page
     """
-    about = About.objects.all().order_by('-updated_on').first()
+    user_profile, created = UserProfile.objects.get_or_create(
+        user=request.user)
 
     context = {
         "user": request.user,
-        "about": about,
+        "user_profile": user_profile,
+        "date_joined": user_profile.created_on,
     }
 
     return render(
@@ -86,37 +88,28 @@ def user_profile(request):
 
 @login_required(login_url='homepage')
 @require_POST
-def add_about_description(request):
+def update_bio(request):
+    """
+    Updates the bio for the logged-in user's UserProfile
+    """
 
-    if request.method == 'POST':
-        form = AboutForm(request.POST)
+    form = BioForm(request.POST)
 
-        if form.is_valid():
-            # Retrieve all About objects for the user
-            about_entries = About.objects.filter(acc_user=request.user)
+    if form.is_valid():
+        print('Update Bio Valid')
 
-            if about_entries.exists():
-                if about_entries.count() > 1:
+        user_profile, created = UserProfile.objects.get_or_create(
+            user=request.user)
 
-                    about_entries.exclude(pk=about_entries.first().pk).delete()
+        user_profile.bio = form.cleaned_data['bio']
+        user_profile.save()
+        print('Updated Bio Successfully')
 
-                # Use the remaining object
-                about = about_entries.first()
-            else:
-                # Create a new About object if none exist
-                about = About.objects.create(acc_user=request.user)
+        return JsonResponse({'status': 'success', 'content': user_profile.bio})
 
-            # Update the About object with the new content
-            about.title = "About " + request.user.username
-            about.content = form.cleaned_data['content']
-            about.save()
-
-            return JsonResponse(
-                {'status': 'success', 'content': about.content})
-
-        # Return error if the form is invalid
-        return JsonResponse(
-            {'status': 'error', 'error': 'Invalid request'}, status=400)
+    print('Form Invalid, did not update Bio.')
+    return JsonResponse(
+        {'status': 'error', 'error': 'Invalid request'}, status=400)
 
 
 def home_page(request):
