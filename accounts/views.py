@@ -121,6 +121,14 @@ def update_bio(request):
         {'status': 'error', 'error': 'Invalid request'}, status=400)
 
 
+@login_required(login_url='homepage')
+def delete_account(request):
+    if request.method == 'POST':
+        request.user.delete()
+        return render(request, 'accounts/home/home_page.html')
+    return JsonResponse({'error': 'Account not found'}, status=400)
+
+
 def home_page(request):
 
     reg_form = RegistrationForm()
