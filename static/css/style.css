@@ -305,6 +305,14 @@
     background-color: #5e1914;
 }
 
+.pf-header {
+    font-size: 350%;
+}
+
+.pf-info-section {
+    min-height: 60vh;
+}
+
 .pf-description {
     border: 3px solid #080F17;
     background-color: #0B151F;
@@ -578,6 +586,10 @@
     .pf-img {
         width: 90%;
         height: auto;
+    }
+
+    .pf-header {
+        font-size: 250%;
     }
 
     /* Home Page styles */
