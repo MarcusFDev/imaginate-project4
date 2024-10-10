@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from django.contrib.auth import login, authenticate
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
+from django.http import JsonResponse
 from .models import About
-from .forms import RegistrationForm, LoginForm
+from .forms import RegistrationForm, LoginForm, AboutForm
 
 
 def register_view(request):
@@ -79,6 +82,41 @@ def user_profile(request):
         "users/user_profile.html",
         context
     )
+
+
+@login_required(login_url='homepage')
+@require_POST
+def add_about_description(request):
+
+    if request.method == 'POST':
+        form = AboutForm(request.POST)
+
+        if form.is_valid():
+            # Retrieve all About objects for the user
+            about_entries = About.objects.filter(acc_user=request.user)
+
+            if about_entries.exists():
+                if about_entries.count() > 1:
+
+                    about_entries.exclude(pk=about_entries.first().pk).delete()
+
+                # Use the remaining object
+                about = about_entries.first()
+            else:
+                # Create a new About object if none exist
+                about = About.objects.create(acc_user=request.user)
+
+            # Update the About object with the new content
+            about.title = "About " + request.user.username
+            about.content = form.cleaned_data['content']
+            about.save()
+
+            return JsonResponse(
+                {'status': 'success', 'content': about.content})
+
+        # Return error if the form is invalid
+        return JsonResponse(
+            {'status': 'error', 'error': 'Invalid request'}, status=400)
 
 
 def home_page(request):
