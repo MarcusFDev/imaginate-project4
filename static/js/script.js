@@ -165,6 +165,8 @@ $(document).ready(function() {
     // Handle the filter button click.
     $('#filter-button').on('click', function() {
 
+        console.log('Filter Button clicked')
+
         // Toggle hidden class on element.
         $('#filter-select').toggleClass('hidden');
       });
