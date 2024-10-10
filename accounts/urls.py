@@ -1,12 +1,13 @@
-from . import views
 from django.urls import path
-from .views import handle_post, update_bio
+from .views import (
+    home_page, handle_post, user_profile, update_bio, view_profile)
 
 
 urlpatterns = [
-    path('', views.home_page, name='home_page'),
-    path('profile/', views.user_profile, name='user_profile'),
+    path('', home_page, name='home_page'),
+    path('profile/', user_profile, name='user_profile'),
+    path('profile/<str:username>/', view_profile, name='view_profile'),
     path('register/', handle_post, name='register'),
     path('login/', handle_post, name='login'),
-    path('about/', update_bio, name='about'),
+    path('update_bio/', update_bio, name='update_bio'),
 ]
