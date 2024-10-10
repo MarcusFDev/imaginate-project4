@@ -1,0 +1,31 @@
+<div class="modal fade" id="deleteaccmodal" tabindex="-1" aria-labelledby="deleteaccmodallabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content imaginate-modal-content border-glow-red">
+            <div class="modal-header imaginate-modal-header">
+                <h3 class="modal-title" id="deleteaccmodallabel"><i class="fa-solid fa-hammer icon-bg pe-2"></i>Delete Account</h3>
+                <button type="button" class="btn-close imaginate-close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form id="" method="POST" action="">
+                    {% csrf_token %}
+                    <div>
+                        <p class="py-4 text-center fs-4">Are you absolutely sure you want to delete this Account from the Imaginate site?</p>
+                        <p class="text-danger"><i class="fa-solid fa-triangle-exclamation"></i>
+                            PLEASE NOTE: This is irreversible and the Account cannot be recovered. All stories associated with this account will be erased. Use this at your own risk.
+                        </p>
+                    </div>
+
+                    <div class="error-msg hidden text-danger py-4">
+                        <h3><i class="fa-solid fa-triangle-exclamation pe-2"></i>Something went wrong.</h3>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger">Delete Account</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

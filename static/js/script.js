@@ -64,7 +64,7 @@ $(document).ready(function() {
         // Remove the overlay element after animation.
         setTimeout(function() {
             $overlay.remove();
-        }, 5000);
+        }, 1500);
     });
 });
 
