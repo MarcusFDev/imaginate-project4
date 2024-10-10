@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
 from .models import UserProfile
@@ -74,9 +76,10 @@ def user_profile(request):
         user=request.user)
 
     context = {
-        "user": request.user,
         "user_profile": user_profile,
-        "date_joined": user_profile.created_on,
+        "profile_user": request.user,
+        "bio": user_profile.bio,
+        'profile_owner': True
     }
 
     return render(
@@ -86,28 +89,34 @@ def user_profile(request):
     )
 
 
+def view_profile(request, username):
+
+    profile_user = get_object_or_404(User, username=username)
+    user_profile = get_object_or_404(UserProfile, user=profile_user)
+
+    bio = user_profile.bio
+
+    return render(request, 'users/user_profile.html', {
+        'user_profile': user_profile,
+        'profile_user': profile_user,
+        "bio": bio,
+        'profile_owner': request.user == profile_user,
+    })
+
+
 @login_required(login_url='homepage')
 @require_POST
 def update_bio(request):
-    """
-    Updates the bio for the logged-in user's UserProfile
-    """
+    user_profile = get_object_or_404(UserProfile, user=request.user)
 
-    form = BioForm(request.POST)
+    if request.method == 'POST':
+        form = BioForm(request.POST, instance=user_profile)
 
-    if form.is_valid():
-        print('Update Bio Valid')
+        if form.is_valid():
+            form.save()
+            return JsonResponse(
+                {'status': 'success', 'content': user_profile.bio})
 
-        user_profile, created = UserProfile.objects.get_or_create(
-            user=request.user)
-
-        user_profile.bio = form.cleaned_data['bio']
-        user_profile.save()
-        print('Updated Bio Successfully')
-
-        return JsonResponse({'status': 'success', 'content': user_profile.bio})
-
-    print('Form Invalid, did not update Bio.')
     return JsonResponse(
         {'status': 'error', 'error': 'Invalid request'}, status=400)
 
