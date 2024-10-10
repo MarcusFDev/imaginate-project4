@@ -23,14 +23,14 @@ def register_view(request):
 
         if user is not None:
             login(request, user)
-            return render(request, "home/home_page.html")
+            return render(request, "accounts/home/home_page.html")
 
     # If the form is invalid or the user couldn't be authenticated
     else:
         context['has_error'] = True
         context['reg_form'] = reg_form
         return render(
-            request, 'home/home_page.html', context)
+            request, 'accounts/home/home_page.html', context)
 
 
 def login_view(request):
@@ -46,14 +46,14 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
-            return render(request, "home/home_page.html")
+            return render(request, "accounts/home/home_page.html")
 
     # If the form is invalid or the user couldn't be authenticated
     else:
         context['has_error'] = True
         context['login_form'] = login_form
         return render(
-            request, 'home/home_page.html', context)
+            request, 'accounts/home/home_page.html', context)
 
 
 def handle_post(request):
@@ -84,7 +84,7 @@ def user_profile(request):
 
     return render(
         request,
-        "users/user_profile.html",
+        "accounts/users/user_profile.html",
         context
     )
 
@@ -96,7 +96,7 @@ def view_profile(request, username):
 
     bio = user_profile.bio
 
-    return render(request, 'users/user_profile.html', {
+    return render(request, 'accounts/users/user_profile.html', {
         'user_profile': user_profile,
         'profile_user': profile_user,
         "bio": bio,
@@ -133,6 +133,6 @@ def home_page(request):
 
     return render(
         request,
-        'home/home_page.html',
+        'accounts/home/home_page.html',
         context
     )
