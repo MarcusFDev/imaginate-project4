@@ -1,13 +1,13 @@
 from django.contrib import admin  # noqa
-from .models import About
+from .models import UserProfile
 from django_summernote.admin import SummernoteModelAdmin
 
 
-@admin.register(About)
-class AboutAdmin(SummernoteModelAdmin):
+@admin.register(UserProfile)
+class UserProfileAdmin(SummernoteModelAdmin):
 
-    summernote_fields = ('content',)
-    list_display = ('title', 'acc_user')
+    summernote_fields = ('bio',)
+    list_display = ('user', 'bio', 'created_on', 'last_login')
 
     class Media:
         css = {
