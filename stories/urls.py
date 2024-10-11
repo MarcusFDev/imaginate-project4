@@ -3,7 +3,8 @@ from django.urls import path
 
 
 urlpatterns = [
-
+    path('story/<slug:slug>/edit/', views.story_edit, name='story_edit'),
+    path('story/<slug:slug>/delete/', views.story_delete, name='story_delete'),
     path(
         'delete-all-comments/',
         views.delete_all_comments, name='delete_all_comments'),
@@ -25,6 +26,7 @@ urlpatterns = [
     path(
         'story/<slug:slug>/upvote/',
         views.upvote_story, name='upvote_story'),
-    path('', views.StoryList.as_view(), name='stories'),
+    path('my-stories/', views.MyStoryList.as_view(), name='my_stories'),
+    path('', views.LibraryList.as_view(), name='library'),
     path('<slug:slug>/', views.story_page, name='story_page'),
 ]
