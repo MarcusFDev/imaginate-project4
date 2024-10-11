@@ -202,10 +202,10 @@
                         <!-- Private Toggle Button -->
                         <li class="list-group-item">
                             {% if request.user == story.author %}
-                            <form method="POST" action="#">
+                            <form method="POST" action="{% url 'story_private' story.slug %}">
                                 {% csrf_token %}
-                                <button class="comment-btn text-black">
-                                    <i class="fa-solid fa-eye text-success icon-bg"></i>
+                                <button class="private-btn text-black" type="submit">
+                                    <i class="icon-bg {% if story.is_private %} fa-solid fa-eye-slash text-danger {% else %} fa-solid fa-eye text-success{% endif %}"></i>
                                 </button>
                             </form>
                             {% endif %}

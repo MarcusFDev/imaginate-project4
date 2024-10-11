@@ -242,6 +242,14 @@
     background: transparent;
 }
 
+
+/* ------------------------------------------------->  My Stories Page styles */
+
+.private-btn {
+    border: none;
+    background: transparent;
+}
+
 /* ------------------------------------------------->  Modal styles */
 
 .imaginate-modal-content {

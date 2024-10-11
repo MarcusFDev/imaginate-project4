@@ -395,3 +395,35 @@ $(document).ready(function() {
         });
     });
 });
+
+
+$(document).ready(function() {
+
+    // Handle the is_private button click.
+    $('.private-btn').on('click', function(event) {
+        event.preventDefault();
+        var form = $(this).closest('form');
+        var csrfToken = form.find('input[name="csrfmiddlewaretoken"]').val();
+        
+        // Send the is_private data via AJAX.
+        $.ajax({
+            type: 'POST',
+            url: form.attr('action'),
+            data: {
+                csrfmiddlewaretoken: csrfToken
+             },
+            dataType: 'json',
+            success: function(data) {
+                // Update the private status.
+               // $(form).find('.private-btn').text(data.action);
+                
+                // Toggle icon based on story private status.
+                if (data.action == 'Made public') {
+                    $(form).find('.private-btn i').removeClass('fa-eye-slash text-danger').addClass('fa-eye text-success');
+                } else if (data.action == 'Made private') {
+                    $(form).find('.private-btn i').removeClass('fa-eye text-success').addClass('fa-eye-slash text-danger');
+                }
+            }
+        });
+    });
+});
