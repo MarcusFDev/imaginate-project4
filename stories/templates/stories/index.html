@@ -34,12 +34,12 @@
 
                         <!-- Search Filter -->
                         <span class="input-group-text rounded-end">
-                            <button id="filter-button" class="text-dark ps-1 filter-btn" type="button"
+                            <button class="text-dark ps-1 filter-btn" type="button"
                                 aria-expanded="true">
                                 <i class="fa-solid fa-filter icon-bg"></i>
                             </button>
                             <!-- Filter Options -->
-                            <div id="filter-select" class="hidden ps-2">
+                            <div class="filter-select hidden ps-2">
                                 <select name="sort" class="form-select">
                                     <option value="upvotes_desc"
                                         {% if request.GET.sort == 'upvotes_desc' %}selected{% endif %}>
@@ -64,7 +64,7 @@
                 </form>
             </div>
         </div>
-
+        
         <div class="col-lg-6 col-12">
             {% if is_paginated %}
             <!-- Paginator -->
@@ -165,7 +165,6 @@
             </div>
             {% endif %}
         </div>
-    </div>
     </div>
 </section>
 

@@ -163,12 +163,10 @@ $(document).ready(function() {
 $(document).ready(function() {
 
     // Handle the filter button click.
-    $('#filter-button').on('click', function() {
-
-        console.log('Filter Button clicked')
+    $('.filter-btn').on('click', function() {
 
         // Toggle hidden class on element.
-        $('#filter-select').toggleClass('hidden');
+        $('.filter-select').toggleClass('hidden');
       });
 });
 
