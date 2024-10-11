@@ -10,7 +10,7 @@ from accounts.views import user_profile
 
 
 # Create your views here.
-class StoryList(LoginRequiredMixin, generic.ListView):
+class LibraryList(LoginRequiredMixin, generic.ListView):
     model = Story
     template_name = "stories/index.html"
     paginate_by = 15
@@ -18,6 +18,34 @@ class StoryList(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         queryset = Story.objects.filter(status=1, is_private=False)
+
+        search_query = self.request.GET.get('q')
+
+        if search_query:
+            queryset = queryset.filter(title__icontains=search_query)
+
+        sort_filter = self.request.GET.get('sort', 'upvotes_desc')
+
+        if sort_filter == 'upvotes_asc':
+            queryset = queryset.order_by('upvotes')
+        elif sort_filter == 'upvotes_desc':
+            queryset = queryset.order_by('-upvotes')
+        elif sort_filter == 'created_on_asc':
+            queryset = queryset.order_by('created_on')
+        elif sort_filter == 'created_on_desc':
+            queryset = queryset.order_by('-created_on')
+
+        return queryset
+
+
+class MyStoryList(LoginRequiredMixin, generic.ListView):
+    model = Story
+    template_name = "stories/my_stories.html"
+    paginate_by = 15
+    login_url = 'homepage'
+
+    def get_queryset(self):
+        queryset = Story.objects.filter(status=1, author=self.request.user)
 
         search_query = self.request.GET.get('q')
 
@@ -87,6 +115,29 @@ def story_page(request, slug):
             "comment_form": comment_form,
         }
     )
+
+
+@login_required
+def story_edit(request, slug):
+    story = get_object_or_404(Story, slug=slug, author=request.user)
+    if request.method == 'POST':
+        story.title = request.POST.get('title')
+        story.content = request.POST.get('content')
+        story.excerpt = request.POST.get('excerpt')
+        story.save()
+
+        return redirect('stories/my_stories.html')
+    return render(request, 'stories/my_stories.html', {'story': story})
+
+
+@login_required
+def story_delete(request, slug):
+    story = get_object_or_404(Story, slug=slug, author=request.user)
+    if request.method == 'POST':
+        story.delete()
+
+        return redirect('stories/my_stories.html')
+    return render(request, 'stories/my_stories.html', {'story': story})
 
 
 @login_required(login_url='homepage')
