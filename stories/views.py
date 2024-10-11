@@ -142,6 +142,33 @@ def story_delete(request, slug):
 
 @login_required(login_url='homepage')
 @require_POST
+def story_private(request, slug):
+    story = get_object_or_404(Story, slug=slug, author=request.user)
+
+    try:
+        if story.is_private:
+            story.is_private = False
+            response_data = {
+                'private': story.is_private,
+                'action': 'Made public',
+            }
+        else:
+            story.is_private = True
+            response_data = {
+                'private': story.is_private,
+                'action': 'Made private',
+            }
+
+        story.save()
+
+        return JsonResponse(response_data)
+
+    except Story.DoesNotExist:
+        return JsonResponse({'error': 'Story not found.'}, status=404)
+
+
+@login_required(login_url='homepage')
+@require_POST
 def upvote_story(request, slug):
 
     story = Story.objects.get(slug=slug)

@@ -6,6 +6,9 @@ urlpatterns = [
     path('story/<slug:slug>/edit/', views.story_edit, name='story_edit'),
     path('story/<slug:slug>/delete/', views.story_delete, name='story_delete'),
     path(
+        'my-stories/<slug:slug>/private',
+        views.story_private, name='story_private'),
+    path(
         'delete-all-comments/',
         views.delete_all_comments, name='delete_all_comments'),
     path(
