@@ -397,6 +397,11 @@ $(document).ready(function() {
 });
 
 
+// ====================================
+// my_stories.html Functions
+// ====================================
+
+
 $(document).ready(function() {
 
     // Handle the is_private button click.
@@ -414,9 +419,7 @@ $(document).ready(function() {
              },
             dataType: 'json',
             success: function(data) {
-                // Update the private status.
-               // $(form).find('.private-btn').text(data.action);
-                
+
                 // Toggle icon based on story private status.
                 if (data.action == 'Made public') {
                     $(form).find('.private-btn i').removeClass('fa-eye-slash text-danger').addClass('fa-eye text-success');
@@ -427,3 +430,42 @@ $(document).ready(function() {
         });
     });
 });
+
+
+$(document).ready(function() {
+
+    // Handle the form submission for story deletion
+    $('body').on('submit', '.story-delete-form', function(event) {
+        event.preventDefault();
+
+        // The form that was submitted
+        var form = $(this);
+        var csrfToken = form.find('input[name="csrfmiddlewaretoken"]').val();
+        
+        // Send the delete request via AJAX.
+        $.ajax({
+            type: 'POST',
+            url: form.attr('action'),  // The action URL for deletion
+            data: { 
+                csrfmiddlewaretoken: csrfToken  // Pass CSRF token to the request
+            },
+            dataType: 'json',
+            success: function(data) {
+                if (data.success) {
+                    // Remove the deleted story element from the page dynamically
+                    $('#story-' + data.slug).remove();
+
+                    // Close the modal
+                    form.closest('.modal').modal('hide');
+                } else if (data.error) {
+                    alert(data.error);  // Handle error response
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log("Something went wrong: ", error);  // Handle server errors
+            }
+        });
+    });
+});
+
+

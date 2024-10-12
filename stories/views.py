@@ -130,14 +130,22 @@ def story_edit(request, slug):
     return render(request, 'stories/my_stories.html', {'story': story})
 
 
-@login_required
+@login_required(login_url='homepage')
+@require_POST
 def story_delete(request, slug):
     story = get_object_or_404(Story, slug=slug, author=request.user)
-    if request.method == 'POST':
-        story.delete()
 
-        return redirect('stories/my_stories.html')
-    return render(request, 'stories/my_stories.html', {'story': story})
+    try:
+        if story.author == request.user:
+            story.delete()
+            return JsonResponse({'success': True, 'slug': slug})
+        else:
+            return JsonResponse(
+                {'error': 'You do not have permission to delete this story'},
+                status=403)
+
+    except Story.DoesNotExist:
+        return JsonResponse({'error': 'Story not found'}, status=404)
 
 
 @login_required(login_url='homepage')
