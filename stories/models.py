@@ -19,7 +19,7 @@ class Story(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     edited_on = models.DateTimeField(auto_now=True)
     status = models.IntegerField(choices=STATUS, default=0)
-    excerpt = models.TextField(blank=True)
+    excerpt = models.TextField()
     is_private = models.BooleanField(default=True)
     upvotes = models.IntegerField(default=0)
     upvoters = models.ManyToManyField(User, related_name="upvoted_stories")
