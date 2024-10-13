@@ -20,9 +20,12 @@
 
     <div class="row"></div>
         <div class="col-12 d-lg-none text-center text-white mb-5">
-            <button type="button" class="fs-3 btn log-btn btn-lg bg-blue text-white align-items-center">
-                <i class="fa-solid fa-pencil"></i> Write Story
-            </button>
+            <form method="GET" action="{% url 'story_editor' %}">
+                {% csrf_token %}
+                <button type="submit" class="fs-3 btn log-btn btn-lg bg-blue text-white align-items-center">
+                    <i class="fa-solid fa-pencil"></i> Write Story
+                </button>
+            </form>
         </div>
     </div>
 
@@ -81,9 +84,12 @@
 
         <div class="col-lg-4 d-none d-lg-block">
             <div class="d-flex justify-content-center">
-                <button type="button" class="fs-3 btn log-btn btn-lg bg-blue text-white align-items-center">
-                    <i class="fa-solid fa-pencil"></i> Write Story
-                </button>
+                <form method="GET" action="{% url 'story_editor' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="fs-3 btn log-btn btn-lg bg-blue text-white align-items-center">
+                        <i class="fa-solid fa-pencil"></i> Write Story
+                    </button>
+                </form>
             </div>
         </div>
         
