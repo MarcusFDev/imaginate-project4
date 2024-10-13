@@ -108,6 +108,14 @@
     min-height: 60vh;
 }
 
+.story-editor-field {
+    width: 50vw;
+}
+
+.story-editor-excerpt {
+    width: 70vw;
+}
+
 /* ------------------------------------------------->  Index Page styles */
 
 .library-header {
