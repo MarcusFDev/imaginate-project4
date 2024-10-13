@@ -1,11 +1,12 @@
-from django import forms
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils.text import slugify
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.views import generic
 from .models import Story, Comment
+from .forms import StoryForm, CommentForm
 from accounts.views import user_profile
 
 
@@ -66,25 +67,6 @@ class MyStoryList(LoginRequiredMixin, generic.ListView):
         return queryset
 
 
-class CommentForm(forms.ModelForm):
-    class Meta:
-        model = Comment
-        fields = ('body',)
-        widgets = {
-            'body': forms.Textarea(
-                attrs={'rows': 1, 'placeholder': 'Add a comment...'}),
-        }
-
-    def clean(self):
-        cleaned_data = super().clean()
-        comment = cleaned_data.get('body')
-
-        if comment and len(comment) > 500:
-            self.add_error('body', "Comments are a Maximum of 500 characters.")
-
-        return cleaned_data
-
-
 @login_required(login_url='homepage')
 def story_page(request, slug):
     """
@@ -115,6 +97,48 @@ def story_page(request, slug):
             "comment_form": comment_form,
         }
     )
+
+
+@login_required
+def story_editor(request):
+
+    if request.method == 'POST':
+        form = StoryForm(request.POST)
+        if form.is_valid():
+
+            title = form.cleaned_data['title']
+            excerpt = form.cleaned_data['excerpt']
+            content = form.cleaned_data['content']
+            slug = slugify(title)
+            author = request.user
+            status = 1
+            is_private = False
+
+            # Check if the slug already exists
+            if Story.objects.filter(slug=slug).exists():
+                # If the slug already exists, append a number to the slug
+                i = 1
+                while Story.objects.filter(slug=f"{slug}-{i}").exists():
+                    i += 1
+                slug = f"{slug}-{i}"
+
+            # Create a new Story instance
+            Story.objects.create(
+                title=title,
+                slug=slug,
+                author=author,
+                content=content,
+                excerpt=excerpt,
+                status=status,
+                is_private=is_private,
+            )
+
+            return redirect('my_stories')
+        else:
+            return render(request, 'stories/story_editor.html', {'form': form})
+    else:
+        form = StoryForm()
+        return render(request, 'stories/story_editor.html', {'form': form})
 
 
 @login_required

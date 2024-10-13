@@ -3,6 +3,7 @@ from django.urls import path
 
 
 urlpatterns = [
+    path('story-editor/', views.story_editor, name='story_editor'),
     path('story/<slug:slug>/edit/', views.story_edit, name='story_edit'),
     path('story/<slug:slug>/delete/', views.story_delete, name='story_delete'),
     path(
