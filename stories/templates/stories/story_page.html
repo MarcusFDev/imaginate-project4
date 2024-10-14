@@ -18,7 +18,7 @@
         <!-- Story Titles -->
         <div class="col-12 col-lg-4 d-flex justify-content-center flex-column align-items-center text-center">
             <h1 class="post-title text-white pt-2 pb-5">{{ story.title }}</h1>
-            <p class="post-subtitle text-white">Written by <a href="{% url 'view_profile' story.author.username %}">{{ story.author }}</a></p>
+            <p class="post-subtitle text-white">Written by <strong><a class="text-success link-offset-2" href="{% url 'view_profile' story.author.username %}">{{ story.author }}</a></strong></p>
             <p class="post-subtitle text-white"><span>{{ story.created_on }}</span></p>
         </div>
 
@@ -49,6 +49,47 @@
             </div>
         </div>
 
+    </div>
+</section>
+
+<!-- Story Alerts -->
+<section class="container">
+    <div class="row">
+        <div class="col-6">
+            <div class="comment-saved-alert alert alert-success fixed-alert" role="alert" style="display: none;">
+                <i class="fa-solid fa-circle-check pe-2"></i>Comment saved successfully!
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="comment-error-alert alert alert-danger fixed-alert" role="alert" style="display: none;">
+                <i class="fa-solid fa-circle-xmark pe-2"></i>Error while saving comment.
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="comment-upvoted-alert alert alert-success fixed-alert" role="alert" style="display: none;">
+                <i class="fa-solid fa-circle-check pe-2"></i>Comment Upvoted!
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="comment-unvoted-alert alert alert-success fixed-alert" role="alert" style="display: none;">
+                <i class="fa-solid fa-circle-check pe-2"></i>Comment Upvote removed.
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="story-upvoted-alert alert alert-success fixed-alert" role="alert" style="display: none;">
+                <i class="fa-solid fa-circle-check pe-2"></i>Story Upvoted!
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="story-unvoted-alert alert alert-success fixed-alert" role="alert" style="display: none;">
+                <i class="fa-solid fa-circle-check pe-2"></i>Story Upvote removed.
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="comment-delete-alert alert alert-success fixed-alert" role="alert" style="display: none;">
+                <i class="fa-solid fa-circle-check pe-2"></i>Comment deleted.
+            </div>
+        </div>
     </div>
 </section>
 
@@ -85,7 +126,7 @@
             <div class="pt-3">
                 <form method="POST" action="{% url 'add_comment' story.slug %}">
                     {% csrf_token %}
-
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
                     <!-- Comment Text Input -->
                     <div class="mx-lg-5 my-lg-3 mx-2 form-floating">
                         <textarea class="comment-input form-control" name="body" row="1"
@@ -93,16 +134,13 @@
                         <label for="comment-input">Add a Comment</label>
 
                         <!-- Comment Submit Button -->
-                        <div class="d-flex my-3 comment-btn">
-                            <button class="btn btn-primary" type="submit">Submit</button>
+                        <div class="d-flex my-3 comment-btn align-items-center">
+                            <button class="comment-new-submit btn btn-primary" type="submit">Submit</button>
+
                             <!-- Comment Errors -->
-                            {% if comment_form.body.errors %}
-                            <div class="ms-3 pt-2 text-danger">
-                                {% for error in comment_form.body.errors %}
-                                <div>{{ error }}</div>
-                                {% endfor %}
+                            <div class="mx-4 my-3 text-danger error-message hidden">
+                                An error occured submitting the comment. Please try again.
                             </div>
-                            {% endif %}
                         </div>
                     </div>
                 </form>
@@ -115,7 +153,7 @@
                 {% endif %}
             </div>
         </div>
-    </div>
+    </div>    
 
     <!-- Comment Section -->
     <div class="row">
@@ -127,7 +165,7 @@
                     <!-- Comment List -->
                     <li class="list-group-item comment text-white mb-4 fs-5 position-relative">
                         <div class="d-lg-block d-flex flex-column">
-                            <strong class="text-success fs-5">{{ comment.author }}</strong>
+                            <strong class="text-success fs-5"><a class="text-success link-offset-2" href="{% url 'view_profile' comment.author.username %}">{{ comment.author }}</a></strong>
                             <span class="text-light ms-lg-2 fs-6">({{ comment.created_on|date:"F d, Y" }})</span>
                             <p class="comment-list-body pt-3">{{ comment.body }}</p>
                         </div>

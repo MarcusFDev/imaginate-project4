@@ -116,6 +116,16 @@
     width: 70vw;
 }
 
+.fixed-alert {
+    position: fixed;
+    top: 5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    width: 300px;
+    text-align: center;
+  }
+
 /* ------------------------------------------------->  Index Page styles */
 
 .library-header {
