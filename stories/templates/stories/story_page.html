@@ -18,7 +18,7 @@
         <!-- Story Titles -->
         <div class="col-12 col-lg-4 d-flex justify-content-center flex-column align-items-center text-center">
             <h1 class="post-title text-white pt-2 pb-5">{{ story.title }}</h1>
-            <p class="post-subtitle text-white">Written by {{ story.author }}</p>
+            <p class="post-subtitle text-white">Written by <a href="{% url 'view_profile' story.author.username %}">{{ story.author }}</a></p>
             <p class="post-subtitle text-white"><span>{{ story.created_on }}</span></p>
         </div>
 
