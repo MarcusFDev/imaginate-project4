@@ -100,7 +100,7 @@ def story_page(request, slug):
 
 
 @login_required
-def story_editor(request):
+def story_creator(request):
 
     if request.method == 'POST':
         form = StoryForm(request.POST)
@@ -135,23 +135,30 @@ def story_editor(request):
 
             return redirect('my_stories')
         else:
-            return render(request, 'stories/story_editor.html', {'form': form})
+            return render(
+                request, 'stories/story_creator.html', {'form': form})
     else:
         form = StoryForm()
-        return render(request, 'stories/story_editor.html', {'form': form})
+        return render(request, 'stories/story_creator.html', {'form': form})
 
 
-@login_required
-def story_edit(request, slug):
-    story = get_object_or_404(Story, slug=slug, author=request.user)
+@login_required(login_url='homepage')
+def story_editor(request, story_slug):
+    print("Story editor triggered")
+    story = get_object_or_404(Story, slug=story_slug)
+    print("Story:", story)
     if request.method == 'POST':
-        story.title = request.POST.get('title')
-        story.content = request.POST.get('content')
-        story.excerpt = request.POST.get('excerpt')
-        story.save()
+        print(request.method)
+        form = StoryForm(request.POST, instance=story)
+        print(form)
+        if form.is_valid():
+            form.save()
+            return redirect('my_stories')
+    else:
+        print("Not Post")
+        form = StoryForm(instance=story)
 
-        return redirect('stories/my_stories.html')
-    return render(request, 'stories/my_stories.html', {'story': story})
+    return render(request, 'stories/story_editor.html', {'form': form})
 
 
 @login_required(login_url='homepage')

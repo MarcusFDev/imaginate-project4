@@ -20,7 +20,7 @@
 
     <div class="row"></div>
         <div class="col-12 d-lg-none text-center text-white mb-5">
-            <form method="GET" action="{% url 'story_editor' %}">
+            <form method="GET" action="{% url 'story_creator' %}">
                 {% csrf_token %}
                 <button type="submit" class="fs-3 btn log-btn btn-lg bg-blue text-white align-items-center">
                     <i class="fa-solid fa-pencil"></i> Write Story
@@ -84,7 +84,7 @@
 
         <div class="col-lg-4 d-none d-lg-block">
             <div class="d-flex justify-content-center">
-                <form method="GET" action="{% url 'story_editor' %}">
+                <form method="GET" action="{% url 'story_creator' %}">
                     {% csrf_token %}
                     <button type="submit" class="fs-3 btn log-btn btn-lg bg-blue text-white align-items-center">
                         <i class="fa-solid fa-pencil"></i> Write Story
@@ -234,7 +234,7 @@
 
                         <!-- Edit Button -->
                         <li class="list-group-item">
-                            <form method="POST" action="{% url 'story_edit' story.slug %}">
+                            <form method="GET" action="{% url  'story_editor' %}">
                                 {% csrf_token %}
                                 <button class="edit-btn comment-btn text-black" type="submit">
                                     <i class="fa-solid fa-pen-to-square icon-bg link-yellow"></i>
