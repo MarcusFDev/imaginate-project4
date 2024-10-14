@@ -232,16 +232,6 @@
                             </form>
                         </li>
 
-                        <!-- Edit Button -->
-                        <li class="list-group-item">
-                            <form method="GET" action="{% url  'story_editor' %}">
-                                {% csrf_token %}
-                                <button class="edit-btn comment-btn text-black" type="submit">
-                                    <i class="fa-solid fa-pen-to-square icon-bg link-yellow"></i>
-                                </button>
-                            </form>
-                        </li>
-
                         <!-- Delete Button -->
                         <li class="list-group-item">
                             <button class="delete-btn comment-btn text-black" type="button" data-bs-toggle="modal"

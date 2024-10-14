@@ -143,25 +143,6 @@ def story_creator(request):
 
 
 @login_required(login_url='homepage')
-def story_editor(request, story_slug):
-    print("Story editor triggered")
-    story = get_object_or_404(Story, slug=story_slug)
-    print("Story:", story)
-    if request.method == 'POST':
-        print(request.method)
-        form = StoryForm(request.POST, instance=story)
-        print(form)
-        if form.is_valid():
-            form.save()
-            return redirect('my_stories')
-    else:
-        print("Not Post")
-        form = StoryForm(instance=story)
-
-    return render(request, 'stories/story_editor.html', {'form': form})
-
-
-@login_required(login_url='homepage')
 @require_POST
 def story_delete(request, slug):
     story = get_object_or_404(Story, slug=slug, author=request.user)
