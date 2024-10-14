@@ -56,6 +56,12 @@
     border-radius: 10px;
 }
 
+.border-glow-yellow {
+    border: 2px solid rgba(255, 193, 7, 0.5);
+    box-shadow: 0 0 15px 5px rgba(255, 193, 7, 0.6);
+    border-radius: 10px;
+}
+
 .underline:hover {
     text-decoration: underline;
     text-decoration-thickness: 2px;
@@ -100,6 +106,14 @@
 
 .min-vh-60 {
     min-height: 60vh;
+}
+
+.story-editor-field {
+    width: 50vw;
+}
+
+.story-editor-excerpt {
+    width: 70vw;
 }
 
 /* ------------------------------------------------->  Index Page styles */
@@ -238,6 +252,14 @@
 }
 
 .comment-btn {
+    border: none;
+    background: transparent;
+}
+
+
+/* ------------------------------------------------->  My Stories Page styles */
+
+.private-btn {
     border: none;
     background: transparent;
 }
