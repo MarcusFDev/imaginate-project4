@@ -264,10 +264,9 @@ $(document).ready(function() {
 });
 
 
-$(document).ready(function() {
-
+$(document).ready(function() {  
     // Handle the delete comment button click.
-    $('.delete-btn').on('click', function(event) {
+    $('.delete-confirm-btn').on('click', function(event) {
         event.preventDefault();
         var form = $(this).closest('form');
         var csrfToken = form.find('input[name="csrfmiddlewaretoken"]').val();
@@ -286,6 +285,8 @@ $(document).ready(function() {
                 if (data.success) {
                     $(form).closest('.comment').remove();
                     $('.comment-delete-alert').fadeIn().delay(3000).fadeOut();
+                    // Close the modal
+                    form.closest('.modal').modal('hide');
                 }
             }
         });
