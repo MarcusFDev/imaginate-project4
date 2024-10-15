@@ -7,7 +7,6 @@ from django.views.decorators.http import require_POST
 from django.views import generic
 from .models import Story, Comment
 from .forms import StoryForm, CommentForm
-from accounts.views import user_profile
 
 
 # Create your views here.
@@ -318,9 +317,9 @@ def delete_all_stories(request):
         stories = Story.objects.filter(author=request.user)
         if stories.exists():
             stories.delete()
-            return user_profile(request)
+            return JsonResponse({'success': True}, status=200)
         else:
-            return user_profile(request)
+            return JsonResponse({'error': 'No stories found'}, status=404)
 
     return JsonResponse({'error': 'No stories found'}, status=404)
 
@@ -331,8 +330,8 @@ def delete_all_comments(request):
         comments = Comment.objects.filter(author=request.user)
         if comments.exists():
             comments.delete()
-            return user_profile(request)
+            return JsonResponse({'success': True}, status=200)
         else:
-            return user_profile(request)
+            return JsonResponse({'error': 'No comments found'}, status=404)
 
     return JsonResponse({'error': 'No comments found'}, status=404)
