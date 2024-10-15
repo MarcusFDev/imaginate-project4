@@ -56,6 +56,11 @@
 <section class="container">
     <div class="row">
         <div class="col-6">
+            <div class="comment-added-alert alert alert-success fixed-alert" role="alert" style="display: none;">
+                <i class="fa-solid fa-circle-check pe-2"></i>Comment added successfully!
+            </div>
+        </div>
+        <div class="col-6">
             <div class="comment-saved-alert alert alert-success fixed-alert" role="alert" style="display: none;">
                 <i class="fa-solid fa-circle-check pe-2"></i>Comment saved successfully!
             </div>
@@ -127,6 +132,7 @@
                 <form method="POST" action="{% url 'add_comment' story.slug %}">
                     {% csrf_token %}
                     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                    <div data-storypage-url="{% url 'story_page' story.slug %}"></div>
                     <!-- Comment Text Input -->
                     <div class="mx-lg-5 my-lg-3 mx-2 form-floating">
                         <textarea class="comment-input form-control" name="body" row="1"
