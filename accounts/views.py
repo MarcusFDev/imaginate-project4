@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth import login, authenticate
+from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
@@ -122,10 +123,23 @@ def update_bio(request):
 
 
 @login_required(login_url='homepage')
+def logout_account(request):
+    if request.method == 'POST':
+        print("Log Out Request recieved.")
+        logout(request)
+
+        return JsonResponse({'success': True}, status=200)
+    return JsonResponse({'error': 'Account not found'}, status=400)
+
+
+@login_required(login_url='homepage')
 def delete_account(request):
     if request.method == 'POST':
-        request.user.delete()
-        return render(request, 'accounts/home/home_page.html')
+        user = request.user
+        logout(request)
+        user.delete()
+
+        return JsonResponse({'success': 'Account deleted'}, status=200)
     return JsonResponse({'error': 'Account not found'}, status=400)
 
 
