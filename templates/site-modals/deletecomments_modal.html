@@ -9,6 +9,7 @@
             <div class="modal-body">
                 <form id="" method="POST" action="{% url 'delete_all_comments' %}">
                     {% csrf_token %}
+                    <div data-userprofile-url="{% url 'user_profile' %}"></div>
                     <div>
                         <p class="py-4 text-center fs-4">Are you absolutely sure you want to remove all comments from this account?</p>
                         <p class="text-danger"><i class="fa-solid fa-triangle-exclamation"></i>
@@ -22,7 +23,7 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-danger">Remove All</button>
+                        <button type="submit" class="btn btn-danger delete-comments-btn">Remove All</button>
                     </div>
                 </form>
             </div>
