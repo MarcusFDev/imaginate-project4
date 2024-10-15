@@ -11,9 +11,13 @@
             <div class="modal-body">
                 <form id="aboutmeForm" method="POST" action="{% url 'update_bio' %}">
                     {% csrf_token %}
+                    <div data-userprofile-url="{% url 'user_profile' %}"></div>
                     <textarea id="aboutme_textarea" name="bio" class="form-control">{{ bio }}</textarea>
-
-                    <div class="error-msg hidden text-danger py-4">
+                    
+                    <div class="error-msg-1 hidden text-danger py-4">
+                        <h3><i class="fa-solid fa-triangle-exclamation pe-2"></i>Bio cannot exceed 1500 characters.</h3>
+                    </div>
+                    <div class="error-msg-2 hidden text-danger py-4">
                         <h3><i class="fa-solid fa-triangle-exclamation pe-2"></i>Something went wrong.</h3>
                     </div>
 
