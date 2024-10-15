@@ -29,6 +29,33 @@ $(document).ready(function() {
 });
 
 
+$(document).ready(function() {  
+    // Handle the logout account button click.
+    $('.logout-btn').on('click', function(event) {
+        event.preventDefault();
+        var form = $(this).closest('form');
+        var csrfToken = form.find('input[name="csrfmiddlewaretoken"]').val();
+        var homepageUrl = $('div[data-homepage-url]').attr('data-homepage-url');
+        
+        // Send the logout data via AJAX.
+        $.ajax({
+            type: 'POST',
+            url: form.attr('action'),
+            data: { 
+                csrfmiddlewaretoken: csrfToken 
+            },
+            dataType: 'json',
+            success: function(data) {
+                // Logout account.
+                if (data.success) {
+                    window.location.href = homepageUrl + '?logout_account=true';
+                }
+            }
+        });
+    });
+});
+
+
 // ====================================
 // user_profile.html Functions
 // ====================================
@@ -76,7 +103,8 @@ $(document).ready(function() {
         var form = $(this).closest('form');
         var csrfToken = form.find('input[name="csrfmiddlewaretoken"]').val();
         var modal = form.closest('.modal-content');
-        var errormsg = form.find('.error-msg');
+        var errormsg1 = form.find('.error-msg-1');
+        var userprofileUrl = $('div[data-userprofile-url]').attr('data-userprofile-url');
         
         // Send the aboutme data via AJAX.
         $.ajax({
@@ -91,7 +119,8 @@ $(document).ready(function() {
                 if (data.status === 'success') {
                     modal.removeClass('border-glow-red');
                     $('.pf-description p').html(data.bio);
-                    location.reload();
+                    window.location.href = userprofileUrl + '?aboutdesc_success=true';
+
                 } else {
 
                     modal.html(data.form);
@@ -100,10 +129,12 @@ $(document).ready(function() {
                         modal.removeClass('border-glow-red');
                     }, 5000);
 
-                    errormsg.removeClass('hidden');
+                    errormsg1.removeClass('hidden');
                     setTimeout(function() {
-                        errormsg.addClass('hidden');
+                        errormsg1.addClass('hidden');
                     }, 5000);
+
+                    $('.aboutdes-error-alert').fadeIn().delay(3000).fadeOut();
                 }
             },
             error: function(xhr, status, error) {
@@ -113,13 +144,140 @@ $(document).ready(function() {
                     modal.removeClass('border-glow-red');
                 }, 5000);
 
-                errormsg.removeClass('hidden');
+                errormsg1.removeClass('hidden');
                 setTimeout(function() {
-                    errormsg.addClass('hidden');
+                    errormsg1.addClass('hidden');
                 }, 5000);
+
+                $('.aboutdes-error-alert').fadeIn().delay(3000).fadeOut();
             }
         });
     });
+});
+
+
+$(document).ready(function() {
+    if (window.location.search.indexOf('aboutdesc_success=true') > -1) {
+        $('.aboutdes-success-alert').fadeIn().delay(3000).fadeOut();
+    }
+});
+
+
+$(document).ready(function() {  
+    // Handle the delete account button click.
+    $('.delete-acc-btn').on('click', function(event) {
+        event.preventDefault();
+        var form = $(this).closest('form');
+        var csrfToken = form.find('input[name="csrfmiddlewaretoken"]').val();
+        var homepageUrl = $('div[data-homepage-url]').attr('data-homepage-url');
+        var userprofileUrl = $('div[data-userprofile-url]').attr('data-userprofile-url');
+        
+        // Send the delete data via AJAX.
+        $.ajax({
+            type: 'POST',
+            url: form.attr('action'),
+            data: { 
+                csrfmiddlewaretoken: csrfToken 
+            },
+            dataType: 'json',
+            success: function(data) {
+                // Delete account.
+                if (data.success) {
+                    window.location.href = homepageUrl + '?account_deleted=true';
+                }
+            },
+            error: function(xhr, status, error) {
+                window.location.href = userprofileUrl + '?account_deleted=false';
+            }
+        });
+    });
+});
+
+
+$(document).ready(function() {
+    if (window.location.search.indexOf('account_deleted=false') > -1) {
+        $('.accdelete-error-alert').fadeIn().delay(3000).fadeOut();
+    }
+});
+
+
+$(document).ready(function() {  
+    // Handle the delete account button click.
+    $('.delete-comments-btn').on('click', function(event) {
+        event.preventDefault();
+        var form = $(this).closest('form');
+        var csrfToken = form.find('input[name="csrfmiddlewaretoken"]').val();
+        var userprofileUrl = $('div[data-userprofile-url]').attr('data-userprofile-url');
+        
+        // Send the delete data via AJAX.
+        $.ajax({
+            type: 'POST',
+            url: form.attr('action'),
+            data: { 
+                csrfmiddlewaretoken: csrfToken 
+            },
+            dataType: 'json',
+            success: function(data) {
+                // Delete account.
+                if (data.success) {
+                    window.location.href = userprofileUrl + '?allcomments_deleted=true';
+                }
+            },
+            error: function(xhr, status, error) {
+                window.location.href = userprofileUrl + '?allcomments_deleted=false';
+            }
+        });
+    });
+});
+
+
+$(document).ready(function() {
+    if (window.location.search.indexOf('allcomments_deleted=true') > -1) {
+        $('.deletecomments-success-alert').fadeIn().delay(3000).fadeOut();
+    }
+    if (window.location.search.indexOf('allcomments_deleted=false') > -1) {
+        $('.deletecomments-error-alert').fadeIn().delay(3000).fadeOut();
+    }
+});
+
+
+$(document).ready(function() {  
+    // Handle the delete stories button click.
+    $('.delete-stories-btn').on('click', function(event) {
+        event.preventDefault();
+        var form = $(this).closest('form');
+        var csrfToken = form.find('input[name="csrfmiddlewaretoken"]').val();
+        var userprofileUrl = $('div[data-userprofile-url]').attr('data-userprofile-url');
+        
+        // Send the delete data via AJAX.
+        $.ajax({
+            type: 'POST',
+            url: form.attr('action'),
+            data: { 
+                csrfmiddlewaretoken: csrfToken 
+            },
+            dataType: 'json',
+            success: function(data) {
+                // Delete stories.
+                if (data.success) {
+                    window.location.href = userprofileUrl + '?allstories_deleted=true';
+                }
+            },
+            error: function(xhr, status, error) {
+                window.location.href = userprofileUrl + '?allstories_deleted=false';
+            }
+        });
+    });
+});
+
+
+$(document).ready(function() {
+    if (window.location.search.indexOf('allstories_deleted=true') > -1) {
+        $('.deletestories-success-alert').fadeIn().delay(3000).fadeOut();
+    }
+    if (window.location.search.indexOf('allstories_deleted=false') > -1) {
+        $('.deletestories-error-alert').fadeIn().delay(3000).fadeOut();
+    }
 });
 
 
@@ -137,6 +295,20 @@ $(document).ready(function() {
     setTimeout(function() {
         $('#imaginate-titles h3').addClass('animate__animated animate__fadeInUp');
     }, 500);
+});
+
+
+$(document).ready(function() {
+    if (window.location.search.indexOf('account_deleted=true') > -1) {
+        $('.accdelete-success-alert').fadeIn().delay(3000).fadeOut();
+    }
+});
+
+
+$(document).ready(function() {
+    if (window.location.search.indexOf('logout_account=true') > -1) {
+        $('.logout-success-alert').fadeIn().delay(3000).fadeOut();
+    }
 });
 
 
@@ -378,6 +550,7 @@ $(document).ready(function() {
         var form = button.closest('form');
         var commentBody = form.find('textarea[name="body"]').val();
         var csrfToken = form.find('input[name="csrfmiddlewaretoken"]').val();
+        var storypageUrl = $('div[data-storypage-url]').attr('data-storypage-url');
         
         // Send the save data via AJAX.
         $.ajax({
@@ -390,7 +563,11 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(data) {
                 console.log(data);
-                location.reload()
+                // Delete stories.
+                if (data.success) {
+                    window.location.href = storypageUrl + '?addcomment=true';
+                }
+                
             },
             error: function(xhr, status, error) {
                 console.log(xhr.responseText);
@@ -403,7 +580,7 @@ $(document).ready(function() {
                 }, 5000);
 
                 var errorMessage = button.closest('form').find('.error-message');
-                errorMessage.toggleClass('hidden');
+                errorMessage.toggleClass('hidden');  
                 setTimeout(function() {
                     errorMessage.toggleClass('hidden');
                 }, 5000);
@@ -412,6 +589,13 @@ $(document).ready(function() {
             }
         });
     });
+});
+
+
+$(document).ready(function() {
+    if (window.location.search.indexOf('addcomment=true') > -1) {
+        $('.comment-added-alert').fadeIn().delay(3000).fadeOut();
+    }
 });
 
 
