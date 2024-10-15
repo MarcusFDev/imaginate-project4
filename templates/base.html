@@ -1,7 +1,6 @@
 {% load static %}
 {% url 'home' as home_url %}
 {% url 'about' as about_url %}
-{% url 'account_logout' as logout_url %}
 
 <!DOCTYPE html>
 <html class="h-100" lang="en">
@@ -170,9 +169,9 @@
                 </div>
     
                 <div class="modal-footer">
-                    <form id="logoutForm" method="POST" action="{% url 'account_logout' %}">
+                    <form id="logoutForm" method="POST" action="{% url 'logout_account' %}">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-primary">Log Out</button>
+                        <button type="submit" class="btn logout-btn btn-primary">Log Out</button>
                     </form>
                 </div>
             </div>
@@ -208,7 +207,6 @@
 
     {% include 'site-modals/register_modal.html' %}
     {% include 'site-modals/login_modal.html' %}
-    {% include 'site-modals/logout_modal.html' %}
     {% include 'site-modals/aboutme_modal.html' %}
     {% include 'site-modals/deletestories_modal.html' %}
     {% include 'site-modals/deletecomments_modal.html' %}
