@@ -253,8 +253,10 @@ $(document).ready(function() {
                 // Toggle icon based on comment Upvote or Remove Upvote.
                 if (data.action == 'added') {
                     $(form).find('.upvote-btn i').removeClass('fa-regular').addClass('fa-solid').addClass('text-danger');
+                    $('.comment-upvoted-alert').fadeIn().delay(3000).fadeOut();
                 } else if (data.action == 'removed') {
                     $(form).find('.upvote-btn i').removeClass('fa-solid text-danger').addClass('fa-regular');
+                    $('.comment-unvoted-alert').fadeIn().delay(3000).fadeOut();
                 }
             }
         });
@@ -283,6 +285,7 @@ $(document).ready(function() {
                 // Delete comment from page.
                 if (data.success) {
                     $(form).closest('.comment').remove();
+                    $('.comment-delete-alert').fadeIn().delay(3000).fadeOut();
                 }
             }
         });
@@ -315,7 +318,6 @@ $(document).ready(function() {
         e.preventDefault();
         var button = $(this);
         var form = button.closest('li').find('form');
-        var commentId = form.find('input[name="comment_id"]').val();
         var commentBody = form.find('textarea[name="body"]').val();
         var csrfToken = form.find('input[name="csrfmiddlewaretoken"]').val();
         
@@ -327,8 +329,9 @@ $(document).ready(function() {
                 'csrfmiddlewaretoken': csrfToken,
                 'body': commentBody
             },
+            dataType: 'json',
             success: function(data) {
-                console.log(data);
+                console.log("Save Button detected" ,data);
 
                 // Add Classes to targetted elements
                 button.closest('li').find('.comment-list-body').text(commentBody);
@@ -339,6 +342,8 @@ $(document).ready(function() {
                 editCommentField.toggleClass('hidden');
                 commentBodyElement.toggleClass('hidden');
                 parentLi.toggleClass('border-glow');
+
+                $('.comment-saved-alert').fadeIn().delay(3000).fadeOut();
             },
             error: function(xhr, status, error) {
                 console.log(xhr.responseText);
@@ -355,6 +360,54 @@ $(document).ready(function() {
                 setTimeout(function() {
                     errorMessage.toggleClass('hidden');
                 }, 5000);
+
+                $('.comment-error-alert').fadeIn().delay(3000).fadeOut();
+            }
+        });
+    });
+});
+
+
+$(document).ready(function() {
+
+    // Handle the add comment button click.
+    $('.comment-new-submit').on('click', function(e) {
+        e.preventDefault();
+        var button = $(this);
+        var form = button.closest('form');
+        var commentBody = form.find('textarea[name="body"]').val();
+        var csrfToken = form.find('input[name="csrfmiddlewaretoken"]').val();
+        
+        // Send the save data via AJAX.
+        $.ajax({
+            type: 'POST',
+            url: form.attr('action'),
+            data: {
+                'csrfmiddlewaretoken': csrfToken,
+                'body': commentBody
+            },
+            dataType: 'json',
+            success: function(data) {
+                console.log(data);
+                location.reload()
+            },
+            error: function(xhr, status, error) {
+                console.log(xhr.responseText);
+                
+                // Add Error Classes to targetted elements.
+                var commentField = button.closest('form').find('textarea[name="body"]');
+                commentField.toggleClass('border-glow-red');
+                setTimeout(function() {
+                    commentField.toggleClass('border-glow-red');
+                }, 5000);
+
+                var errorMessage = button.closest('form').find('.error-message');
+                errorMessage.toggleClass('hidden');
+                setTimeout(function() {
+                    errorMessage.toggleClass('hidden');
+                }, 5000);
+
+                $('.comment-error-alert').fadeIn().delay(3000).fadeOut();
             }
         });
     });
@@ -387,9 +440,11 @@ $(document).ready(function() {
                 if (data.action == 'added') {
                     $(form).find('.story-upvote-div').removeClass('story-upvote').addClass('story-upvote-active');
                     $(form).find('.story-upvote-btn i').removeClass('fa-regular').addClass('fa-solid').addClass('text-danger');
+                    $('.story-upvoted-alert').fadeIn().delay(3000).fadeOut();
                 } else if (data.action == 'removed') {
                     $(form).find('.story-upvote-div').removeClass('story-upvote-active').addClass('story-upvote');
                     $(form).find('.story-upvote-btn i').removeClass('fa-solid text-danger').addClass('fa-regular');
+                    $('.story-unvoted-alert').fadeIn().delay(3000).fadeOut();
                 }
             }
         });

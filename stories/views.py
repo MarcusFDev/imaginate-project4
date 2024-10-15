@@ -235,7 +235,7 @@ def add_comment(request, slug):
             new_comment.story = story
             new_comment.author = request.user
             new_comment.save()
-            return redirect('story_page', slug=story.slug)
+            return JsonResponse({'success': 'Comment added'}, status=200)
 
     return JsonResponse({'error': 'Error adding comment'}, status=400)
 
@@ -252,7 +252,8 @@ def edit_comment(request, comment_id):
             comment.body = form.cleaned_data['body']
             comment.save()
 
-            return JsonResponse({'message': 'Comment edited successfully'})
+            return JsonResponse(
+                {'message': 'Comment edited successfully'}, status=200)
 
     return JsonResponse({'message': 'Error editing comment'}, status=400)
 
