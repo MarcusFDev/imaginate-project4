@@ -25,7 +25,7 @@
                         
                         <!-- Modal Form -->
                         <div class="col-12 col-xl-6 ps-xl-5 justify-content-center align-items-center">
-                            <form id="loginForm" method="POST" action="{% url 'login' %}">
+                            <form id="loginForm" method="POST" action="{% url 'login' %}" autocomplete="on">
                                 {% csrf_token %}
                                 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
                                 <div data-homepage-url="{% url 'home_page' %}"></div>

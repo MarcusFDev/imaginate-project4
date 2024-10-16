@@ -9,7 +9,7 @@
             </div>
 
             <div class="modal-body">
-                <form id="aboutmeForm" method="POST" action="{% url 'update_bio' %}">
+                <form id="aboutmeForm" method="POST" action="{% url 'update_bio' %}" autocomplete="off">
                     {% csrf_token %}
                     <div data-userprofile-url="{% url 'user_profile' %}"></div>
                     <textarea id="aboutme_textarea" name="bio" class="form-control">{{ bio }}</textarea>

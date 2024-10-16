@@ -29,7 +29,7 @@
                         <!-- Modal Form  -->
                         <div class="col-12 col-xl-6 ps-xl-5">
 
-                            <form id="signupForm" method="POST" action="{% url 'register' %}">
+                            <form id="signupForm" method="POST" action="{% url 'register' %}" autocomplete="on">
                                 {% csrf_token %}
 
                                 <!-- Error message -->
