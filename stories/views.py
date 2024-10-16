@@ -11,12 +11,23 @@ from .forms import StoryForm, CommentForm
 
 # Create your views here.
 class LibraryList(LoginRequiredMixin, generic.ListView):
+    """
+    Displays a paginated list of public stories that are not private.
+    Search by title and sorting by upvotes or creation date.
+    """
     model = Story
     template_name = "stories/index.html"
     paginate_by = 15
     login_url = 'homepage'
 
     def get_queryset(self):
+        """
+        Returns the queryset of public stories, filtered by search query and
+        sorted based on user-selected criteria.
+
+        Returns:
+            QuerySet: The filtered and sorted list of stories.
+        """
         queryset = Story.objects.filter(status=1, is_private=False)
 
         search_query = self.request.GET.get('q')
@@ -39,12 +50,23 @@ class LibraryList(LoginRequiredMixin, generic.ListView):
 
 
 class MyStoryList(LoginRequiredMixin, generic.ListView):
+    """
+    Displays a paginated list of the current user's own stories.
+    Supports optional search by title and sorting by upvotes or creation date.
+    """
     model = Story
     template_name = "stories/my_stories.html"
     paginate_by = 15
     login_url = 'homepage'
 
     def get_queryset(self):
+        """
+        Returns the queryset of the user's own stories, filtered by search
+        query and sorted based on user-selected criteria.
+
+        Returns:
+            QuerySet: The filtered and sorted list of the user's stories.
+        """
         queryset = Story.objects.filter(status=1, author=self.request.user)
 
         search_query = self.request.GET.get('q')
@@ -69,16 +91,15 @@ class MyStoryList(LoginRequiredMixin, generic.ListView):
 @login_required(login_url='homepage')
 def story_page(request, slug):
     """
-    Display an individual :model:`stories.Story`.
+    Displays a specific story's page with associated comments.
 
-    **Context**
+    Args:
+        request: The HTTP request object.
+        slug: The slug of the story to retrieve.
 
-    ``post``
-        An instance of :model:`stories.Story`.
-
-    **Template:**
-
-    :template:`stories/story_page.html`
+    Returns:
+        HttpResponse: A rendered story page template with the story and
+        comments.
     """
 
     queryset = Story.objects.filter(status=1)
@@ -100,6 +121,17 @@ def story_page(request, slug):
 
 @login_required
 def story_creator(request):
+    """
+    Handles story creation via a POST request. If the form is valid, the new
+    story is saved. If the slug is a duplicate, a unique slug is generated.
+
+    Args:
+        request: The HTTP request object containing the story form data.
+
+    Returns:
+        HttpResponse: A redirect to the 'my_stories' page if successful,
+        or re-renders the story creation page if the form is invalid.
+    """
 
     if request.method == 'POST':
         form = StoryForm(request.POST)
@@ -144,6 +176,17 @@ def story_creator(request):
 @login_required(login_url='homepage')
 @require_POST
 def story_delete(request, slug):
+    """
+    Deletes a story if the current user is the author. Returns a JSON response
+    with the success status or an error message if deletion fails.
+
+    Args:
+        request: The HTTP request object.
+        slug: The slug of the story to delete.
+
+    Returns:
+        JsonResponse: A JSON response indicating success or failure.
+    """
     story = get_object_or_404(Story, slug=slug, author=request.user)
 
     try:
@@ -162,6 +205,17 @@ def story_delete(request, slug):
 @login_required(login_url='homepage')
 @require_POST
 def story_private(request, slug):
+    """
+    Toggles a story's privacy status (public/private) and returns a JSON
+    response indicating the new state.
+
+    Args:
+        request: The HTTP request object.
+        slug: The slug of the story to update.
+
+    Returns:
+        JsonResponse: A JSON response with the updated privacy status.
+    """
     story = get_object_or_404(Story, slug=slug, author=request.user)
 
     try:
@@ -189,6 +243,17 @@ def story_private(request, slug):
 @login_required(login_url='homepage')
 @require_POST
 def upvote_story(request, slug):
+    """
+    Upvotes or removes an upvote from a story. Returns a JSON response
+    with the updated upvote count and the action taken.
+
+    Args:
+        request: The HTTP request object.
+        slug: The slug of the story to upvote.
+
+    Returns:
+        JsonResponse: A JSON response with the new upvote count and action.
+    """
 
     story = Story.objects.get(slug=slug)
 
@@ -223,6 +288,17 @@ def upvote_story(request, slug):
 
 @login_required(login_url='homepage')
 def add_comment(request, slug):
+    """
+    Adds a new comment to a story if the request method is POST. Returns
+    a JSON response indicating success or failure.
+
+    Args:
+        request: The HTTP request object containing the comment data.
+        slug: The slug of the story to comment on.
+
+    Returns:
+        JsonResponse: A JSON response indicating success or failure.
+    """
 
     story = get_object_or_404(Story, slug=slug)
 
@@ -242,6 +318,17 @@ def add_comment(request, slug):
 @login_required(login_url='homepage')
 @require_POST
 def edit_comment(request, comment_id):
+    """
+    Edits a comment if the current user is the author. Returns a JSON response
+    indicating success or failure.
+
+    Args:
+        request: The HTTP request object containing the edited comment data.
+        comment_id: The ID of the comment to edit.
+
+    Returns:
+        JsonResponse: A JSON response indicating success or failure.
+    """
 
     comment = get_object_or_404(Comment, id=comment_id)
 
@@ -260,6 +347,17 @@ def edit_comment(request, comment_id):
 @login_required(login_url='homepage')
 @require_POST
 def upvote_comment(request, comment_id):
+    """
+    Upvotes or removes an upvote from a comment. Returns a JSON response
+    with the updated upvote count and the action taken.
+
+    Args:
+        request: The HTTP request object.
+        comment_id: The ID of the comment to upvote.
+
+    Returns:
+        JsonResponse: A JSON response with the new upvote count and action.
+    """
 
     comment = Comment.objects.get(id=comment_id)
 
@@ -295,6 +393,17 @@ def upvote_comment(request, comment_id):
 @login_required(login_url='homepage')
 @require_POST
 def delete_comment(request, comment_id):
+    """
+    Deletes a comment if the current user is the author. Returns a JSON
+    response indicating success or failure.
+
+    Args:
+        request: The HTTP request object.
+        comment_id: The ID of the comment to delete.
+
+    Returns:
+        JsonResponse: A JSON response indicating success or failure.
+    """
 
     comment = Comment.objects.get(id=comment_id)
 
@@ -313,6 +422,16 @@ def delete_comment(request, comment_id):
 
 @login_required
 def delete_all_stories(request):
+    """
+    Deletes all stories authored by the current user. Returns a JSON response
+    indicating success or failure.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        JsonResponse: A JSON response indicating success or failure.
+    """
     if request.method == 'POST':
         stories = Story.objects.filter(author=request.user)
         if stories.exists():
