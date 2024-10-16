@@ -12,6 +12,19 @@ from .forms import RegistrationForm, LoginForm, BioForm, NewsletterForm
 
 
 def register_view(request):
+    """
+    Handles the registration of a new user. If the form is valid, the user is
+    created and logged in automatically. If the form is invalid or
+    authentication fails, the page is re-rendered with error messages.
+
+    Args:
+        request: The HTTP request object containing POST data from the
+        registration form.
+
+    Returns:
+        HttpResponse: A rendered home page template with the registration form
+        and potential error context.
+    """
     reg_form = RegistrationForm(request.POST)
 
     context = {}
@@ -36,6 +49,19 @@ def register_view(request):
 
 
 def login_view(request):
+    """
+    Handles user login. If the credentials are valid, the user is logged in
+    and redirected to the home page. If login fails, the page is re-rendered
+    with error messages.
+
+    Args:
+        request: The HTTP request object containing POST data from the login
+        form.
+
+    Returns:
+        HttpResponse: A rendered home page template with the login form and
+        potential error context.
+    """
     login_form = LoginForm(request.POST)
 
     context = {}
@@ -59,7 +85,17 @@ def login_view(request):
 
 
 def handle_post(request):
-    print("Post Detected.")
+    """
+    Detects whether a POST request is for registration or login, and routes
+    the request to the appropriate view.
+
+    Args:
+        request: The HTTP request object containing POST data.
+
+    Returns:
+        HttpResponse: A response from either the registration or login view,
+        depending on the type of form submitted.
+    """
     if request.method == 'POST':
         form_type = request.POST.get('form_type')
 
@@ -72,7 +108,15 @@ def handle_post(request):
 
 def user_profile(request):
     """
-    Renders the User Profile page
+    Displays the current user's profile page, creating a UserProfile if one
+    doesn't exist. The profile includes the bio and other user details.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        HttpResponse: A rendered user profile page template with the user's
+        profile data in the context.
     """
     user_profile, created = UserProfile.objects.get_or_create(
         user=request.user)
@@ -92,6 +136,19 @@ def user_profile(request):
 
 
 def view_profile(request, username):
+    """
+    Displays a public profile page for a given username. The profile includes
+    the user's bio and other details. If the logged-in user is viewing their
+    own profile, they are marked as the profile owner.
+
+    Args:
+        request: The HTTP request object.
+        username: The username of the profile to be viewed.
+
+    Returns:
+        HttpResponse: A rendered user profile page template with the user's
+        profile data in the context.
+    """
 
     profile_user = get_object_or_404(User, username=username)
     user_profile = get_object_or_404(UserProfile, user=profile_user)
@@ -109,6 +166,17 @@ def view_profile(request, username):
 @login_required(login_url='homepage')
 @require_POST
 def update_bio(request):
+    """
+    Updates the bio of the logged-in user via a POST request. The bio is
+    validated and saved if the form is valid.
+
+    Args:
+        request: The HTTP request object containing POST data with the updated
+        bio.
+
+    Returns:
+        JsonResponse: A JSON response indicating success or failure.
+    """
     user_profile = get_object_or_404(UserProfile, user=request.user)
 
     if request.method == 'POST':
@@ -125,8 +193,16 @@ def update_bio(request):
 
 @login_required(login_url='homepage')
 def logout_account(request):
+    """
+    Logs out the current user via a POST request and returns a JSON response.
+
+    Args:
+        request: The HTTP request object, expected to be a POST request.
+
+    Returns:
+        JsonResponse: A JSON response indicating success or failure.
+    """
     if request.method == 'POST':
-        print("Log Out Request recieved.")
         logout(request)
 
         return JsonResponse({'success': True}, status=200)
@@ -135,6 +211,15 @@ def logout_account(request):
 
 @login_required(login_url='homepage')
 def delete_account(request):
+    """
+    Deletes the current user's account via a POST request and logs them out.
+
+    Args:
+        request: The HTTP request object, expected to be a POST request.
+
+    Returns:
+        JsonResponse: A JSON response indicating success or failure.
+    """
     if request.method == 'POST':
         user = request.user
         logout(request)
@@ -145,6 +230,17 @@ def delete_account(request):
 
 
 def home_page(request):
+    """
+    Renders the home page with registration, login, and newsletter subscription
+    forms. Processes newsletter subscriptions via a POST request.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        HttpResponse: A rendered home page template with registration, login,
+        and newsletter forms in the context.
+    """
     reg_form = RegistrationForm()
     login_form = LoginForm()
     newsletter_form = NewsletterForm()
