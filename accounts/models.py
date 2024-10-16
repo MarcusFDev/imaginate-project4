@@ -4,6 +4,10 @@ from django.utils import timezone
 
 
 class UserProfile(models.Model):
+    """
+    A model representing the user profile, extending the default Django User
+    model with additional fields such as bio, profile picture, and timestamps.
+    """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(max_length=1500, blank=True)
     profile_picture = models.ImageField(
