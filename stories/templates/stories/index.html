@@ -171,7 +171,7 @@
 <!-- Story Entries Column -->
 <section class="container-fluid min-vh-80">
     <div class="row justify-content-center">
-
+        {% if story_list %}
         {% for story in story_list %}
         <div class="col-12 col-lg-4">
             <div class="card mx-lg-0 mx-3 mb-4">
@@ -193,13 +193,19 @@
         </div>
 
         {% if forloop.counter|divisibleby:2 %}
-        
+
     </div>
     <div class="row justify-content-center">
 
         {% endif %}
         {% endfor %}
-
+        {% else %}
+        <div class="col-10 col-lg-4 d-flex justify-content-center py-5 mt-5 text-center comment">
+            <h2 class="text-warning ">
+                <strong>No Stories found.</strong>
+            </h2>
+        </div>
+        {% endif %}
     </div>
 </section>
 
