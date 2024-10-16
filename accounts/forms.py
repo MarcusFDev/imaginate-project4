@@ -6,6 +6,17 @@ from .models import UserProfile, NewsletterSignup
 
 
 class RegistrationForm(forms.ModelForm):
+    """
+    A form for user registration that includes username, email, password,
+    and password confirmation fields. Provides validation for unique usernames,
+    email addresses, password strength, and matching passwords.
+
+    Fields:
+        username: TextInput for the username.
+        email: EmailInput for the email address.
+        password: PasswordInput for the password.
+        password_confirm: PasswordInput for confirming the password.
+    """
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={
             'class': 'form-control',
@@ -36,6 +47,10 @@ class RegistrationForm(forms.ModelForm):
         fields = ['username', 'email', 'password', 'password_confirm']
 
     def __init__(self, *args, **kwargs):
+        """
+        Initializes the form and appends CSS classes for valid/invalid states
+        based on form validation errors.
+        """
         super().__init__(*args, **kwargs)
 
         for field in self.fields:
@@ -45,6 +60,12 @@ class RegistrationForm(forms.ModelForm):
                 self.fields[field].widget.attrs['class'] += ' is-valid'
 
     def clean_username(self):
+        """
+        Validates the username by checking:
+        - Uniqueness in the database.
+        - Maximum length (12 characters).
+        - Presence of only alphanumeric characters (no special characters).
+        """
         username = self.cleaned_data.get('username')
         if User.objects.filter(username=username).exists():
             raise forms.ValidationError(
@@ -63,6 +84,9 @@ class RegistrationForm(forms.ModelForm):
         return username
 
     def clean_email(self):
+        """
+        Validates the email to ensure it is unique in the database.
+        """
         email = self.cleaned_data.get('email')
         if User.objects.filter(email=email).exists():
             raise forms.ValidationError("This email is already registered.")
@@ -70,6 +94,11 @@ class RegistrationForm(forms.ModelForm):
         return email
 
     def clean(self):
+        """
+        Cleans and validates the form by:
+        - Checking if the two password fields match.
+        - Validating password length, digit inclusion, and special characters.
+        """
         cleaned_data = super().clean()
         password = cleaned_data.get("password")
         password_confirm = cleaned_data.get("password_confirm")
@@ -82,6 +111,7 @@ class RegistrationForm(forms.ModelForm):
 
         # Validate password length
         if password:
+            # Ensures password is between 8 and 20 characters long.
             if len(password) < 8 or len(password) > 20:
                 self.add_error('password', forms.ValidationError(
                     "Password must be between 8 and 20 characters."))
@@ -99,6 +129,10 @@ class RegistrationForm(forms.ModelForm):
         return cleaned_data
 
     def save(self, commit=True):
+        """
+        Saves the form data after setting the password using Django's built-in
+        password hashing.
+        """
         user = super().save(commit=False)
         user.set_password(self.cleaned_data['password'])
         if commit:
@@ -107,6 +141,14 @@ class RegistrationForm(forms.ModelForm):
 
 
 class LoginForm(forms.Form):
+    """
+    A login form that accepts username and password, and validates the
+    credentials using Django's authentication system.
+
+    Fields:
+        username: TextInput for the username.
+        password: PasswordInput for the password.
+    """
     username = forms.CharField(
         widget=forms.TextInput(attrs={
             'class': 'form-control',
@@ -121,6 +163,10 @@ class LoginForm(forms.Form):
     )
 
     def __init__(self, *args, **kwargs):
+        """
+        Initializes the form and adds 'is-invalid' CSS class to fields with
+        errors.
+        """
         super().__init__(*args, **kwargs)
 
         for field in self.fields:
@@ -128,6 +174,10 @@ class LoginForm(forms.Form):
                 self.fields[field].widget.attrs['class'] += ' is-invalid'
 
     def clean(self):
+        """
+        Cleans the form and authenticates the user by checking the username
+        and password.
+        """
         cleaned_data = super().clean()
         username = cleaned_data.get('username')
         password = cleaned_data.get('password')
@@ -135,6 +185,7 @@ class LoginForm(forms.Form):
         if username and password:
             user = authenticate(username=username, password=password)
             if user is None:
+                # Add error to both fields if authentication fails
                 self.add_error('username', "Invalid Username or Password")
                 self.add_error('password', "Invalid Username or Password")
 
@@ -142,6 +193,14 @@ class LoginForm(forms.Form):
 
 
 class BioForm(forms.ModelForm):
+    """
+    A form for updating the 'bio' field of the UserProfile model.
+
+    Meta:
+        model: UserProfile model.
+        fields: Includes only the 'bio' field.
+        widgets: Customizes the textarea widget for the 'bio' field.
+    """
     class Meta:
         model = UserProfile
         fields = ('bio',)
@@ -151,6 +210,10 @@ class BioForm(forms.ModelForm):
         }
 
     def clean_bio(self):
+        """
+        Cleans and normalizes the 'bio' field by removing extra spaces and
+        ensuring its length does not exceed 1500 characters.
+        """
         bio = self.cleaned_data.get('bio')
 
         if bio is not None:
@@ -165,6 +228,13 @@ class BioForm(forms.ModelForm):
 
 
 class NewsletterForm(forms.ModelForm):
+    """
+    A form for newsletter signups, allowing users to submit their email
+    address.
+
+    Fields:
+        user_email: Email field for the user's email address.
+    """
     user_email = forms.EmailField(
         label='',
         widget=forms.TextInput(attrs={
@@ -178,6 +248,10 @@ class NewsletterForm(forms.ModelForm):
         fields = ['user_email']
 
     def __init__(self, *args, **kwargs):
+        """
+        Initializes the form and adds 'is-invalid' or 'is-valid' CSS class
+        to fields based on validation results.
+        """
         super().__init__(*args, **kwargs)
 
         for field in self.fields:
@@ -187,6 +261,10 @@ class NewsletterForm(forms.ModelForm):
                 self.fields[field].widget.attrs['class'] += ' is-valid'
 
     def clean_user_email(self):
+        """
+        Cleans and validates the 'user_email' field by ensuring the email
+        is not already signed up for the newsletter.
+        """
         email = self.cleaned_data.get('user_email')
         if NewsletterSignup.objects.filter(user_email=email).exists():
             raise forms.ValidationError("This email is already signed up.")
