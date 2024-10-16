@@ -27,6 +27,8 @@
                         <div class="col-12 col-xl-6 ps-xl-5 justify-content-center align-items-center">
                             <form id="loginForm" method="POST" action="{% url 'login' %}">
                                 {% csrf_token %}
+                                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                                <div data-homepage-url="{% url 'home_page' %}"></div>
 
                                 <!-- Error message -->
                                 <div id="modal-error-msg"
@@ -34,6 +36,12 @@
                                     <h4 class="pb-2"><i class="fa-solid fa-triangle-exclamation pe-1"></i>
                                         Account Login Failed
                                     </h4>
+                                </div>
+
+                                <div>
+                                    <p class="form-text text-warning">
+                                        <strong>Note:</strong> Due to complications we ask users to please reopen this form if you are not logged in after a attempted Account Login to view feedback.
+                                    </p>
                                 </div>
 
                                 <!-- Username Field -->
@@ -67,7 +75,7 @@
                                 <!-- Login Button -->
                                 <div class="d-flex mt-2 justify-content-center">
                                     <input type="hidden" name="form_type" value="login">
-                                    <button type="submit" class="btn btn-lg btn-primary mt-1">Login</button>
+                                    <button type="submit" class="btn log-btn btn-lg btn-primary mt-1">Login</button>
                                 </div>
                             </form>
                         </div>
