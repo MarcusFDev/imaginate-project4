@@ -13,3 +13,15 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return f"{self.user.username}'s Profile"
+
+
+class NewsletterSignup(models.Model):
+    """
+    Model to store user email addresses for newsletter signups.
+    """
+    user_email = models.EmailField(unique=True)
+    signup_data = models.DateTimeField(default=timezone.now)
+    is_active = models.BooleanField(null=True, default=True)
+
+    def __str__(self):
+        return self.user_email
