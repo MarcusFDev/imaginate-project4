@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.contrib.auth import login, authenticate
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
@@ -7,7 +8,7 @@ from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
 from .models import UserProfile
-from .forms import RegistrationForm, LoginForm, BioForm
+from .forms import RegistrationForm, LoginForm, BioForm, NewsletterForm
 
 
 def register_view(request):
@@ -144,13 +145,24 @@ def delete_account(request):
 
 
 def home_page(request):
-
     reg_form = RegistrationForm()
     login_form = LoginForm()
+    newsletter_form = NewsletterForm()
+
+    if request.method == 'POST':
+        newsletter_form = NewsletterForm(request.POST)
+        if newsletter_form.is_valid():
+            newsletter_form.save()
+            messages.success(
+                request, "Thank you for subscribing to our newsletter!")
+            return redirect('homepage')
+        else:
+            messages.error(request, "There was a error with your submission.")
 
     context = {
         "reg_form": reg_form,
         "login_form": login_form,
+        "newsletter_form": newsletter_form
     }
 
     return render(

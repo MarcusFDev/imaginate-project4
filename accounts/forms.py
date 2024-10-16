@@ -2,7 +2,7 @@ import re
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
-from .models import UserProfile
+from .models import UserProfile, NewsletterSignup
 
 
 class RegistrationForm(forms.ModelForm):
@@ -162,3 +162,32 @@ class BioForm(forms.ModelForm):
                     'bio', 'Bio cannot be longer than 1500 characters')
 
         return bio
+
+
+class NewsletterForm(forms.ModelForm):
+    user_email = forms.EmailField(
+        label='',
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter Email'
+        })
+    )
+
+    class Meta:
+        model = NewsletterSignup
+        fields = ['user_email']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for field in self.fields:
+            if self.errors.get(field):
+                self.fields[field].widget.attrs['class'] += ' is-invalid'
+            else:
+                self.fields[field].widget.attrs['class'] += ' is-valid'
+
+    def clean_user_email(self):
+        email = self.cleaned_data.get('user_email')
+        if NewsletterSignup.objects.filter(user_email=email).exists():
+            raise forms.ValidationError("This email is already signed up.")
+        return email
