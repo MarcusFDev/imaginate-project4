@@ -29,6 +29,33 @@ $(document).ready(function() {
 });
 
 
+$(document).ready(function() {  
+    // Handle the logout account button click.
+    $('.logout-btn').on('click', function(event) {
+        event.preventDefault();
+        var form = $(this).closest('form');
+        var csrfToken = form.find('input[name="csrfmiddlewaretoken"]').val();
+        var homepageUrl = $('div[data-homepage-url]').attr('data-homepage-url');
+        
+        // Send the logout data via AJAX.
+        $.ajax({
+            type: 'POST',
+            url: form.attr('action'),
+            data: { 
+                csrfmiddlewaretoken: csrfToken 
+            },
+            dataType: 'json',
+            success: function(data) {
+                // Logout account.
+                if (data.success) {
+                    window.location.href = homepageUrl + '?logout_account=true';
+                }
+            }
+        });
+    });
+});
+
+
 // ====================================
 // user_profile.html Functions
 // ====================================
@@ -76,7 +103,8 @@ $(document).ready(function() {
         var form = $(this).closest('form');
         var csrfToken = form.find('input[name="csrfmiddlewaretoken"]').val();
         var modal = form.closest('.modal-content');
-        var errormsg = form.find('.error-msg');
+        var errormsg1 = form.find('.error-msg-1');
+        var userprofileUrl = $('div[data-userprofile-url]').attr('data-userprofile-url');
         
         // Send the aboutme data via AJAX.
         $.ajax({
@@ -91,7 +119,8 @@ $(document).ready(function() {
                 if (data.status === 'success') {
                     modal.removeClass('border-glow-red');
                     $('.pf-description p').html(data.bio);
-                    location.reload();
+                    window.location.href = userprofileUrl + '?aboutdesc_success=true';
+
                 } else {
 
                     modal.html(data.form);
@@ -100,10 +129,12 @@ $(document).ready(function() {
                         modal.removeClass('border-glow-red');
                     }, 5000);
 
-                    errormsg.removeClass('hidden');
+                    errormsg1.removeClass('hidden');
                     setTimeout(function() {
-                        errormsg.addClass('hidden');
+                        errormsg1.addClass('hidden');
                     }, 5000);
+
+                    $('.aboutdes-error-alert').fadeIn().delay(3000).fadeOut();
                 }
             },
             error: function(xhr, status, error) {
@@ -113,13 +144,140 @@ $(document).ready(function() {
                     modal.removeClass('border-glow-red');
                 }, 5000);
 
-                errormsg.removeClass('hidden');
+                errormsg1.removeClass('hidden');
                 setTimeout(function() {
-                    errormsg.addClass('hidden');
+                    errormsg1.addClass('hidden');
                 }, 5000);
+
+                $('.aboutdes-error-alert').fadeIn().delay(3000).fadeOut();
             }
         });
     });
+});
+
+
+$(document).ready(function() {
+    if (window.location.search.indexOf('aboutdesc_success=true') > -1) {
+        $('.aboutdes-success-alert').fadeIn().delay(3000).fadeOut();
+    }
+});
+
+
+$(document).ready(function() {  
+    // Handle the delete account button click.
+    $('.delete-acc-btn').on('click', function(event) {
+        event.preventDefault();
+        var form = $(this).closest('form');
+        var csrfToken = form.find('input[name="csrfmiddlewaretoken"]').val();
+        var homepageUrl = $('div[data-homepage-url]').attr('data-homepage-url');
+        var userprofileUrl = $('div[data-userprofile-url]').attr('data-userprofile-url');
+        
+        // Send the delete data via AJAX.
+        $.ajax({
+            type: 'POST',
+            url: form.attr('action'),
+            data: { 
+                csrfmiddlewaretoken: csrfToken 
+            },
+            dataType: 'json',
+            success: function(data) {
+                // Delete account.
+                if (data.success) {
+                    window.location.href = homepageUrl + '?account_deleted=true';
+                }
+            },
+            error: function(xhr, status, error) {
+                window.location.href = userprofileUrl + '?account_deleted=false';
+            }
+        });
+    });
+});
+
+
+$(document).ready(function() {
+    if (window.location.search.indexOf('account_deleted=false') > -1) {
+        $('.accdelete-error-alert').fadeIn().delay(3000).fadeOut();
+    }
+});
+
+
+$(document).ready(function() {  
+    // Handle the delete account button click.
+    $('.delete-comments-btn').on('click', function(event) {
+        event.preventDefault();
+        var form = $(this).closest('form');
+        var csrfToken = form.find('input[name="csrfmiddlewaretoken"]').val();
+        var userprofileUrl = $('div[data-userprofile-url]').attr('data-userprofile-url');
+        
+        // Send the delete data via AJAX.
+        $.ajax({
+            type: 'POST',
+            url: form.attr('action'),
+            data: { 
+                csrfmiddlewaretoken: csrfToken 
+            },
+            dataType: 'json',
+            success: function(data) {
+                // Delete account.
+                if (data.success) {
+                    window.location.href = userprofileUrl + '?allcomments_deleted=true';
+                }
+            },
+            error: function(xhr, status, error) {
+                window.location.href = userprofileUrl + '?allcomments_deleted=false';
+            }
+        });
+    });
+});
+
+
+$(document).ready(function() {
+    if (window.location.search.indexOf('allcomments_deleted=true') > -1) {
+        $('.deletecomments-success-alert').fadeIn().delay(3000).fadeOut();
+    }
+    if (window.location.search.indexOf('allcomments_deleted=false') > -1) {
+        $('.deletecomments-error-alert').fadeIn().delay(3000).fadeOut();
+    }
+});
+
+
+$(document).ready(function() {  
+    // Handle the delete stories button click.
+    $('.delete-stories-btn').on('click', function(event) {
+        event.preventDefault();
+        var form = $(this).closest('form');
+        var csrfToken = form.find('input[name="csrfmiddlewaretoken"]').val();
+        var userprofileUrl = $('div[data-userprofile-url]').attr('data-userprofile-url');
+        
+        // Send the delete data via AJAX.
+        $.ajax({
+            type: 'POST',
+            url: form.attr('action'),
+            data: { 
+                csrfmiddlewaretoken: csrfToken 
+            },
+            dataType: 'json',
+            success: function(data) {
+                // Delete stories.
+                if (data.success) {
+                    window.location.href = userprofileUrl + '?allstories_deleted=true';
+                }
+            },
+            error: function(xhr, status, error) {
+                window.location.href = userprofileUrl + '?allstories_deleted=false';
+            }
+        });
+    });
+});
+
+
+$(document).ready(function() {
+    if (window.location.search.indexOf('allstories_deleted=true') > -1) {
+        $('.deletestories-success-alert').fadeIn().delay(3000).fadeOut();
+    }
+    if (window.location.search.indexOf('allstories_deleted=false') > -1) {
+        $('.deletestories-error-alert').fadeIn().delay(3000).fadeOut();
+    }
 });
 
 
@@ -137,6 +295,20 @@ $(document).ready(function() {
     setTimeout(function() {
         $('#imaginate-titles h3').addClass('animate__animated animate__fadeInUp');
     }, 500);
+});
+
+
+$(document).ready(function() {
+    if (window.location.search.indexOf('account_deleted=true') > -1) {
+        $('.accdelete-success-alert').fadeIn().delay(3000).fadeOut();
+    }
+});
+
+
+$(document).ready(function() {
+    if (window.location.search.indexOf('logout_account=true') > -1) {
+        $('.logout-success-alert').fadeIn().delay(3000).fadeOut();
+    }
 });
 
 
@@ -253,8 +425,10 @@ $(document).ready(function() {
                 // Toggle icon based on comment Upvote or Remove Upvote.
                 if (data.action == 'added') {
                     $(form).find('.upvote-btn i').removeClass('fa-regular').addClass('fa-solid').addClass('text-danger');
+                    $('.comment-upvoted-alert').fadeIn().delay(3000).fadeOut();
                 } else if (data.action == 'removed') {
                     $(form).find('.upvote-btn i').removeClass('fa-solid text-danger').addClass('fa-regular');
+                    $('.comment-unvoted-alert').fadeIn().delay(3000).fadeOut();
                 }
             }
         });
@@ -262,10 +436,9 @@ $(document).ready(function() {
 });
 
 
-$(document).ready(function() {
-
+$(document).ready(function() {  
     // Handle the delete comment button click.
-    $('.delete-btn').on('click', function(event) {
+    $('.delete-confirm-btn').on('click', function(event) {
         event.preventDefault();
         var form = $(this).closest('form');
         var csrfToken = form.find('input[name="csrfmiddlewaretoken"]').val();
@@ -283,6 +456,9 @@ $(document).ready(function() {
                 // Delete comment from page.
                 if (data.success) {
                     $(form).closest('.comment').remove();
+                    $('.comment-delete-alert').fadeIn().delay(3000).fadeOut();
+                    // Close the modal
+                    form.closest('.modal').modal('hide');
                 }
             }
         });
@@ -315,7 +491,6 @@ $(document).ready(function() {
         e.preventDefault();
         var button = $(this);
         var form = button.closest('li').find('form');
-        var commentId = form.find('input[name="comment_id"]').val();
         var commentBody = form.find('textarea[name="body"]').val();
         var csrfToken = form.find('input[name="csrfmiddlewaretoken"]').val();
         
@@ -327,8 +502,9 @@ $(document).ready(function() {
                 'csrfmiddlewaretoken': csrfToken,
                 'body': commentBody
             },
+            dataType: 'json',
             success: function(data) {
-                console.log(data);
+                console.log("Save Button detected" ,data);
 
                 // Add Classes to targetted elements
                 button.closest('li').find('.comment-list-body').text(commentBody);
@@ -339,6 +515,8 @@ $(document).ready(function() {
                 editCommentField.toggleClass('hidden');
                 commentBodyElement.toggleClass('hidden');
                 parentLi.toggleClass('border-glow');
+
+                $('.comment-saved-alert').fadeIn().delay(3000).fadeOut();
             },
             error: function(xhr, status, error) {
                 console.log(xhr.responseText);
@@ -355,9 +533,69 @@ $(document).ready(function() {
                 setTimeout(function() {
                     errorMessage.toggleClass('hidden');
                 }, 5000);
+
+                $('.comment-error-alert').fadeIn().delay(3000).fadeOut();
             }
         });
     });
+});
+
+
+$(document).ready(function() {
+
+    // Handle the add comment button click.
+    $('.comment-new-submit').on('click', function(e) {
+        e.preventDefault();
+        var button = $(this);
+        var form = button.closest('form');
+        var commentBody = form.find('textarea[name="body"]').val();
+        var csrfToken = form.find('input[name="csrfmiddlewaretoken"]').val();
+        var storypageUrl = $('div[data-storypage-url]').attr('data-storypage-url');
+        
+        // Send the save data via AJAX.
+        $.ajax({
+            type: 'POST',
+            url: form.attr('action'),
+            data: {
+                'csrfmiddlewaretoken': csrfToken,
+                'body': commentBody
+            },
+            dataType: 'json',
+            success: function(data) {
+                console.log(data);
+                // Delete stories.
+                if (data.success) {
+                    window.location.href = storypageUrl + '?addcomment=true';
+                }
+                
+            },
+            error: function(xhr, status, error) {
+                console.log(xhr.responseText);
+                
+                // Add Error Classes to targetted elements.
+                var commentField = button.closest('form').find('textarea[name="body"]');
+                commentField.toggleClass('border-glow-red');
+                setTimeout(function() {
+                    commentField.toggleClass('border-glow-red');
+                }, 5000);
+
+                var errorMessage = button.closest('form').find('.error-message');
+                errorMessage.toggleClass('hidden');  
+                setTimeout(function() {
+                    errorMessage.toggleClass('hidden');
+                }, 5000);
+
+                $('.comment-error-alert').fadeIn().delay(3000).fadeOut();
+            }
+        });
+    });
+});
+
+
+$(document).ready(function() {
+    if (window.location.search.indexOf('addcomment=true') > -1) {
+        $('.comment-added-alert').fadeIn().delay(3000).fadeOut();
+    }
 });
 
 
@@ -387,9 +625,11 @@ $(document).ready(function() {
                 if (data.action == 'added') {
                     $(form).find('.story-upvote-div').removeClass('story-upvote').addClass('story-upvote-active');
                     $(form).find('.story-upvote-btn i').removeClass('fa-regular').addClass('fa-solid').addClass('text-danger');
+                    $('.story-upvoted-alert').fadeIn().delay(3000).fadeOut();
                 } else if (data.action == 'removed') {
                     $(form).find('.story-upvote-div').removeClass('story-upvote-active').addClass('story-upvote');
                     $(form).find('.story-upvote-btn i').removeClass('fa-solid text-danger').addClass('fa-regular');
+                    $('.story-unvoted-alert').fadeIn().delay(3000).fadeOut();
                 }
             }
         });
@@ -423,8 +663,10 @@ $(document).ready(function() {
                 // Toggle icon based on story private status.
                 if (data.action == 'Made public') {
                     $(form).find('.private-btn i').removeClass('fa-eye-slash text-danger').addClass('fa-eye text-success');
+                    $('.story-public-alert').fadeIn().delay(3000).fadeOut();
                 } else if (data.action == 'Made private') {
                     $(form).find('.private-btn i').removeClass('fa-eye text-success').addClass('fa-eye-slash text-danger');
+                    $('.story-private-alert').fadeIn().delay(3000).fadeOut();
                 }
             }
         });
@@ -434,38 +676,78 @@ $(document).ready(function() {
 
 $(document).ready(function() {
 
-    // Handle the form submission for story deletion
-    $('body').on('submit', '.story-delete-form', function(event) {
+    // Handle the story deletion.
+    $('.delete-story-btn').on('click', function(event) {
         event.preventDefault();
 
-        // The form that was submitted
-        var form = $(this);
+        // The form that was submitted.
+        var form = $(this).closest('form');
         var csrfToken = form.find('input[name="csrfmiddlewaretoken"]').val();
+        var mystoriesUrl = $('div[data-mystories-url]').attr('data-mystories-url');
         
         // Send the delete request via AJAX.
         $.ajax({
             type: 'POST',
-            url: form.attr('action'),  // The action URL for deletion
+            url: form.attr('action'),
             data: { 
-                csrfmiddlewaretoken: csrfToken  // Pass CSRF token to the request
+                csrfmiddlewaretoken: csrfToken
             },
             dataType: 'json',
             success: function(data) {
                 if (data.success) {
-                    // Remove the deleted story element from the page dynamically
+                    // Remove the deleted story element.
                     $('#story-' + data.slug).remove();
-
-                    // Close the modal
                     form.closest('.modal').modal('hide');
+
+                    window.location.href = mystoriesUrl + '?story_deleted=true';
+
                 } else if (data.error) {
-                    alert(data.error);  // Handle error response
+                    alert(data.error);
                 }
             },
             error: function(xhr, status, error) {
-                console.log("Something went wrong: ", error);  // Handle server errors
+                console.log("Something went wrong: ", error);
             }
         });
     });
 });
 
+
+$(document).ready(function() {
+    if (window.location.search.indexOf('story_deleted=true') > -1) {
+        $('.story-deleted-alert').fadeIn().delay(3000).fadeOut();
+    }
+});
+
+
+$(document).ready(function() {
+
+    // Handle the is_private button click.
+    $('.private-btn').on('click', function(event) {
+        event.preventDefault();
+        var form = $(this).closest('form');
+        var csrfToken = form.find('input[name="csrfmiddlewaretoken"]').val();
+        
+        // Send the is_private data via AJAX.
+        $.ajax({
+            type: 'POST',
+            url: form.attr('action'),
+            data: {
+                csrfmiddlewaretoken: csrfToken
+             },
+            dataType: 'json',
+            success: function(data) {
+
+                // Toggle icon based on story private status.
+                if (data.action == 'Made public') {
+                    $(form).find('.private-btn i').removeClass('fa-eye-slash text-danger').addClass('fa-eye text-success');
+                    $('.story-public-alert').fadeIn().delay(3000).fadeOut();
+                } else if (data.action == 'Made private') {
+                    $(form).find('.private-btn i').removeClass('fa-eye text-success').addClass('fa-eye-slash text-danger');
+                    $('.story-private-alert').fadeIn().delay(3000).fadeOut();
+                }
+            }
+        });
+    });
+});
 
