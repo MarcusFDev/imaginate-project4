@@ -663,8 +663,10 @@ $(document).ready(function() {
                 // Toggle icon based on story private status.
                 if (data.action == 'Made public') {
                     $(form).find('.private-btn i').removeClass('fa-eye-slash text-danger').addClass('fa-eye text-success');
+                    $('.story-public-alert').fadeIn().delay(3000).fadeOut();
                 } else if (data.action == 'Made private') {
                     $(form).find('.private-btn i').removeClass('fa-eye text-success').addClass('fa-eye-slash text-danger');
+                    $('.story-private-alert').fadeIn().delay(3000).fadeOut();
                 }
             }
         });
@@ -674,38 +676,78 @@ $(document).ready(function() {
 
 $(document).ready(function() {
 
-    // Handle the form submission for story deletion
-    $('body').on('submit', '.story-delete-form', function(event) {
+    // Handle the story deletion.
+    $('.delete-story-btn').on('click', function(event) {
         event.preventDefault();
 
-        // The form that was submitted
-        var form = $(this);
+        // The form that was submitted.
+        var form = $(this).closest('form');
         var csrfToken = form.find('input[name="csrfmiddlewaretoken"]').val();
+        var mystoriesUrl = $('div[data-mystories-url]').attr('data-mystories-url');
         
         // Send the delete request via AJAX.
         $.ajax({
             type: 'POST',
-            url: form.attr('action'),  // The action URL for deletion
+            url: form.attr('action'),
             data: { 
-                csrfmiddlewaretoken: csrfToken  // Pass CSRF token to the request
+                csrfmiddlewaretoken: csrfToken
             },
             dataType: 'json',
             success: function(data) {
                 if (data.success) {
-                    // Remove the deleted story element from the page dynamically
+                    // Remove the deleted story element.
                     $('#story-' + data.slug).remove();
-
-                    // Close the modal
                     form.closest('.modal').modal('hide');
+
+                    window.location.href = mystoriesUrl + '?story_deleted=true';
+
                 } else if (data.error) {
-                    alert(data.error);  // Handle error response
+                    alert(data.error);
                 }
             },
             error: function(xhr, status, error) {
-                console.log("Something went wrong: ", error);  // Handle server errors
+                console.log("Something went wrong: ", error);
             }
         });
     });
 });
 
+
+$(document).ready(function() {
+    if (window.location.search.indexOf('story_deleted=true') > -1) {
+        $('.story-deleted-alert').fadeIn().delay(3000).fadeOut();
+    }
+});
+
+
+$(document).ready(function() {
+
+    // Handle the is_private button click.
+    $('.private-btn').on('click', function(event) {
+        event.preventDefault();
+        var form = $(this).closest('form');
+        var csrfToken = form.find('input[name="csrfmiddlewaretoken"]').val();
+        
+        // Send the is_private data via AJAX.
+        $.ajax({
+            type: 'POST',
+            url: form.attr('action'),
+            data: {
+                csrfmiddlewaretoken: csrfToken
+             },
+            dataType: 'json',
+            success: function(data) {
+
+                // Toggle icon based on story private status.
+                if (data.action == 'Made public') {
+                    $(form).find('.private-btn i').removeClass('fa-eye-slash text-danger').addClass('fa-eye text-success');
+                    $('.story-public-alert').fadeIn().delay(3000).fadeOut();
+                } else if (data.action == 'Made private') {
+                    $(form).find('.private-btn i').removeClass('fa-eye text-success').addClass('fa-eye-slash text-danger');
+                    $('.story-private-alert').fadeIn().delay(3000).fadeOut();
+                }
+            }
+        });
+    });
+});
 
