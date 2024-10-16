@@ -496,17 +496,33 @@
 }
 
 .social-dividers {
-    height: 100%;
     background: linear-gradient(135deg, #0e1a26 50%, #0b151f 50%);
     padding: 20px;
     margin-top: 20px;
     margin-left: 10px;
-    margin-bottom: 20px;
   }
   
   section.row {
     background-color: #0b151f;
   }
+
+.newsletter-section {
+    min-height: 30vh;
+  }
+
+.newsletter-dividers {
+    background: linear-gradient(47deg, #0e1a26 50%, #0b151f 50%);
+    padding: 20px;
+    margin-left: 10px;
+  }
+
+.newsletter-section h2 {
+    font-size: 3.5rem;
+}
+
+.newsletter-section p {
+    font-size: 1.25rem;
+}
 
 /* ------------------------------------------------->  (768px to 1200px) Device styles */
 @media (max-width: 1200px) {
