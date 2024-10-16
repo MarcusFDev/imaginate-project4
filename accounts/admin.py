@@ -1,5 +1,5 @@
 from django.contrib import admin  # noqa
-from .models import UserProfile
+from .models import UserProfile, NewsletterSignup
 from django_summernote.admin import SummernoteModelAdmin
 
 
@@ -18,3 +18,10 @@ class UserProfileAdmin(SummernoteModelAdmin):
             'https://code.jquery.com/jquery-3.6.0.min.js',
             'js/summernote.js',
             )
+
+
+@admin.register(NewsletterSignup)
+class NewsletterSignupAdmin(admin.ModelAdmin):
+    list_display = ('user_email', 'signup_data', 'is_active')
+    list_filter = ('is_active',)
+    search_fields = ('user_email',)
