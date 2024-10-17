@@ -314,11 +314,64 @@ Requirements:
 
 - You need a GitHub account.
 - You need a IDE such as [GitPod](https://gitpod.io).
-- You need a Google account.
 
 ### Github Instructions
 
-1. 
+- Log in to your Github account and naviagte to this link in the project's repository: https://github.com/MarcusFDev/imaginate-project4
+- You can choose to create your own repository and copy or fork & clone the project repository code.
+
+### Forking
+    
+- In the top-right corner of the repository page, click the "Fork" button. This will create a copy of the repository under your GitHub account.
+
+### Cloning
+
+- After forking the repository navigate to the repository on your account found using the 'Your Repositories' button in the top-right dropdown menu.
+- Click on the "Code" button and copy the repository's URL.
+- Create a new workspace with the copied URL & load the workspace.
+
+1. Inside your IDE enviroment, run the commands `npm install` in the terminal.
+    - Followed by `pip install -r requirements.txt`. This will install all the dependancies you need to run Imaginate.
+2. Create a `env.py` file in the project directory.
+    - Paste this code into the file:
+    
+    ```
+    import os
+
+    os.environ.setdefault(
+        "DATABASE_URL", "Insert-Database-Here"
+    )
+
+    os.environ.setdefault(
+        "SECRET_KEY", "Insert-Key-Here"
+    )
+    ```
+
+    - You must create a secret key for the project & paste in your database link (These are sensitive information and should always remain private). Configurations may apply in `settings.py` seek the [Django documentation](https://www.djangoproject.com/) for further guidance.
+
+3. In `settings.py` add your IDE development workspace link to both CSRF_TRUSTED_ORIGINS & ALLOWED_HOSTS.
+    - If any technical difficulties arise or you are unsure how to proceed refer to [Django documentation](https://www.djangoproject.com/) or online tutorials.
+
+## Heroku Deployment
+
+### Heroku Preparation
+
+Requirements: 
+
+- You need a Heroku account.
+- Followed previous set of instructions correctly.
+
+### Heroku Instructions
+
+1. Navigate to your Heroku dashboard and create a new app with a unique name.
+2. When created, click on the app's settings button and reveal Config Vars (This is sensitive information and should always remain private).
+3. Add a new key of `DATABASE_URL` and the value should be the link to your database. Similarly add another new key of `SECRET_KEY` and add the value of your secret key you chose. (Reccomended to be secure and very hard to guess)
+    - These values should be identical to those added in the `env.py` file.
+4. Now navigate to the Deploy section in your Heroku app & connect to your GitHub account. This should be the same one you used for the project repository.
+5. Scroll down to the bottom of the page and click the 'Deploy Branch' to start a manual deployment of the main branch.
+6. After a successful deployment, click the 'Open App' button to view your site hosted on Heroku.
+    - If any technical difficulties arise during the deployment view the activity feed and troubleshoot the cause. Seek help from online forums & ellow developers for extra help if needed.
+
 
 ## Credits and Contact
 
