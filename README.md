@@ -14,23 +14,41 @@
      - [Business Goals](#business-goals)
      - [User Stories](#user-stories)
    - [Visual Design](#visual-design)
+     - [Fonts](#fonts)
+     - [Icons](#icons)
+     - [Colors](#colors)
 
 2. [Features](#features)
 
-    - 
+    - [Page Elements](#page-elements)
+      - [All Web Pages](#all-web-pages)
+      - [Header & Navigation](#header--navigational-bar)
+      - [Footer](#footer)
+      - [Home Page](#home-page)
+      - [Index / Library Page](#index-page--library-page)
+      - [Story Page](#story-page)
+      - [User Profile](#user-profile-page)
+      - [My Stories](#my-stories-page)
+      - [Story Creator](#story-creator-page)
+    - [Additional Site Features](#additional-site-features)
+      - [Admin Panel](#admin-panel)
+      - [Coming Soon Modal](#coming-soon-modal)
+    - [Database Schema](#database-schema)
+      - [Story Model](#story-model)
+      - [Comment Model](#comment-model)
+      - [UserProfile Model](#userprofile-model)
+      - [Newsletter Model](#newsletter-signup-model)
 
-3. [Project Notes](#project-notes)
-
-    - 
-
-4. [Technology Used](#technology-used)
+3. [Technology Used](#technology-used)
 
    - [Languages](#languages)
+   - [Frameworks](#frameworks)
+   - [Databases](#databases)
    - [Libraries](#libraries)
    - [Platforms](#platforms)
    - [Other Tools](#other-tools)
 
-5. [Testing](#testing)
+4. [Testing](#testing)
 
    - [Methods](#methods)
      - [Validation](#validation)
@@ -39,14 +57,17 @@
      - [Known Bugs](#known-bugs)
      - [Fixed Bugs](#fixed-bugs)
 
-6. [Deployment](#deployment)
+5. [Deployment](#deployment)
 
     - [Github Deployment](#github-deployment)
         - [Github Preperation](#github-preparation)
         - [Github Instructions](#github-instructions)
+    - [Heroku Deployment](#heroku-deployment)
+        - [Heroku Preperation](#heroku-preparation)
+        - [Heroku Instructions](#heroku-instructions)
 
 
-7. [Credits and Contact](#credits-and-contact)
+6. [Credits and Contact](#credits-and-contact)
 
     - [Credits](#credits)
     - [Contact](#contact)
@@ -114,13 +135,229 @@ More user Stories can be found [here](https://github.com/users/MarcusFDev/projec
 
 ## Visual Design
 
+### Fonts
+
+![Font Images](static/images/font.png)
+
+- For the Imaginate site no added fonts were used. Only Bootstrap's default font styling is allowed to take effect. This is due to prefering a simple contemporary approach to the font. It is easy to ready and suits the site well in style. 
+
+### Icons
+
+![Icon Images](static/images/font-icons.png)
+
+- Icons used throughout the website were taken from the [Font Awesome](https://fontawesome.com) icon library. They were utilized in the `<i>` tag.
+- Icons are used in the navigational Bar & Footer as well as in other assets and pages on the site such as the bootstrap modal. They were used to create a more visually appealing site. Appropriate use of icons was done to also visually help users navigate the webpages.
+
+### Colors
+
+![Color Palatte image](static/images/coolers.png)
+
+- When designing Imaginate I went through a brief concept stage in pre-development. Intially the first project's styling took place on the user profile where the first iteration of finalized structure and colors were used. At the time Bootstrap v5.3's `Text-White` and `Text-Dark` colors were being used however as a developer I was accidentally inspired by GitHub's own color schema. I enjoyed the deep navy blue darker tones and felt it was something that would suit Imaginate's purpose.
+
+With the text-content being the bright 'light source' on the page, it tricks the brain into focussing on it more hence focussing on the content that matters most, the story. While it is not the final design I had intended for the deadline I think it is close to setting the right theme.
+
+- Equally when picking out color tones I felt the dark navys represent the concept of 'nothing' or 'empty' on their own which is intended to invoke imagination to fill in that blank space. Which if succeeded, furfils one of the site's primary objectives, to encourage imagination.
+
+- The Color Tone `#0E1A26` is the lightest of the 3 tones and is the primary color used on Imaginate. It is not too dark but not too bright and is perfect to be the primary color especially as the other darker tones act to highlight it even more.
+
+- Tone `#0B151F` is the secondary color tone of the site. It is used more sparingly to help divide up the page. Seen first used on the Home Page social & newsletter sections.
+
+- The Third tone is `#080F17` and is the third main color in the palette trio. It is used for the Header & Footer and other borders meant to highlight the other colors without overuse.
+
+- Bootstrap's `text-white` & `text-warning` classes are used for the text colors to contrast with the darker background.
 
 ---
 # Features
 
+## Page Elements
+
+### All Web Pages
+
+### Header & Navigational Bar
+
+![Header & Navigation Bar image](static/images/header-img.png)
+
+- The header & Navigational bar is located on all pages of the website however it's content and purpose differs on the Home Page. Using `#080F17` and the `text-white` for the text color.
+- The 'Imaginate' title itself is a button to the home page when clicked.
+- The Header is response to screen sizes.
+- The Icons have seperate custom animations on hovering over each element.
+- The Header content changes on the Home Page with new buttons depending on user login status.
+- It is placed in the `base.html` file and used as a template to other html files to prevent code duplication and promote better code handling.
+
+### Footer
+
+![Footer image](static/images/footer-img.png)
+
+- The Footer is located on all pages of the website.
+- It contains a copyright message & the site socials on all screens except homepage. Utilizing the font awesome icons to represent the different socials.
+- Each Social button sends users to a new tab.
+- On the Homepage the footer does not contain site social buttons as a social section exists instead.
+
+### Home Page
+
+![Home page image](static/images/homepage-img.png)
+
+- The Home page, stored in the `accounts/templates/home/home_page.html` is the landing page of the site. It was not given the standard index.html file as it was decided to focus a content first approach.
+- It contains slightly different Header styling & Footer styling.
+- Alerts for some suer interactions including logging out and account deletion.
+- Place where users create a site account & login. Buttons change depending on login status.
+- Responsive to all devices.
+- Register
+    - Register button on the page calls a Bootstrap modal containing a signup form.
+    - Style changes indicating of errors along side showing error messages.
+    ![Register Modal image](static/images/reg-modal-img.png)
+
+    - Register functionality in `accounts/views.py | line 14` & `accounts/forms.py | line 8`
+
+- Login
+    - Login button on the page calls a Bootstrap modal containing a login form.
+    - Style changes indicating of erros along side showing error messages.
+    ![Login Modal image](static/images/login-modal-img.png)
+
+    - Login functionality in `accounts/views.py | line 51` & `accounts/forms.py | line 143`
+
+
+- Newsletter
+    - Newsletter is found on this page. Allows users to input a email address to sign up to a future newsletter implemntation with EmailJS.
+    - Utilizing a custom model in `accounts/models.py`.
+    ![Newsletter](static/images/newsletter-img.png)
+
+    - Newsletter functionality is attached to the homepage view itself at `accounts/views.py | line 232` & `accounts/forms.py | line 230`
+
+### Index Page / Library Page
+
+![Library page image](static/images/library-img.png)
+
+- The Index page or what is semantically known as the Library page, is the second main page of the site and contains the the list of stories on the site for users to read.
+- It is stored in the `stories/templates/index.html` in the stories app directory.
+- Uses Django templating & condition statements to generate the story list dynamically eliminating the need of manual html code for each story entry.
+- Each story entry has important information shared with a link to each story by clicking the story name.
+- Paginator at the top & bottom of the file when there is mor ethan one pages worth of stories.
+- Responsive to all devices.
+- Search bar & filter
+    - Allows users to input search querys and looks for matching stories in the list.
+    - Works along side a filter that has 4 pre-determined filtering options.
+    ![Search Bar image](static/images/searchbar-img.png)
+
+    - Search bar functionality in `stories/views.py | line 13`
+
+### Story Page
+
+![Story page](static/images/storypage-img.png)
+
+- The Story page, located as the `stories/templates/story_page.html`, is the story page for the site.
+- Story pages are dynamically made using the `<slug>` in the story model.
+- Content on the page is dynamically generated using Django templating and condition statements.
+- It provided users with a upvote button to upvote the story that dysnamically updates using JQuery.
+- Story author names can be clicked on which sends readers to the author's profile page.
+- Responsive to all devices.
+- Story functionality in `stories/views.py | line 92`
+- Comments
+    - Users can write a comment on a page.
+    - On comments that are owned by the logged in user edit & delete buttons are visible.
+    - Comments can be edited & deleted dynamically.
+    - Contains user interaction alerts using JQuery.
+    - Comments can be upvoted dysnamically also.
+    - Comment Author names can be clicked on to go to their profile page.
+    ![Story Comments image](static/images/comment-img.png)
+
+    - Story Comments functionality in `stories/views.py | line 290, 320, 349, 395` & `stories/forms.py | line 6`
+
+### User Profile page
+
+![User Profile page](static/images/userprofile-img.png)
+
+- The User Profile page, providing users with their own personal hub to control certaina ccount features.
+- Located in the `accounts/templates/users/user_profile.html` in the accounts app.
+- Every User profile is unique allowing others to go to other account profiles. If users go to other accounts profiles settings and edit buttons are hidden.
+- Has a Settings section containing Delete All Stories, Delete All Comments & Delete Account.
+- About Bio
+    - When edit is clicked the `aboutme_modal.html` is triggered.
+    - Uses Summernote text editor to input new bio data.
+    - About Bio functionality in `accounts/views.py | line 168` & `accounts/forms.py | line 195`
+- Delete All Comments
+    - Button available to purge all comments belonging to the logged in user off the site.
+    - Delete All Comments functionality in `stories/views.py | line 447`
+- Delete All Stories
+    - Button available to purge all stories belonging to the logged in user off the site.
+    - Delete All Stories functionality in `stories/views.py | line 424`
+- Delete Account
+    - Button to delete account on the Imaginate site which purges all associated content off the site.
+    - Delete Account functionality in `account/view.py | line 213`
+
+### My Stories page
+
+![My Stories page](static/images/mystories-img.png)
+
+- The My Stories page is a list of stories belonging to the logged in user.
+- Located here `stories/templates/my_stories.html` in the stories app.
+- Contains the Create Story button to write new stories.
+- Has two buttons on every story entry, one to delete the story entry & one to private the story entry making it only accessible on that page.
+
+- My Stories page functionality in `stories/views.py | line 52`
+
+### Story Creator page
+
+![Story Creator page](static/images/storycreate-img.png)
+
+- The story creator allows users to create stories.
+- Located in the `stories/templates/story_creator.html`.
+- Has a private button to toggle privacy of the story when submitted.
+- Contains a Story Form for a Story Title, a Excerpt & the Story content.
+
+## Additional Site Features
+
+### Admin Panel
+
+The Imaginate Admin panel is a Django feature along the site to have a superuser interface. It has been altered using `accounts/admin.py` & `stories/admin.py` files giving admins a easier time handling site related tasks. 
+
+### Coming Soon Modal
+
+- Coming Soon bootstrap modal located `site-modals/coming_soon.html`.
+- Used for the Policy button on Home Page to inform users the feature is not yet implemented.
+
+![Coming Soon Modal](static/images/comingsoon-img.png)
+
+## Database Schema
+
+### Story Model
+
+The Story Model creates a table in the database to handle story data. As Imaginate is a content first, Story Site having a robust Story model is important to collect data to be used in future functions & features. While not every piece of data is used, data like status will be used later to allow story drafts to be saved and handled by the user.
+
+Story Model is found in `stories/model.py | line 9`.
+
+![Story Model image](static/images/storymodel-img.png)
+
+### Comment Model
+
+The Comment Model creates a table in the database to handle comment data. user interaction is important to build a community and having available feedback on stories Imaginate needed. The comment model is associated with a story instance. Likewise with the Comment model not all data collected is being used but it was designed with future development in mind.
+
+Comment Model is found in `stories/models.py | line 35`.
+
+![Comment Model image](static/images/comment-model-img.png)
+
+### UserProfile Model
+
+The UserProfile Model creates a table in the database to handle user profile specific data. This data includes the User bio and User Avatar, that currently is not a feature in the project due to time constraints.
+
+UserProfile model is found in `accounts/models.py | line 6`
+
+![UserProfile Model image](static/images/userprofilemodel.png)
+
+### Newsletter Signup Model
+
+The Newsletter SignUp model creates a table in the database to handle newsletter subscriptions. Currently this data is being collected but not used as a EmailJS is not yet set up within the project.
+It collects the user inputed data of a valid email address allowing it to be entered only once.
+
+NewsletterSignup model is found in `accounts/models.py | line 22`
+
+![Newsletter Signup Model image](static/images/newslettermodel.png)
+
 ## Fixtures
 
 Imaginate is a story focussed on writing & reading stories. It was important to ensure that the full showcase of the sites features could be visualized so story data was required to fill the `Story(models.Model):` database table. For the sake of showcasing functionality & maintaining time management for the project scope; a story fixture was used to append data to the database. [ChatGPT](https://chatgpt.com) was utilized with my fixture structure to generate story data quickly so that the database could be filled faster than manual story creation, for the sake of not wasting development time manually & individually adding every story entry.
+
+A new directory called `stories/fixtures/` was added in the IDE with a `stories.json` file inside containing the database content. The command `Python3 manage.py loaddata stories` was run in the IDE terminal to append the data to the database.
 
 Fixture file used can be found here: [Story Fixture](https://mystb.in/bc5539c9ffa90a5d99).
 
@@ -151,11 +388,6 @@ And so much more before site can reach a Public Release date.
 
 ---
 
-# Project Notes
-
-
----
-
 # Technology Used
 
 ## Languages
@@ -175,6 +407,8 @@ And so much more before site can reach a Public Release date.
     - A high-level Python web framework that encourages rapid development and clean, pragmatic design. It was crucial for building the web application's backend, handling routing, database interactions, and user authentication.
 
 ## Databases
+
+For the project's submission Code Institute provided a Postgres database to store the data with. 
 
 - [PostgreSQL](https://www.postgresql.org/)
     - An advanced, open-source relational database system known for its reliability, feature robustness, and performance. Used as the database for storing application data.
@@ -351,6 +585,10 @@ Requirements:
 
 3. In `settings.py` add your IDE development workspace link to both CSRF_TRUSTED_ORIGINS & ALLOWED_HOSTS.
     - If any technical difficulties arise or you are unsure how to proceed refer to [Django documentation](https://www.djangoproject.com/) or online tutorials.
+
+4. In the terminal create a superuser admin account in the database by running the command `python3 manage.py createsuperuser` and following the instructions in the terminal.
+
+5. When ready load your development enviroment server with `python3 manage.py runserver`. Please note before pushing changes to your repository, do not forget to turn `DEBUG = False` in `settings.py` to prevent sensitive information being leaked.
 
 ## Heroku Deployment
 
