@@ -7,13 +7,9 @@
     <div class="row">
         <div class="d-flex justify-content-center align-items-center text-center">
             <h1 class="py-5 text-white text-center">
-                <div class="d-none d-lg-block pb-2">
-                    <i class="fa-solid fa-book-open"></i>
-                </div>
+                <i class="fa-solid fa-book-open d-none d-lg-block pb-2"></i>
                 My Stories
-                <div class="d-lg-none pt-5">
-                    <i class="fa-solid fa-book-open"></i>
-                </div>
+                <i class="fa-solid fa-book-open d-lg-none pt-5"></i>
             </h1>
         </div>
     </div>
@@ -50,7 +46,7 @@
                         <input type="hidden" name="sort" value="{{ request.GET.sort|default:'upvotes_desc' }}">
 
                         <!-- Search Filter -->
-                        <span class="input-group-text rounded-end">
+                        <div class="input-group-text rounded-end">
                             <button class="text-dark ps-1 filter-btn" type="button"
                                 aria-expanded="true">
                                 <i class="fa-solid fa-filter icon-bg"></i>
@@ -76,7 +72,7 @@
                                     </option>
                                 </select>
                             </div>
-                        </span>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -194,7 +190,6 @@
             {% endif %}
         </div>
     </div>
-
 </section>
 
 <!-- My Story Alerts -->
